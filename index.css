@@ -1,0 +1,10 @@
+html {
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  padding: 1.875rem 0;
+  width: 100%;
+  max-width: 1320px;
+}
