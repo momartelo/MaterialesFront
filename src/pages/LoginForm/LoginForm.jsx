@@ -5,7 +5,6 @@ import { API_URL } from "../../utils/consts.js";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar.jsx";
 
 function LoginForm() {
   const ref = useRef(null);

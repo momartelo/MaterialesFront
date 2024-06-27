@@ -45,26 +45,26 @@ function RegisterForm() {
   };
 
   return (
-    <div>
+    <div className={styles.containerRegister}>
       <h2>Register</h2>
       <form onSubmit={handleSubmit} ref={ref} className={styles.form}>
         <div className={styles.inputGroup}>
-          <label htmlFor="avatar"></label>
+          <label htmlFor="avatar">Avatar:</label>
           <input type="url" placeholder="URL" name="avatar" id="avatar" required/>
         </div>
         <div className={styles.inputGroup}>
-          <label htmlFor="email"></label>
-          <input type="email" placeholder="email" name="email" id="email" required/>
+          <label htmlFor="email">Email:</label>
+          <input type="email" placeholder="" name="email" id="email" required/>
         </div>
         <div className={styles.inputGroup}>
-          <label htmlFor="username">Username</label>
-          <input type="text" placeholder="Username" name="username" id="username" required/>
+          <label htmlFor="username">Username:</label>
+          <input type="text" placeholder="" name="username" id="username" required/>
         </div>
         <div className={styles.inputGroup}>
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder="*******" name="password" id="password" required/>
+          <label htmlFor="password">Password:</label>
+          <input type="password" placeholder="" name="password" id="password" required/>
         </div>
-        <div className={styles.inputGroup}>
+        <div className={styles.inputGroup} id="checkbox">
           <label htmlFor="isAdmin">Es Administrador?</label>
           <input type="checkbox" name="isAdmin" id="isAdmin"/>
         </div>

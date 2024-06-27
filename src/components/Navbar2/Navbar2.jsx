@@ -1,13 +1,25 @@
 import ModalLogin from "../ModalLogin/ModalLogin";
 import styles from "./Navbar2.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { API_URL } from "../../utils/consts";
 
 const Navbar2 = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { auth, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_URL}/category`)
+      .then((res) => res.json())
+      .then((data) => setCategories(data))
+      .catch((err) => console.error(err));
+  }, [API_URL]);
+  console.log("Estoy en el Navbar");
+  console.log(categories);
 
   const handleLogout = () => {
     logout();

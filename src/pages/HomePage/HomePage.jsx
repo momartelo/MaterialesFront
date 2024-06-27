@@ -1,13 +1,12 @@
 import CarouselComponent from "../../components/Carousel/CarouselComponent";
-import Navbar from "../../components/Navbar/Navbar";
-import Navbar2 from "../../components/Navbar2/Navbar2";
+import Navbar3 from "../../components/Navbar3/Navbar3";
 import styles from "./HomePage.module.css";
 import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
     <>
-      <Navbar2 />
+      <Navbar3 />
       <CarouselComponent />
       <div className={styles.container}>
         <h1>Sistema de Materiales</h1>

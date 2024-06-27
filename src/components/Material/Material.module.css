@@ -1,0 +1,58 @@
+.containerMaterial {
+  display: flex;
+  flex-direction: column;
+}
+
+.subcontainerMaterial {
+  display: flex;
+}
+
+.btnSuccess {
+  width: 30%;
+  height: 40px;
+  color: #fff;
+  background-color: #20ad00;
+  border-color: #20ad00;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.formControl {
+  width: 90%;
+  height: 40px;
+  padding: 0 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.formControl:focus {
+  border: #20ad00 2px solid;
+  outline: none;
+  border-radius: 5px;
+}
+
+.searchContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: #e5e5e5 1px solid;
+  margin-left: 10px;
+  border-radius: 5px;
+  padding-right: 10px;
+  column-gap: 5px;
+}
+
+.searchIcon {
+  font-size: 1.35rem;
+  color: #aaa;
+  height: 40px;
+  cursor: pointer;
+}
+
+.searchIcon :hover {
+  color: #20ad00;
+  cursor: pointer;
+}

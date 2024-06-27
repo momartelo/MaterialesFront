@@ -57,6 +57,8 @@
   --margin-20px: 1.25rem;
   --margin-25px: 1.563rem;
   --margin-30px: 1.875rem;
+
+  --transition-speed: 0.3s;
 }
 
 * {
@@ -83,8 +85,9 @@ select:focus {
 .containerNav {
   width: 100%;
   max-width: 1320px;
-  background-color: #f5f5f5;
-  padding-top: 10px;
+  background-color: var(--background-header-color);
+  box-shadow: var(--box-shadow);
+  padding: var(--margin-10px);
 }
 
 .generalNav {
@@ -101,6 +104,7 @@ select:focus {
   margin-left: 1rem;
   align-items: center;
 }
+
 .logoAnchor > a {
   display: flex;
   align-items: center;
@@ -122,6 +126,8 @@ select:focus {
 .ulNavbarCentral {
   list-style-type: none;
   margin: 0 1rem;
+  display: flex;
+  gap: var(--margin-20px);
 }
 
 .ulNavbarCentral > li {
@@ -134,26 +140,23 @@ select:focus {
 
 .liHomeNavbar {
   align-items: center;
-  padding: 10px 20px;
+  padding: var(--margin-10px) var(--margin-20px);
   text-decoration: none;
-  color: black;
+  color: var(--text-bar-color);
   transition: color var(--transition-speed),
     background-color var(--transition-speed);
 }
 
 .liHomeNavbar:hover {
-  color: #007bff;
+  color: var(--background-primary-color);
   background-color: var(--background-hover-color);
   border-radius: 5px;
 }
 
-.hasDropdown:hover .menuDropdown {
-  display: block;
-}
-
 .hasDropdown:hover .menuDropdown,
 .menuDropdown:hover {
-  display: flex; /* Muestra el menú cuando se pasa el cursor por encima */
+  display: flex;
+  text-wrap: nowrap;
 }
 
 .liHomeNavbar > img {
@@ -176,32 +179,33 @@ select:focus {
   position: absolute;
   top: 100%; /* Asegura que el menú aparezca justo debajo del título */
   left: -200px;
-  background-color: white; /* Ajusta según tus necesidades */
+  background-color: var(--background-color); /* Ajusta según tus necesidades */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Agrega sombra si lo deseas */
   z-index: 10;
+  flex-direction: row;
   padding: var(--margin-10px);
   border-radius: 5px;
 }
 
 .menuColumn {
-  padding: 10px;
-  width: 250px;
+  padding: var(--margin-10px);
+  width: 200px;
 }
 
 .productLinkNav {
-  padding: 8px 0;
+  padding: var(--margin-5px) 0;
 }
 
 .productLinkNav a {
   text-decoration: none;
-  color: black; /* Ajusta según sea necesario */
+  color: var(--text-color); /* Ajusta según sea necesario */
   font-weight: 300;
   font-size: 14px;
   transition: color var(--transition-speed);
 }
 
 .productLinkNav a:hover {
-  color: #007bff; /* Color de hover */
+  color: var(--background-primary-color); /* Color de hover */
 }
 
 .navTitle {
@@ -209,18 +213,18 @@ select:focus {
 }
 
 .navItemTodo {
-  padding: 8px 0;
+  padding: var(--margin-5px) 0;
 }
 
 .navItemTodo > a {
   font-style: italic;
   font-size: 12px;
-  color: black;
+  color: var(--text-color);
   transition: color var(--transition-speed);
 }
 
 .navItemTodo > a:hover {
-  color: #007bff; /* Color de hover */
+  color: var(--background-primary-color); /* Color de hover */
 }
 
 .containerIconsNav {
