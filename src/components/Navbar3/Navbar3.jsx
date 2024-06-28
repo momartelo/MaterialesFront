@@ -97,7 +97,7 @@ const Navbar3 = () => {
                                         className={styles.productLinkNav}
                                       >
                                         <Link
-                                          to={`/materials/${subcategory._id}`}
+                                          to={`/material/${category._id}/${subcategory._id}`}
                                         >
                                           {subcategory.subcategory}
                                         </Link>

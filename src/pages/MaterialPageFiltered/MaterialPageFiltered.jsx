@@ -1,4 +1,4 @@
-import styles from "../MaterialPageFiltered/MaterialPageFiltered.module.css";
+import styles from "./MaterialPageFiltered.module.css";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../utils/consts";

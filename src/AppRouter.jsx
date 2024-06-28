@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import PrivateRoutes from "./components/PrivateRoutes";
 import MaterialPage from "./pages/MaterialPage/MaterialPage";
 import MaterialPageFiltered from "./pages/MaterialPageFiltered/MaterialPageFiltered";
+import MaterialPageBySub from "./pages/MaterialPageBySub/MaterialPageBySub";
 
 function AppRouter() {
   return (
@@ -16,6 +17,10 @@ function AppRouter() {
         <Route
           path="/material/:categoryId"
           element={<MaterialPageFiltered />}
+        />
+        <Route
+          path="/material/:categoryId/:subcategoryId"
+          element={<MaterialPageBySub />}
         />
       </Route>
       {/*Rutas Publicas*/}
