@@ -23,6 +23,7 @@ function MaterialPage() {
   useEffect(() => {
     getMaterial();
   }, [auth, getMaterial]);
+  //}, [auth, getMaterial]);
 
   return (
     <div className={styles.container}>

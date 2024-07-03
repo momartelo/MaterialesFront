@@ -8,9 +8,11 @@ import Navbar3 from "../../components/Navbar3/Navbar3";
 
 function MaterialPageBySub() {
   const { categoryId, subcategoryId } = useParams();
-
   const [category, setCategory] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [materialsFitered, setMaterialsFiltered] = useState([]);
+  const { auth } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getCategories = useCallback(() => {
     fetch(`${API_URL}/category`)
@@ -23,10 +25,6 @@ function MaterialPageBySub() {
     const foundCategory = categories.find((cat) => cat._id === categoryId);
     setCategory(foundCategory);
   }, [categories, categoryId]);
-
-  const [materialsFitered, setMaterialsFiltered] = useState([]);
-  const { auth } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(true);
 
   const getMaterialsFiltered = useCallback(() => {
     setIsLoading(true);
@@ -45,7 +43,7 @@ function MaterialPageBySub() {
           console.error(err);
           setIsLoading(false);
         });
-    }, 2000);
+    }, 1000);
   }, [auth.token, categoryId, subcategoryId]);
 
   useEffect(() => {
@@ -65,6 +63,13 @@ function MaterialPageBySub() {
     subcategoryId,
   ]);
 
+  const handleMaterialDeleted = () => {
+    // Actualizar la lista de materiales filtrados después de eliminar
+    getMaterialsFiltered();
+    // Actualizar la categoría después de la eliminación
+    getCategoryName();
+  };
+
   return (
     <div className={styles.container}>
       <Navbar3 />
@@ -83,6 +88,7 @@ function MaterialPageBySub() {
           <Material
             getMaterial={getMaterialsFiltered}
             materials={materialsFitered}
+            onMaterialDelete={handleMaterialDeleted}
           />
         )}
       </main>

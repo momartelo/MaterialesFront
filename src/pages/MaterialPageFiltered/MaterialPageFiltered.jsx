@@ -10,8 +10,11 @@ function MaterialPageFiltered() {
   const { categoryId } = useParams();
   const [category, setCategory] = useState(null);
   const [categories, setCategories] = useState([]);
-  console.log("hola");
-  console.log(categoryId);
+  const [materialsFitered, setMaterialsFiltered] = useState([]);
+  const { auth } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+  // console.log("hola");
+  // console.log(categoryId);
 
   const getCategories = useCallback(() => {
     fetch(`${API_URL}/category`)
@@ -19,29 +22,35 @@ function MaterialPageFiltered() {
       .then((data) => setCategories(data))
       .catch((err) => console.error(err));
   }, []);
-  console.log("categorias");
-  console.log(categories);
+  // console.log("categorias");
+  // console.log(categories);
 
   const getCategoryName = useCallback(() => {
     const foundCategory = categories.find((cat) => cat._id === categoryId);
     setCategory(foundCategory);
   }, [categories, categoryId]);
 
-  console.log("categoria");
-  console.log(category);
-
-  const [materialsFitered, setMaterialsFiltered] = useState([]);
-  const { auth } = useContext(AuthContext);
+  // console.log("categoria");
+  // console.log(category);
 
   const getMaterialFiltered = useCallback(() => {
-    fetch(`${API_URL}/material/by/${categoryId}`, {
-      headers: {
-        Authorization: auth.token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setMaterialsFiltered(data))
-      .catch((err) => console.log(err));
+    setIsLoading(true);
+    setTimeout(() => {
+      fetch(`${API_URL}/material/by/${categoryId}`, {
+        headers: {
+          Authorization: auth.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setMaterialsFiltered(data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
+    }, 1000);
   }, [auth.token, categoryId]);
 
   useEffect(() => {
@@ -55,6 +64,13 @@ function MaterialPageFiltered() {
     }
   }, [categories, getCategoryName, getMaterialFiltered, categoryId]);
 
+  const handleMaterialDeleted = () => {
+    // Actualizar la lista de materiales filtrados después de eliminar
+    getMaterialFiltered();
+    // Actualizar la categoría después de la eliminación
+    getCategoryName();
+  };
+
   return (
     <div className={styles.container}>
       <Navbar3 />
@@ -65,10 +81,17 @@ function MaterialPageFiltered() {
         <h3>Cargando categoria....</h3>
       )}
       <main className={styles.section}>
-        <Material
-          getMaterial={getMaterialFiltered}
-          materials={materialsFitered}
-        />
+        {isLoading ? (
+          <div className={styles.loading}>
+            <p>Cargando materiales...</p>
+          </div>
+        ) : (
+          <Material
+            getMaterial={getMaterialFiltered}
+            materials={materialsFitered}
+            onMaterialDelete={handleMaterialDeleted}
+          />
+        )}
       </main>
     </div>
   );

@@ -7,12 +7,14 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import MaterialPage from "./pages/MaterialPage/MaterialPage";
 import MaterialPageFiltered from "./pages/MaterialPageFiltered/MaterialPageFiltered";
 import MaterialPageBySub from "./pages/MaterialPageBySub/MaterialPageBySub";
+import MaterialNew from "./pages/MaterialNew/MaterialNew";
 
 function AppRouter() {
   return (
     <Routes>
       {/*Rutas Protegisa*/}
       <Route element={<PrivateRoutes />}>
+        <Route path="/material/new" element={<MaterialNew />} />
         <Route path="/material" element={<MaterialPage />} />
         <Route
           path="/material/:categoryId"

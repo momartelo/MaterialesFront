@@ -64,4 +64,4 @@ const DeleteMaterialModel = ({ materialId, getMaterial }) => {
   );
 };
 
-export default DeleteMaterialModel;
+export default Dele

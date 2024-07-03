@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import styles from "./Material.module.css";
 
-const Material = ({ materials, getMaterial }) => {
+const Material = ({ materials, getMaterial, onMaterialDelete }) => {
   const [search, setSearch] = useState("");
   const [filterMaterials, setFilterMaterials] = useState(materials);
   const navigate = useNavigate();
@@ -35,18 +35,15 @@ const Material = ({ materials, getMaterial }) => {
         </div>
       </div>
       <>
-        {filterMaterials.map((material) => {
-          return (
-            <MaterialItem
-              getMaterial={getMaterial}
-              key={material._id}
-              material={material}
-              onClick={() => {
-                navigate(`/material/${material._id}`);
-              }}
-            />
-          );
-        })}
+        {filterMaterials.map((material) => (
+          <MaterialItem
+            getMaterial={getMaterial}
+            key={material._id}
+            material={material}
+            onMaterialDelete={onMaterialDelete}
+            onClick={() => navigate(`/material/${material._id}`)}
+          />
+        ))}
       </>
     </div>
   );

@@ -79,12 +79,17 @@ select:focus {
 .flex {
   display: flex;
 }
+ul {
+  margin: 0;
+  padding: 0;
+}
 
 .containerNav {
   width: 100%;
   max-width: 1320px;
   background-color: #f5f5f5;
   padding-top: 10px;
+  justify-content: center;
 }
 
 .generalNav {
@@ -94,12 +99,17 @@ select:focus {
 
 .wrappernavbarCentral {
   position: relative;
+  display: flex;
+}
+
+.navbarCentral {
+  display: flex;
 }
 
 .logoAnchor {
-  width: 10%;
   margin-left: 1rem;
   align-items: center;
+  width: 9%;
 }
 .logoAnchor > a {
   display: flex;
@@ -107,7 +117,10 @@ select:focus {
 }
 
 .containerNavbarCentral {
-  width: 80%;
+  /* display: flex;
+  width: 80%; */
+  margin-left: 10px;
+  margin-right: auto;
 }
 
 .linkLogo {
@@ -121,20 +134,19 @@ select:focus {
 
 .ulNavbarCentral {
   list-style-type: none;
-  margin: 0 1rem;
-}
-
-.ulNavbarCentral > li {
-  margin: 0 1rem;
+  display: flex;
+  column-gap: 5px;
 }
 
 .navItem {
   position: relative;
+  display: flex;
 }
 
 .liHomeNavbar {
+  display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 15px;
   text-decoration: none;
   color: black;
   transition: color var(--transition-speed),
@@ -189,7 +201,7 @@ select:focus {
 }
 
 .productLinkNav {
-  padding: 8px 0;
+  margin-top: 10px;
 }
 
 .productLinkNav a {
@@ -209,7 +221,7 @@ select:focus {
 }
 
 .navItemTodo {
-  padding: 8px 0;
+  padding: 15px 0;
 }
 
 .navItemTodo > a {
@@ -225,9 +237,47 @@ select:focus {
 
 .containerIconsNav {
   display: flex;
-  width: 10%;
   justify-content: space-around;
   padding-right: 1rem;
+  width: 9%;
+}
+
+.loggedUserContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+}
+
+.loggedUserInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0;
+}
+
+.loggedUserInfo > img {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.loggedUserInfo > span {
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.loggedUserInfo > button {
+  margin: 0;
+  padding: 3px;
+  font-size: 12px;
+  border: 1px solid #999;
+}
+
+.loggedUserInfo > button:hover {
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
 }
 
 .iconLogin,
@@ -248,4 +298,8 @@ select:focus {
 .iconSearch:hover {
   background-color: var(--background-hover-color);
   border-radius: 5px;
+}
+
+.noCategories {
+  padding: 10px 50px;
 }

@@ -25,10 +25,10 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  min-width: 320px;
   padding: 1.875rem 0;
   width: 100%;
   max-width: 1320px;
+  justify-content: center;
 }
 
 h1 {
