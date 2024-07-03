@@ -34,7 +34,7 @@ const Material = ({ materials, getMaterial, onMaterialDelete }) => {
           <FaSearch className={styles.searchIcon} />
         </div>
       </div>
-      <>
+      <div className={styles.containerItem}>
         {filterMaterials.map((material) => (
           <MaterialItem
             getMaterial={getMaterial}
@@ -44,7 +44,7 @@ const Material = ({ materials, getMaterial, onMaterialDelete }) => {
             onClick={() => navigate(`/material/${material._id}`)}
           />
         ))}
-      </>
+      </div>
     </div>
   );
 };
