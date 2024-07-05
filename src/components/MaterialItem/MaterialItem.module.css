@@ -2,41 +2,97 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .sectionMaterialItem > p {
   margin: 0;
+  padding: 0.5rem 0;
 }
+
+/* .sectionMaterialItem > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.sectionMaterialItem > div > p {
+  margin: 0;
+} */
 
 .sectionMaterialItem > h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .priceMaterialItem {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
+.priceMaterialItem > span {
+  padding: 0 0.25rem;
+}
+
+.priceMaterialItem > span:nth-child(2),
+.priceMaterialItem > span:nth-child(4) {
+  font-weight: 600;
 }
 
 .containerIcons {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 0 0.5rem 0;
 }
 
 .containerIcons > a {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 1rem;
 }
 
 .item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 45%;
-  border: 1px solid #999;
+  /* width: 45%; */
+  /* border: 1px solid #999; */
   border-radius: 10px;
   margin: 5px;
+  padding: 0 1rem;
+}
+
+.item:hover {
+  border: 1px solid 999;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+}
+
+.catPrice {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.catPrice > p {
+  margin: 0;
+}
+
+.infoCat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infoCat > p {
+  margin: 0;
 }

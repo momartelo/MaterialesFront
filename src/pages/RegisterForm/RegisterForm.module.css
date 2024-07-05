@@ -64,7 +64,8 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Inter";
-} 
+  height: 100vh;
+}
 
 .containerRegister {
   display: flex;
@@ -132,12 +133,12 @@ body {
   flex-direction: row;
 }
 
-.inputGroup:nth-child(5) > label{
+.inputGroup:nth-child(5) > label {
   display: flex;
   align-items: center;
 }
 
 .inputGroup:nth-child(5) > input {
- width: fit-content;
- margin-left: 20px;
+  width: fit-content;
+  margin-left: 20px;
 }

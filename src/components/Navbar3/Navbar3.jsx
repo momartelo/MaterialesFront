@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL } from "../../utils/consts";
+import { API_URL, IMAGES_API_URL } from "../../utils/consts";
 import styles from "./Navbar3.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -166,7 +166,10 @@ const Navbar3 = () => {
               {auth && auth.user ? (
                 <div className={styles.loggedUserContainer}>
                   <div className={styles.loggedUserInfo}>
-                    <img src={auth.user.avatar} alt={auth.user.avatar} />
+                    <img
+                      src={`${IMAGES_API_URL}${auth.user.avatar}`}
+                      alt={auth.user.avatar}
+                    />
                     <span>{auth.user.username}</span>
                     <button onClick={handleLogout}>Logout</button>
                   </div>

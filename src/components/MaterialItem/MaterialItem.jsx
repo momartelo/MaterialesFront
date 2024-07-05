@@ -8,7 +8,9 @@ import { API_URL } from "../../utils/consts";
 const MaterialItem = ({ material, getMaterial, onMaterialDelete, onClick }) => {
   const modalId = useId();
   const [categories, setCategories] = useState([]);
+  const [units, setUnits] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
+  const [loadingUnits, setLoadingUnits] = useState(true);
   //-----------------Modal---------------------------//
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -41,32 +43,58 @@ const MaterialItem = ({ material, getMaterial, onMaterialDelete, onClick }) => {
     }
   }, []);
 
-  // console.log("categorias desde MaterialItem");
-  // console.log(categories);
-
   useEffect(() => {
     getCategories();
   }, [getCategories]);
+
+  const getUnits = useCallback(async () => {
+    setLoadingUnits(true);
+    try {
+      const res = await fetch(`${API_URL}/unit`);
+      const data = await res.json();
+      setUnits(data);
+    } catch (err) {
+      console.error("Error al obtener las unidades:", err);
+    } finally {
+      setLoadingUnits(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getUnits();
+  }, [getUnits]);
 
   const getCategoryName = (categoryId) => {
     const category = categories.find((cat) => cat._id === categoryId);
     return category ? category.category : "Categoría no encontrada";
   };
+  const getUnitName = (unitId) => {
+    const unit = units.find((unit) => unit._id === unitId);
+    return unit ? unit.unit : "Unidad no encontrada";
+  };
 
   return (
     <div className={styles.item} onClick={onClick}>
       <section className={styles.sectionMaterialItem}>
-        <p>Material:</p>
+        {/* <p>Material:</p> */}
         <h2>{material.name}</h2>
         {loadingCategories ? (
           <p>Cargando categorías...</p>
         ) : (
-          <p>Categoria:{getCategoryName(material.category)}</p>
+          <div className={styles.catPrice}>
+            {/* <div className={styles.infoCat}>
+              <p>Categoria</p>
+              <p>{getCategoryName(material.category)}</p>
+            </div> */}
+            <div className={styles.priceMaterialItem}>
+              <span>{material.moneda}: </span>
+              <span>{material.precio}</span>
+              <span>$</span>
+              <span>{material.precioEnPesos.toFixed(2)}</span>
+            </div>
+            <p>{getUnitName(material.unit)}</p>
+          </div>
         )}
-        <div className={styles.priceMaterialItem}>
-          <span>{material.moneda}: </span>
-          <span>{material.precio}</span>
-        </div>
       </section>
       <div className={styles.containerIcons}>
         <Link
