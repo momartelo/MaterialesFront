@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Navbar3 from "../../components/Navbar3/Navbar3";
+import Navbar from "../../components/Navbar/Navbar";
 import styles from "./404Page.module.css";
 
 function NotFoundPage() {
   return (
     <div className={styles.container404}>
-      <Navbar3 />
+      <Navbar />
       <h1>ERROR</h1>
       <div className={styles.numbers404}>
         <img src="../../../public/img/numero-4.png" alt="" width="200px" />

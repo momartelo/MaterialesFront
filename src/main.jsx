@@ -8,11 +8,14 @@ import "./main.css";
 import AppRouter from "./AppRouter";
 
 import AuthProvider from "./providers/AuthProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </ThemeProvider>
   </AuthProvider>
 );

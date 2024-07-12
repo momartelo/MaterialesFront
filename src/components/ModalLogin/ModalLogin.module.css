@@ -10,11 +10,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10000;
 }
 
 .modalContent {
   position: relative;
-  background: #fff;
+  background: #f5f5f5;
   padding: 20px;
   border-radius: 8px;
   width: 400px;
@@ -30,13 +31,16 @@
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
   color: #999;
+}
+.closeButton:hover {
+  color: #0d6efd;
 }
 
 .modalBody {
@@ -45,6 +49,80 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+.modalBody > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.modalBody > form > button {
+  margin: 20px 0;
+  background-color: #105bd5;
+  color: #fff;
+}
+
+.modalBody > form > button:hover {
+  background-color: #0d6efd;
+}
+
+.formEmail,
+.formPassword {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.formEmail > input,
+.formPassword > input {
+  border-radius: 5px;
+  border: none;
+  height: 40px;
+}
+
+.formEmail > input:focus,
+.formPassword > input:focus {
+  border: 2px #0d6efd solid;
+  outline: none;
+  padding-left: 5px;
+}
+
+.formEmail > label {
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.formPassword > label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.modalFooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalFooter > p,
+.modalFooter > a {
+  margin: 0;
+  padding: 0;
+  color: #212529;
+  font-weight: 400;
+}
+
+.modalFooter > a {
+  color: #0d6efd;
+}
+
+.modalFooter > a:hover {
+  font-weight: 600;
 }
 
 /* Estilos adicionales según necesidades */

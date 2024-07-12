@@ -1,16 +1,19 @@
 import styles from "./MaterialItem.module.css";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useContext, useEffect, useId, useState } from "react";
 import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
-import { API_URL } from "../../utils/consts";
+import { fetchCategories } from "../../functions/getCategory";
+import { AuthContext } from "../../providers/AuthProvider";
+import { fetchUnits } from "../../functions/getUnit";
 
-const MaterialItem = ({ material, getMaterial, onMaterialDelete, onClick }) => {
+const MaterialItem = ({ material, getMaterial, onClick }) => {
   const modalId = useId();
   const [categories, setCategories] = useState([]);
   const [units, setUnits] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [loadingUnits, setLoadingUnits] = useState(true);
+  const { auth } = useContext(AuthContext);
   //-----------------Modal---------------------------//
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -30,39 +33,45 @@ const MaterialItem = ({ material, getMaterial, onMaterialDelete, onClick }) => {
     setShowUpdateModal(false); // Cerrar el modal de actualizar
   };
 
-  const getCategories = useCallback(async () => {
+  const getCategories = useCallback(() => {
     setLoadingCategories(true);
-    try {
-      const res = await fetch(`${API_URL}/category`);
-      const data = await res.json();
-      setCategories(data);
-    } catch (err) {
-      console.error("Error al obtener las categorías:", err);
-    } finally {
-      setLoadingCategories(false);
-    }
-  }, []);
+    fetchCategories(auth.token)
+      .then((data) => setCategories(data))
+      .catch((err) => console.log(err));
+    // try {
+    //   const res = await fetch(`${API_URL}/category`);
+    //   const data = await res.json();
+    //   setCategories(data);
+    // } catch (err) {
+    //   console.error("Error al obtener las categorías:", err);
+    // } finally {
+    setLoadingCategories(false);
+    // }
+  }, [auth.token]);
 
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+  }, [auth, getCategories]);
 
   const getUnits = useCallback(async () => {
     setLoadingUnits(true);
-    try {
-      const res = await fetch(`${API_URL}/unit`);
-      const data = await res.json();
-      setUnits(data);
-    } catch (err) {
-      console.error("Error al obtener las unidades:", err);
-    } finally {
-      setLoadingUnits(false);
-    }
-  }, []);
+    fetchUnits(auth.token)
+      .then((data) => setUnits(data))
+      .catch((err) => console.log(err));
+    // try {
+    //   const res = await fetch(`${API_URL}/unit`);
+    //   const data = await res.json();
+    //   setUnits(data);
+    // } catch (err) {
+    //   console.error("Error al obtener las unidades:", err);
+    // } finally {
+    setLoadingUnits(false);
+    // }
+  }, [auth.token]);
 
   useEffect(() => {
     getUnits();
-  }, [getUnits]);
+  }, [auth, getUnits]);
 
   const getCategoryName = (categoryId) => {
     const category = categories.find((cat) => cat._id === categoryId);
@@ -77,6 +86,7 @@ const MaterialItem = ({ material, getMaterial, onMaterialDelete, onClick }) => {
     <div className={styles.item} onClick={onClick}>
       <section className={styles.sectionMaterialItem}>
         {/* <p>Material:</p> */}
+        <img src={material.image} alt="" />
         <h2>{material.name}</h2>
         {loadingCategories ? (
           <p>Cargando categorías...</p>
@@ -120,7 +130,6 @@ const MaterialItem = ({ material, getMaterial, onMaterialDelete, onClick }) => {
           modalId={modalId}
           materialId={material._id}
           nombre={material.name}
-          onMaterialDelete={onMaterialDelete}
         />
       </div>
     </div>

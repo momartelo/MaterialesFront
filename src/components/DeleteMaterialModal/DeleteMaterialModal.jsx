@@ -11,7 +11,6 @@ const DeleteMaterialModal = ({
   getMaterial,
   onHide,
   nombre,
-  onMaterialDelete,
 }) => {
   const navigate = useNavigate();
   const handleClose = () => {
@@ -21,11 +20,12 @@ const DeleteMaterialModal = ({
   const handleDelete = async () => {
     console.log("estoy en el handleDelete");
     console.log("Eliminar material", materialId);
+
     try {
       const res = await fetch(`${API_URL}/material/${materialId}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Asegúrate de que el token esté formateado correctamente
+          Authorization: `Bearer ${localStorage.getItem("token")}`, 
           "Content-Type": "application/json",
         },
       });
@@ -35,9 +35,7 @@ const DeleteMaterialModal = ({
       }
       handleClose();
       await getMaterial();
-      if (onMaterialDelete) {
-        onMaterialDelete();
-      }
+
       navigate(-1);
       console.log("saliendo del handledelete"); // Asegúrate de esperar esta llamada para obtener datos frescos
     } catch (error) {

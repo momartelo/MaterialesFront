@@ -3,7 +3,7 @@ import React, { useContext, useId, useRef } from "react";
 import Modal from "react-modal";
 import styles from "./ModalLogin.module.css";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
 
 Modal.setAppElement("#root");
@@ -63,18 +63,20 @@ const ModalLogin = ({ isOpen, onRequestClose }) => {
       <div className={styles.modalBody}>
         <h2>Login</h2>
         <form ref={formRef} onSubmit={handleSubmit}>
-          <label>
-            Email:
+          <div className={styles.formEmail}>
+            <label>Email: </label>
             <input type="email" name="email" required />
-          </label>
-          <br />
-          <label>
-            Contraseña:
+          </div>
+          <div className={styles.formPassword}>
+            <label>Contraseña: </label>
             <input type="password" name="password" required />
-          </label>
-          <br />
+          </div>
           <button type="submit">Ingresar</button>
         </form>
+      </div>
+      <div className={styles.modalFooter}>
+        <p>Si no tiene una cuenta -&nbsp;</p>
+        <Link to="/register">Registrese</Link>
       </div>
     </Modal>
   );

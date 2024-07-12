@@ -1,6 +1,6 @@
 import styles from "./MaterialNew.module.css";
 import { useNavigate } from "react-router-dom";
-import Navbar3 from "../../components/Navbar3/Navbar3";
+import Navbar from "../../components/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
 import { API_URL } from "../../utils/consts";
 import React, { useContext, useEffect, useState, useId } from "react";
@@ -294,7 +294,7 @@ const MaterialNew = () => {
 
   return (
     <div>
-      <Navbar3 />
+      <Navbar />
       <h2>Crear un nuevo material</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.inputGroup}>

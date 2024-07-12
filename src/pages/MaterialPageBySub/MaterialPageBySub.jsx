@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
 import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
-import Navbar3 from "../../components/Navbar3/Navbar3";
+import Navbar from "../../components/Navbar/Navbar";
 
 function MaterialPageBySub() {
   const { categoryId, subcategoryId } = useParams();
@@ -72,7 +72,7 @@ function MaterialPageBySub() {
 
   return (
     <div className={styles.container}>
-      <Navbar3 />
+      <Navbar />
       <h2>Materiales</h2>
       {category ? (
         <h3>Categoria: {category.category}</h3>

@@ -1,0 +1,74 @@
+.containerCategoryNew {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.containerCategoryNew > h2{
+    font-size: 1.5rem;
+}
+
+.form{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup > label{
+    padding: 5px 5px;
+}
+
+.inputGroup > input{
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    height: 2.5rem;
+    padding: 0 5px;
+}
+
+.inputGroup > input:focus {
+    border: 2px solid #0d6efd;
+}
+
+.buttonNewCategory{
+    margin-top: 1rem;
+    width: 50%;
+    background-color: #105bd5;
+    color: #f5f5f5;
+    font-weight: 400;
+}
+
+button:hover{
+    background-color: #0d6efd;
+
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modalContent {
+    position: relative;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 80%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
