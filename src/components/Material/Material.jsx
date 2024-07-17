@@ -46,7 +46,7 @@ const Material = ({ materials, getMaterial }) => {
       ...provided,
       width: "200px", // Ancho fijo para el control
       borderRadius: "5px",
-      // borderColor: state.isFocused ? "blue" : "gray",
+      borderColor: "none",
       // boxShadow: state.isFocused ? "0 0 0 1px blue" : "none",
       // "&:hover": {
       //   borderColor: "blue",
@@ -54,6 +54,8 @@ const Material = ({ materials, getMaterial }) => {
       backgroundColor: "red", // Fondo rojo para el control
       color: "white", // Color del texto del control
       cursor: "pointer",
+      boxShadow: state.isFocused ? "none" : provided.boxShadow, // Elimina la sombra solo cuando está enfocado
+      border: state.isFocused ? "none" : provided.border, //
     }),
     menu: (provided) => ({
       ...provided,
@@ -61,6 +63,8 @@ const Material = ({ materials, getMaterial }) => {
       borderRadius: "10px",
       marginTop: 0,
       backgroundColor: "red", // Fondo rojo para el menú desplegable
+      boxShadow: "none", // Elimina la sombra al desplegar
+      border: "none", // Elimina el borde al desplegar
     }),
     menuList: (provided) => ({
       ...provided,
@@ -74,6 +78,8 @@ const Material = ({ materials, getMaterial }) => {
         backgroundColor: "lightblue",
         color: "black", // Color del texto cuando está enfocado
       },
+      cursor: "pointer",
+      borderRadius: "5px",
     }),
     singleValue: (provided) => ({
       ...provided,
@@ -93,6 +99,9 @@ const Material = ({ materials, getMaterial }) => {
       primary25: "lightcoral", // Color para las opciones cuando están seleccionadas
       primary: "darkred", // Color primario para el control
       neutral0: "red", // Fondo rojo para el control
+      neutral80: "white", // Color del texto en el menú (normal)
+      neutral90: "white", // Color del texto en el menú (enfocado)
+      neutral20: "white", // Color del texto seleccionado
     },
   });
 
