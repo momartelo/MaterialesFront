@@ -72,15 +72,17 @@ function MaterialPageFiltered2() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerFiltered}>
       <Navbar />
       <h2>Materiales</h2>
       {category ? (
-        <h3>Categoria: {category.category}</h3>
+          <div className={styles.containerCategoryText}> 
+            <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
+          </div>
       ) : (
         <h3>Cargando categoria....</h3>
       )}
-      <main className={styles.section}>
+      <main className={styles.sectionFiltered}>
         {isLoading ? (
           <div className={styles.loading}>
             <p>Cargando materiales...</p>

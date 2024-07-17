@@ -90,6 +90,7 @@ ul {
   background-color: #f5f5f5;
   padding-top: 10px;
   justify-content: center;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .generalNav {
@@ -135,7 +136,7 @@ ul {
 .ulNavbarCentral {
   list-style-type: none;
   display: flex;
-  column-gap: 5px;
+  column-gap: 15px;
 }
 
 .navItem {
@@ -151,6 +152,12 @@ ul {
   color: black;
   transition: color var(--transition-speed),
     background-color var(--transition-speed);
+}
+
+.liHomeNavbar.nightMode {
+  background-color: #999;
+  border-radius: 5px;
+  color: #fff;
 }
 
 .liHomeNavbar:hover {
@@ -171,13 +178,39 @@ ul {
 }
 
 .liHomeNavbar > img {
+  margin-left: 5px;
   width: 24px;
+}
+
+.menuColumns {
+  flex-direction: row;
+  column-gap: 25px;
+  width: 100%;
+  border: 1px #ffc107 solid;
+  flex-wrap: wrap;
+  /* Menu despleglable */
+}
+
+.menuColumn {
+  padding: 0 10px;
+  display: flex;
+  /* width: 250px; */
+  border: #ff3a41 1px solid;
+  /* Menu despleglable individual */
 }
 
 .ulDropdown {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  border: 1px #2ac97a solid;
+}
+
+.ulDropdown li:last-child {
+  margin-top: auto;
 }
 
 .ulDropdown2 {
@@ -204,9 +237,22 @@ ul {
   padding-bottom: 10px;
 }
 
-.menuColumns {
-  flex-direction: row;
-  column-gap: 10px;
+.liTitleMenu.nightMode {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+.menuRow {
+  width: 100%;
+  text-align: center;
+  border: 1px #00f solid;
+}
+
+.menuRow > a {
+  color: #111;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .menuDropdown {
@@ -214,37 +260,56 @@ ul {
   position: absolute;
   top: 100%; /* Asegura que el menú aparezca justo debajo del título */
   left: -200px;
-  background-color: white; /* Ajusta según tus necesidades */
+  background-color: #fff; /* Ajusta según tus necesidades */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Agrega sombra si lo deseas */
   z-index: 10;
   padding: var(--margin-10px);
   border-radius: 5px;
+  white-space: nowrap;
+  width:max-content;
+  max-width: 1000px;
 }
 
 .menuDropdown2 {
   display: none; /* Esconde el menú por defecto */
   position: absolute;
   top: 100%; /* Asegura que el menú aparezca justo debajo del título */
-  background-color: white; /* Ajusta según tus necesidades */
+  background-color: #fff; /* Ajusta según tus necesidades */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Agrega sombra si lo deseas */
   z-index: 10;
   padding: var(--margin-10px);
   border-radius: 5px;
   padding-bottom: 20px;
+  white-space: nowrap;
+}
+
+.menuDropdown.nightMode,
+.menuDropdown2.nightMode {
+  background-color: #f5f5f5;
 }
 
 .linkLogo > p {
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 
-.menuColumn {
-  padding: 10px;
-  width: 250px;
-}
+
 
 .productLinkNav {
   margin-top: 10px;
+  border: 1px #0d6efd solid;
+}
+
+
+.productLinkNav.nightMode {
+  background-color: #f5f5f5;
+}
+
+.productLinkNav.nightMode > a {
+  background-color: #f5f5f5;
+  color: #111;
+  font-weight: 400;
 }
 
 .productLinkNav a {
@@ -252,6 +317,7 @@ ul {
   color: black; /* Ajusta según sea necesario */
   font-weight: 300;
   font-size: 14px;
+  text-align: left;
   transition: color var(--transition-speed);
 }
 
@@ -261,10 +327,32 @@ ul {
 
 .navTitle {
   font-weight: 600;
+  text-align: center;
+}
+
+.navTitle.nightMode {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+.navTitle>p{
+  margin-bottom: 0.5rem;
 }
 
 .navItemTodo {
-  padding: 15px 0;
+  padding: 15px 0 0 0;
+  text-align: center;
+}
+
+.navItemTodo.nightMode {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+.navItemTodo.nightMode > a {
+  color: black;
+  background-color: #f5f5f5;
+  transition: color var(--transition-speed);
 }
 
 .navItemTodo > a {
@@ -280,9 +368,9 @@ ul {
 
 .containerIconsNav {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   padding-right: 1rem;
-  width: 12%;
+  width: 20%;
 }
 
 .loggedUserContainer {
@@ -297,6 +385,7 @@ ul {
   flex-direction: column;
   align-items: center;
   padding-top: 0;
+  margin: 0 10px;
 }
 
 .loggedUserInfo > img {
@@ -320,29 +409,76 @@ ul {
 .loggedUserInfo > button:hover {
   border: 1px solid #007bff;
   background-color: #007bff;
-  color: white;
+  color: #fff;
+}
+
+.containerLogin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .iconLogin,
 .iconSearch {
-  margin-left: 15px;
-  cursor: pointer;
+  margin-left: 0px;
   transition: background-color var(--transition-speed);
   padding: 10px;
 }
 
-.iconLogin img,
-.iconSearch img {
-  width: 25px;
-  height: 25px;
+.iconLogin {
+  cursor: pointer;
 }
 
-.iconLogin:hover,
+.iconLogin img,
+.iconSearch img {
+  width: 30px;
+  height: 30px;
+}
+
+/* .iconLogin:hover,
 .iconSearch:hover {
   background-color: var(--background-hover-color);
   border-radius: 5px;
-}
+} */
 
 .noCategories {
   padding: 10px 50px;
+}
+.switchDayNight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switchDayNight > label {
+  margin: 0;
+  padding: 0;
+}
+
+.dayMode {
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.nightMode {
+  background-color: black;
+  color: #fff;
+}
+
+.nightMode > a {
+  background-color: black;
+  color: #fff;
+}
+
+.nightModeliHomeNavbar {
+  background-color: #6c757d;
+  border-radius: 5px;
+}
+
+/* .nightModeliHomeNavbar:hover {
+  color: #ff0; 
+} */
+
+.dayModeHover:hover {
+  color: #00f;
 }

@@ -19,7 +19,7 @@ function CategoryPage2 () {
     }, [getCategory]);
 
     return(
-        <div className={styles.container}>
+        <div className={styles.containerCategoryPage}>
             <Navbar />
             <h2>Categorias</h2>
             <main className={styles.main}>

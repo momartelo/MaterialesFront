@@ -106,21 +106,22 @@ function MaterialPageBySub2() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerBySub}>
       <Navbar />
       <h2>Materiales</h2>
       {category ? (
-        <div>
-          <h3>Categoria: {category.category}</h3>
-          <h4>
-            Subcategoria:{" "}
-            {subcategory ? subcategory.subcategory : "Cargando subcategoria..."}
-          </h4>
+        <div className={styles.containerCategoryTitle}>
+          <div className={styles.containerCategoryText}> 
+          <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
+          </div>
+          <div className={styles.containerSubcategoryText}>
+            <h4>Subcategoria:&nbsp; </h4> {subcategory ? <h4>{subcategory.subcategory}</h4> : "Cargando subcategoria..."}
+          </div>
         </div>
       ) : (
         <h3>Cargando categoria....</h3>
       )}
-      <main className={styles.section}>
+      <main className={styles.sectionBySub}>
         {isLoading ? (
           <div className={styles.loading}>
             <p>Cargando materiales...</p>

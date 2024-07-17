@@ -5,15 +5,23 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { API_URL, IMAGES_API_URL } from "../../utils/consts";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../providers/ThemeProvider";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import Brightness2Icon from "@mui/icons-material/Brightness2";
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const { isNightMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  // console.log("subcategories");
-  // console.log(subcategories);
+
+  const handleChangeTheme = () => {
+    toggleTheme();
+  };
 
   useEffect(() => {
     fetch(`${API_URL}/category`)
@@ -60,7 +68,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className={styles.containerNav}>
+    <div
+      className={`${styles.containerNav} ${
+        isNightMode ? styles.nightMode : styles.dayMode
+      }`}
+    >
       <div className={styles.wrapperNav}>
         <div className={styles.fluidNav}>
           <div className={`${styles.generalNav} ${styles.flex}`}>
@@ -75,22 +87,37 @@ const Navbar = () => {
                   <ul className={`${styles.ulNavbarCentral} ${styles.flex}`}>
                     <li className={styles.navItem}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
                         to="/"
                       >
                         <span>Home</span>
                       </Link>
                     </li>
 
-                    <li className={`${styles.navItem} ${styles.hasDropdown}`}>
+                    <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
                         to="#"
                       >
                         <span>Materiales</span>
-                        <img src="../../../public/img/AnguloAbajo.png" alt="" />
+                        {isNightMode ? (
+                          <img
+                            src="../../../public/img/angulo-hacia-abajo.png"
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            src="../../../public/img/AnguloAbajo.png"
+                            alt=""
+                          />
+                        )}
                       </Link>
-                      <div className={styles.menuDropdown}>
+                      <div
+                        // className={`${styles.menuDropdown} ${
+                        //   isNightMode ? styles.nightMode : styles.dayMode
+                        // }`}
+                        className={`${styles.menuDropdown} ${styles.nightMode} }`}
+                      >
                         {categories.length === 0 ? (
                           <div className={styles.noCategories}>
                             <p>No hay categorias existentes</p>
@@ -100,14 +127,17 @@ const Navbar = () => {
                             <div
                               className={`${styles.menuColumns} ${styles.flex}`}
                             >
-                              {categories.map((category) => (
+                              {categories
+                              .slice()
+                              .sort((a,b) => a.category.localeCompare(b.category))
+                              .map((category) => (
                                 <div
                                   key={category._id}
                                   className={styles.menuColumn}
                                 >
                                   <ul className={styles.ulDropdown}>
                                     <li
-                                      className={`${styles.productLinkNav} ${styles.navTitle}`}
+                                      className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
                                     >
                                       <p>{category.category}</p>
                                     </li>
@@ -118,19 +148,22 @@ const Navbar = () => {
                                           (subcat) =>
                                             subcat.category._id === category._id
                                         )
+                                        .sort((a,b) => a.subcategory.localeCompare(b.subcategory))
                                         .map((subcategory) => (
                                           <li
                                             key={subcategory._id}
-                                            className={styles.productLinkNav}
+                                            className={`${styles.productLinkNav} ${styles.nightMode} `}
                                           >
                                             <Link
                                               to={`/material/${category._id}/${subcategory._id}`}
                                             >
-                                              {subcategory.subcategory}
+                                              -&nbsp;{subcategory.subcategory}
                                             </Link>
                                           </li>
                                         ))}
-                                    <li className={`${styles.navItemTodo}`}>
+                                    <li
+                                      className={`${styles.navItemTodo} ${styles.nightMode} `}
+                                    >
                                       <Link to={`/material/${category._id}`}>
                                         Ver todos
                                       </Link>
@@ -139,65 +172,82 @@ const Navbar = () => {
                                 </div>
                               ))}
                             </div>
+                            <Link to={`/material`}>Todos los materiales</Link>
                           </div>
                         )}
                       </div>
                     </li>
                     {auth && auth.user ? (
-// ! li de edicion-------------------------------
-                    <li className={`${styles.navItem} ${styles.hasDropdown}`}>
-                      <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex}`}
-                        to="#"
-                      >
-                        <span>Editar</span>
-                        <img src="../../../public/img/AnguloAbajo.png" alt="" />
-                      </Link>
-                      <div className={styles.menuDropdown2}>
-                        <div className={styles.menuRow}>
-                          <div
-                            className={`${styles.menuColumns} ${styles.flex}`}
-                          >
-                            <div className={styles.menuColumn}>
-                              <ul className={styles.ulDropdown2}>
-                                <li className={styles.liTitleMenu}>
-                                  <span>Listar y Editar</span>
-                                </li>
-                                <li
-                                  className={`${styles.productLinkNav} ${styles.navTitle}`}
-                                >
-                                  <Link
-                                    className={styles.linkLogo}
-                                    to="/category"
+                      // ! li de edicion-------------------------------
+                      <li className={`${styles.navItem} ${styles.hasDropdown}`}>
+                        <Link
+                          className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+                          to="#"
+                        >
+                          <span>Editar</span>
+                          {isNightMode ? (
+                            <img
+                              src="../../../public/img/angulo-hacia-abajo.png"
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              src="../../../public/img/AnguloAbajo.png"
+                              alt=""
+                            />
+                          )}
+                        </Link>
+                        <div
+                          className={`${styles.menuDropdown2} ${styles.nightMode}`}
+                        >
+                          <div className={styles.menuRow}>
+                            <div
+                              className={`${styles.menuColumns} ${styles.flex}`}
+                            >
+                              <div className={styles.menuColumn}>
+                                <ul className={styles.ulDropdown2}>
+                                  <li
+                                    className={`${styles.liTitleMenu} ${styles.nightMode}`}
                                   >
-                                    <p>Categorias</p>
-                                  </Link>
-                                </li>
-                                <li
-                                  className={`${styles.productLinkNav} ${styles.navTitle}`}
-                                >
-                                  <Link className={styles.linkLogo} to="#">
-                                    <p>Subcategorias</p>
-                                  </Link>
-                                </li>
-                                <li
-                                  className={`${styles.productLinkNav} ${styles.navTitle}`}
-                                >
-                                  <Link className={styles.linkLogo} to="#">
-                                    <p>Unidades</p>
-                                  </Link>
-                                </li>
-                              </ul>
+                                    <span>Listar y Editar</span>
+                                  </li>
+                                  <li
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                  >
+                                    <Link
+                                      className={styles.linkLogo}
+                                      to="/category"
+                                    >
+                                      <p>- Categorias</p>
+                                    </Link>
+                                  </li>
+                                  <li
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                  >
+                                    <Link className={styles.linkLogo} to="#">
+                                      <p>- Subcategorias</p>
+                                    </Link>
+                                  </li>
+                                  <li
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                  >
+                                    <Link className={styles.linkLogo} to="#">
+                                      <p>- Unidades</p>
+                                    </Link>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </li>
-                    ) : (<span></span>)}
+                      </li>
+                    ) : (
+                      <span></span>
+                    )}
 
                     <li className={styles.navItem}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
                         to="#"
                       >
                         <span>Contacto</span>
@@ -210,6 +260,44 @@ const Navbar = () => {
             <div className={`${styles.containerIconsNav} ${styles.flex}`}>
               {auth && auth.user ? (
                 <div className={styles.loggedUserContainer}>
+                  <div className={styles.switchDayNight}>
+                    <FormControlLabel
+                      className={styles.toggleTheme}
+                      control={
+                        <Switch
+                          checked={isNightMode}
+                          onChange={handleChangeTheme}
+                          color="primary"
+                          name="nightModeSwitch"
+                          inputProps={{ "aria-label": "toggle night mode" }}
+                          icon={
+                            <WbSunnyIcon
+                              style={{
+                                fontSize: 28,
+                                backgroundColor: "#3498DB",
+                                padding: "4px",
+                                borderRadius: "50%",
+                                color: "#ffc107",
+                                marginTop: "-4px",
+                              }}
+                            />
+                          }
+                          checkedIcon={
+                            <Brightness2Icon
+                              style={{
+                                fontSize: 28,
+                                backgroundColor: "white",
+                                padding: "4px",
+                                borderRadius: "50%",
+                                color: "blue",
+                                marginTop: "-4px",
+                              }}
+                            />
+                          }
+                        />
+                      }
+                    />
+                  </div>
                   <div className={styles.loggedUserInfo}>
                     <img
                       src={getAvatarImageUrl(auth.user?.genero)}
@@ -218,16 +306,68 @@ const Navbar = () => {
                     <span>{auth.user.username}</span>
                     <button onClick={handleLogout}>Logout</button>
                   </div>
-                  <Link className={styles.iconSearch}>
-                    <img src="../../../public/img/lupa.png" alt="" />
-                  </Link>
+                  {isNightMode ? (
+                    <Link className={styles.iconSearch}>
+                      <img src="../../../public/img/buscarRelleno.png" alt="" />
+                    </Link>
+                  ) : (
+                    <Link className={styles.iconSearch}>
+                      <img src="../../../public/img/LupaNegra.png" alt="" />
+                    </Link>
+                  )}
                 </div>
               ) : (
-                <div className={styles.iconLogin} onClick={openModal}>
-                  <img src="../../../public/img/perfil.png" alt="" />
-                  <Link className={styles.iconSearch}>
-                    <img src="../../../public/img/lupa.png" alt="" />
-                  </Link>
+                <div className={styles.containerLogin}>
+                  <div className={styles.switchDayNight}>
+                    <FormControlLabel
+                      className={styles.toggleTheme}
+                      control={
+                        <Switch
+                          checked={isNightMode}
+                          onChange={handleChangeTheme}
+                          color="primary"
+                          name="nightModeSwitch"
+                          inputProps={{ "aria-label": "toggle night mode" }}
+                          icon={
+                            <WbSunnyIcon
+                              style={{
+                                fontSize: 28,
+                                backgroundColor: "#3498DB",
+                                padding: "4px",
+                                borderRadius: "50%",
+                                color: "#ffc107",
+                                marginTop: "-4px",
+                              }}
+                            />
+                          }
+                          checkedIcon={
+                            <Brightness2Icon
+                              style={{
+                                fontSize: 28,
+                                backgroundColor: "white",
+                                padding: "4px",
+                                borderRadius: "50%",
+                                color: "blue",
+                                marginTop: "-4px",
+                              }}
+                            />
+                          }
+                        />
+                      }
+                    />
+                  </div>
+                  <div className={styles.iconLogin}>
+                    <img
+                      src="../../../public/img/perfil.png"
+                      alt=""
+                      onClick={openModal}
+                    />
+                  </div>
+                  <div className={styles.iconSearch}>
+                    <Link>
+                      <img src="../../../public/img/lupa.png" alt="" />
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -240,3 +380,87 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+{/* <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
+<Link
+  className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+  to="#"
+>
+  <span>Materiales</span>
+  {isNightMode ? (
+    <img
+      src="../../../public/img/angulo-hacia-abajo.png"
+      alt=""
+    />
+  ) : (
+    <img
+      src="../../../public/img/AnguloAbajo.png"
+      alt=""
+    />
+  )}
+</Link>
+<div
+  // className={`${styles.menuDropdown} ${
+  //   isNightMode ? styles.nightMode : styles.dayMode
+  // }`}
+  className={`${styles.menuDropdown} ${styles.nightMode} }`}
+>
+  {categories.length === 0 ? (
+    <div className={styles.noCategories}>
+      <p>No hay categorias existentes</p>
+    </div>
+  ) : (
+    <div className={styles.menuRow}>
+      <div
+        className={`${styles.menuColumns} ${styles.flex}`}
+      >
+        {categories.map((category) => (
+          <div
+            key={category._id}
+            className={styles.menuColumn}
+          >
+            <ul className={styles.ulDropdown}>
+              <li
+                className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+              >
+                <p>{category.category}</p>
+              </li>
+              {Array.isArray(subcategories) &&
+                subcategories.length > 0 &&
+                subcategories
+                  .filter(
+                    (subcat) =>
+                      subcat.category._id === category._id
+                  )
+                  .map((subcategory) => (
+                    <li
+                      key={subcategory._id}
+                      className={`${styles.productLinkNav} ${styles.nightMode} `}
+                    >
+                      <Link
+                        to={`/material/${category._id}/${subcategory._id}`}
+                      >
+                        {subcategory.subcategory}
+                      </Link>
+                    </li>
+                  ))}
+              <li
+                className={`${styles.navItemTodo} ${styles.nightMode} `}
+              >
+                <Link to={`/material/${category._id}`}>
+                  Ver todos
+                </Link>
+              </li>
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+</li> */}

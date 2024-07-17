@@ -20,10 +20,10 @@ function MaterialPage2() {
 
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerMaterialPage}>
       <Navbar />
       <h2>Materiales</h2>
-      <main className={styles.section}>
+      <main className={styles.mainMaterialPage}>
         <Material getMaterial={getMaterial} materials={materials} />
       </main>
     </div>

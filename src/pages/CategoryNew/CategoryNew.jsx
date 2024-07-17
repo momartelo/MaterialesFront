@@ -1,5 +1,5 @@
 import { useContext, useEffect, useId, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { fetchCategories } from "../../functions/getCategory";
 import { AuthContext } from "../../providers/AuthProvider";
 import styles from "./CategoryNew.module.css";
@@ -41,7 +41,7 @@ const CategoryNew = () => {
 
   const handleConfirm = () => {
     setShowModal(false);
-    navigate("/category");
+    navigate(-1);
   };
 
   const handleSubmit = (e) => {
@@ -71,6 +71,10 @@ const CategoryNew = () => {
       });
   };
 
+  const handleBack = () => {
+    navigate(-1); // Navegar hacia atrás
+  };
+
   return (
     <>
       <Navbar />
@@ -79,16 +83,26 @@ const CategoryNew = () => {
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor={categoryId}>Categoria:</label>
+            <div className={styles.containerInput}>
             <input
               type="text"
               id={categoryId}
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             />
+            <Link className={styles.buttonList} to="/category">
+            Listar
+            </Link>
+            </div>
           </div>
+          <div className={styles.containerButtons}>
           <button className={styles.buttonNewCategory} type="submit">
             Crear
           </button>
+          <button className={styles.buttonBack} onClick={handleBack} >
+            Volver
+          </button>
+          </div>
         </form>
       </div>
       <ConfirmModal

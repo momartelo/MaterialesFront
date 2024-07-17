@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inter:wght@100..900&family=Rochester&family=Rouge+Script&display=swap");
 
-.container {
+.containerMaterialPage {
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -15,8 +15,9 @@ h2 {
   margin-top: 20px;
 }
 
-.section {
+.mainMaterialPage {
   margin-top: 20px;
   min-width: 700px;
   max-width: 1320px;
+  width: 100%;
 }
