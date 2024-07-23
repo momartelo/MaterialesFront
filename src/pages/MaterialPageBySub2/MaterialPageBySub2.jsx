@@ -5,8 +5,8 @@ import { API_URL } from "../../utils/consts";
 import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
-import { fetchCategories2 } from "../../functions/getCategory";
-import { fetchSubcategories2 } from "../../functions/getSubcategory";
+import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
+import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory";
 
 function MaterialPageBySub2() {
   const { categoryId, subcategoryId } = useParams();
@@ -19,13 +19,13 @@ function MaterialPageBySub2() {
   const [isLoading, setIsLoading] = useState(true);
 
   const getCategories = useCallback(() => {
-    fetchCategories2()
+    fetchCategoriesWithoutAuth()
       .then((data) => setCategories(data))
       .catch((err) => console.error(err));
   }, []);
 
   const getSubcategories = useCallback(() => {
-    fetchSubcategories2()
+    fetchSubcategoriesWithoutAuth()
       .then((data) => setSubcategories(data))
       .catch((err) => console.error(err));
   }, []);

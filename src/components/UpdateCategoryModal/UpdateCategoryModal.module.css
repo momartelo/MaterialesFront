@@ -1,0 +1,106 @@
+*{
+    font-family: "Inter";
+}
+
+
+
+.modalHeader{
+    background-color: #f5f5f5;
+}
+
+.modalTitle{
+    color: #111;
+}
+
+.modalHeader > button{
+    font-size: 0.75rem;
+}
+
+.modalHeader > button:hover{
+    background-color: red;
+}
+
+.containerModalBody{
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+.modalBodyTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1rem;
+}
+
+.modalBodyTitle > h2{
+    margin: 0;
+    }
+
+.modalBodyTitle > img{
+    width: 32px;
+}
+
+.formCategory {
+    display: flex;
+    flex-direction: column;
+}
+
+form{
+    background-color: white;
+}
+
+.formCategory > label{
+    margin-bottom: 5px;
+    margin-left: 5px; 
+}
+
+.formCategory > input{
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    padding-left: 5px;
+    border: 1px #ddd solid;
+}
+
+.formCategory > input:focus{
+    border: 2px #0d6efd solid;
+    outline: none;
+    padding-left: 5px;
+}
+
+.containerButtons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1.5rem;
+    column-gap: 2rem;
+}
+
+.buttonSubmit {
+    width: 35%;
+    background-color: #0d6efd;
+    color: #f5f5f5;
+    font-weight: 400;
+}
+
+.buttonSubmit:hover{
+    background-color: #105bd5;
+    border: none;
+    font-weight: 600;
+}
+
+.buttonBack{
+    width: 25%;
+    background-color: #ff3a41;
+    color: #f5f5f5;
+    font-weight: 400;
+}
+
+.buttonBack:hover{
+    background-color: #dc3545;
+    border: none;
+    font-weight: 600;
+}
+

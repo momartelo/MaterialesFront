@@ -42,6 +42,11 @@
   padding: 0 0.25rem;
 }
 
+.priceMaterialItem > span:nth-child(1),
+.priceMaterialItem > span:nth-child(3) {
+  font-weight: 300;
+}
+
 .priceMaterialItem > span:nth-child(2),
 .priceMaterialItem > span:nth-child(4) {
   font-weight: 600;
@@ -70,6 +75,7 @@
   border-radius: 10px;
   margin: 5px;
   padding: 0 2rem;
+  z-index: 5;
 }
 
 .item:hover {
@@ -81,7 +87,7 @@
 .catPrice {
   display: flex;
   flex-direction: column;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   justify-content: center;
   align-items: center;
@@ -89,14 +95,22 @@
 
 .catPrice > p {
   margin: 0;
+  font-weight: 300;
 }
 
 .infoCat {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 
 .infoCat > p {
   margin: 0;
+}
+
+.infoCat > p:nth-child(1) {
+  font-weight: 300;
+}
+.infoCat > p:last-child {
+  font-weight: 600;
 }

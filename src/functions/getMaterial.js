@@ -17,7 +17,7 @@ export const fetchMaterials = async(token) => {
     }
  };
 
- export const fetchMaterials2 = async() => {
+ export const fetchMaterialsWithoutAuth = async() => {
     try {
         const response = await fetch(`${API_URL}/material`, {
         });
@@ -30,3 +30,4 @@ export const fetchMaterials = async(token) => {
         throw error;
     }
  }; // ! el fecth sin autenticarse
+

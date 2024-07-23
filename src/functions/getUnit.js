@@ -17,7 +17,7 @@ export const fetchUnits = async(token) => {
     }
  };
 
- export const fetchUnits2 = async() => {
+ export const fetchUnitsWithoutAuth = async() => {
     try {
         const response = await fetch(`${API_URL}/unit`, {
             

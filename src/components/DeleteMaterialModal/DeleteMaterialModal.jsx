@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import styles from "./DeleteMaterialModal.module.css"
 
 const DeleteMaterialModal = ({
   show,
@@ -13,9 +14,7 @@ const DeleteMaterialModal = ({
   nombre,
 }) => {
   const navigate = useNavigate();
-  const handleClose = () => {
-    onHide();
-  };
+
 
   const handleDelete = async () => {
     console.log("estoy en el handleDelete");
@@ -43,8 +42,12 @@ const DeleteMaterialModal = ({
     }
   };
 
+  const handleClose = () => {
+    onHide();
+  };
+
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal className={styles.containerModalDeleteMaterial} show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>Eliminar Material</Modal.Title>
       </Modal.Header>

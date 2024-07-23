@@ -18,7 +18,7 @@ export const fetchSubcategories = async(token) => {
     }
  };
 
- export const fetchSubcategories2 = async() => {
+ export const fetchSubcategoriesWithoutAuth = async() => {
     try {
         const response = await fetch(`${API_URL}/subcategory`);
         console.log(response)

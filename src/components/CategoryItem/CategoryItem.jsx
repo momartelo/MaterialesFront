@@ -5,8 +5,9 @@ import { useCallback, useContext, useId, useState } from "react";
 import { API_URL } from "../../utils/consts";
 import DeleteCategoryModal from "../DeleteCategoryModal/DeleteCategoryModal";
 import { AuthContext } from "../../providers/AuthProvider";
+import UpdateCategoryModal from "../UpdateCategoryModal/UpdateCategoryModal";
 
-const CategoryItem = ({ category, getCategory, onClick }) => {
+const CategoryItem = ({ category, getCategory,/* onClick*/ }) => {
     const modalId = useId();
     const { auth } = useContext(AuthContext);
     // const [ categories, setCategories ] = useState([]);
@@ -33,7 +34,7 @@ const CategoryItem = ({ category, getCategory, onClick }) => {
     };
 
     return (
-        <div className={styles.item} onClick={onClick}>
+        <div className={styles.item} /*onClick={onClick}*/>
             <section className={styles.sectionCategoryItem}>
                 <h2>{category.category}</h2>
             </section>
@@ -45,7 +46,7 @@ const CategoryItem = ({ category, getCategory, onClick }) => {
                 <Link style={{ fontSize: "30px", color: "red" }} onClick={handleDeleteClick}>
                     <HiOutlineTrash />
                 </Link>
-
+                <UpdateCategoryModal show={showUpdateModal} onHide={handleCloseModal} getCategory={async () => { await getCategory();}} modalId={modalId} categoryId={category._id} category={category.category} />
                 <DeleteCategoryModal show={showDeleteModal} onHide={handleCloseModal} getCategory={async () => { await getCategory();}} modalId={modalId} categoryId={category._id} category={category.category} />
             </div>
             : <div className={styles.containerIcons}></div>}

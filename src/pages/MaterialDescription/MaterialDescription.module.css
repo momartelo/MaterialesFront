@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.containerMaterialDescription {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  width: 100%;
+  max-width: 1320px;
+  font-family: "Inter", sans-serif;
+  align-items: center;
+}
+
+.materialDetails {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+}
+
+.materialDetails > h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+}
+
+.materialWrapper{
+  display: flex;
+  flex-direction: row;
+  align-items:flex-start;
+  /* justify-content: space-evenly; */
+  padding-top: 1rem;
+  justify-content: center; 
+ /* column-gap: 0px; */
+  width: 90%;
+}
+
+.containerCategory {
+  display: flex;
+  flex-direction: row;
+}
+
+.containerCategory > p:first-child {
+  font-weight: 300;
+}
+
+.containerCategory > p:last-child {
+  font-weight: 600;
+}
+
+.materialImage {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.materialImage > img {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+}
+.priceMaterialItem {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.priceMaterialItem > p {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+.priceMaterialItem > span {
+  font-weight: 600;
+}
+
+.materialImageAndPrice {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+.hr {
+  width: 60%;
+  margin: 10px 0; /* Margen alrededor de la línea horizontal */
+}
+
+.conteinerHistoryPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.historialPrices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.historialPrices > h2{
+  margin: 0 0 1rem 0  ;
+  padding: 0;
+  font-weight: 500;
+}
+
+.tableData{
+  font-family: "Inter", sans-serif;
+  min-height: 285px;
+}
+
+.tableData th {
+  background-color: #2a96ee !important;
+  color: #fff !important;
+}
+
+
+
+.containerGraphics{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 5%;
+  /* justify-content: space-evenly; */
+}
+
+.containerGraphicDollar{
+  width: 45%;
+  display: flex;
+  justify-content: center;
+}
+.containerGraphicDollar>canvas{
+  width: 100%;
+}
+
+.containerGraphicPesos{
+  width: 45%;
+  display: flex;
+  justify-content: center;
+}
+
+.containerGraphicPesos>canvas{
+  width: 100%;
+
+}
+
+.containerButtons{
+  width: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+padding: 1rem 0;
+}
+
+.buttonBack{
+  width: 25%;
+  background-color: #ff3a41;
+  color: #f5f5f5;
+  font-weight: 400;
+}
+
+.buttonBack:hover{
+  background-color: #dc3545;
+  border: none;
+  font-weight: 600;
+}
+
+.buttonEdit{
+  width: 25%;
+  background-color: #2ac97a;
+  color: #f5f5f5;
+  font-weight: 400;
+}
+
+.buttonEdit:hover{
+  background-color: #198754;
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+

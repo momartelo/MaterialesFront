@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
 import { useCallback, useContext, useEffect, useId, useState } from "react";
 import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
-import { fetchCategories2 } from "../../functions/getCategory";
+import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { AuthContext } from "../../providers/AuthProvider";
-import { fetchUnits2 } from "../../functions/getUnit";
+import { fetchUnitsWithoutAuth } from "../../functions/getUnit";
 
 const MaterialItem2 = ({ material, getMaterial, onClick }) => {
   const modalId = useId();
@@ -35,7 +35,7 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
 
   const getCategories = useCallback(() => {
     setLoadingCategories(true);
-    fetchCategories2()
+    fetchCategoriesWithoutAuth()
       .then((data) => setCategories(data))
       .catch((err) => console.log(err));
     // try {
@@ -55,7 +55,7 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
 
   const getUnits = useCallback(async () => {
     setLoadingUnits(true);
-    fetchUnits2()
+    fetchUnitsWithoutAuth()
       .then((data) => setUnits(data))
       .catch((err) => console.log(err));
     // try {
@@ -82,6 +82,19 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
     return unit ? unit.unit : "Unidad no encontrada";
   };
 
+  const formatPesos = (amount) => {
+    return amount.toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS",
+    });
+  };
+
+  const formatDollars = (amount) => {
+    const parts = amount.toFixed(2).toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return `U$S ${parts.join(",")}`;
+  };
+
   return (
     <div className={styles.item} onClick={onClick}>
       <section className={styles.sectionMaterialItem}>
@@ -92,48 +105,49 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
           <p>Cargando categorías...</p>
         ) : (
           <div className={styles.catPrice}>
-            {/* <div className={styles.infoCat}>
-              <p>Categoria</p>
-              <p>{getCategoryName(material.category)}</p>
-            </div> */}
             <div className={styles.priceMaterialItem}>
-              <span>{material.moneda}: </span>
-              <span>{material.precio}</span>
-              <span>$</span>
-              <span>{material.precioEnPesos.toFixed(2)}</span>
+              <span>{formatDollars(material.precioEnDolares)}</span>
+              <span>-</span>
+              <span>{formatPesos(material.precioEnPesos)}</span>
             </div>
             <p>{getUnitName(material.unit)}</p>
+            <div className={styles.infoCat}>
+              <p>Categoria:&nbsp;</p>
+              <p>{getCategoryName(material.category)}</p>
+            </div>
           </div>
         )}
       </section>
-      {auth ? 
-      <div className={styles.containerIcons}>
-        <Link
-          style={{ fontSize: "30px", color: "green" }}
-          onClick={handleUpdateClick}
-        >
-          <HiOutlinePencilAlt />
-        </Link>
-        <Link
-          style={{ fontSize: "30px", color: "red" }}
-          onClick={handleDeleteClick}
-        >
-          <HiOutlineTrash />
-        </Link>
+      {auth ? (
+        <div className={styles.containerIcons}>
+          <Link
+            style={{ fontSize: "30px", color: "green" }}
+            onClick={handleUpdateClick}
+          >
+            <HiOutlinePencilAlt />
+          </Link>
+          <Link
+            style={{ fontSize: "30px", color: "red" }}
+            onClick={handleDeleteClick}
+          >
+            <HiOutlineTrash />
+          </Link>
 
-        <DeleteMaterialModal
-          show={showDeleteModal}
-          onHide={handleCloseModal}
-          getMaterial={async () => {
-            await getMaterial();
-            getCategories();
-          }}
-          modalId={modalId}
-          materialId={material._id}
-          nombre={material.name}
-        />
-      </div>
-      : <div className={styles.containerIcons}></div>}
+          <DeleteMaterialModal
+            show={showDeleteModal}
+            onHide={handleCloseModal}
+            getMaterial={async () => {
+              await getMaterial();
+              getCategories();
+            }}
+            modalId={modalId}
+            materialId={material._id}
+            nombre={material.name}
+          />
+        </div>
+      ) : (
+        <div className={styles.containerIcons}></div>
+      )}
     </div>
   );
 };

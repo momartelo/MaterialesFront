@@ -17,10 +17,9 @@ export const fetchCategories = async (token) => {
   }
 };
 
-export const fetchCategories2 = async () => {
+export const fetchCategoriesWithoutAuth = async () => {
   try {
     const response = await fetch(`${API_URL}/category`);
-    console.log(response);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

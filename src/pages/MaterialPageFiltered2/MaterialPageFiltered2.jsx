@@ -5,7 +5,7 @@ import { API_URL } from "../../utils/consts";
 import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
-import { fetchCategories2 } from "../../functions/getCategory";
+import {fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 
 function MaterialPageFiltered2() {
   const { categoryId } = useParams();
@@ -18,7 +18,7 @@ function MaterialPageFiltered2() {
   // console.log(categoryId);
 
   const getCategories = useCallback(() => {
-    fetchCategories2()
+    fetchCategoriesWithoutAuth()
       .then((data) => setCategories(data))
       .catch((err) => console.error(err));
   }, []);
@@ -91,7 +91,7 @@ function MaterialPageFiltered2() {
           <Material
             getMaterial={getMaterialFiltered}
             materials={materialsFitered}
-            onMaterialDelete={handleMaterialDeleted}
+            categories={categories}
           />
         )}
       </main>
