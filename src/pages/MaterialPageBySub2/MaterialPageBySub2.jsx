@@ -112,10 +112,12 @@ function MaterialPageBySub2() {
       {category ? (
         <div className={styles.containerCategoryTitle}>
           <div className={styles.containerCategoryText}> 
+          <img src="../../../public/img/flecha-correcta.png" alt="" />
           <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
           </div>
           <div className={styles.containerSubcategoryText}>
-            <h4>Subcategoria:&nbsp; </h4> {subcategory ? <h4>{subcategory.subcategory}</h4> : "Cargando subcategoria..."}
+            <img src="../../../public/img/puntos-de-menu.png" alt="" />
+            <h5>Subcategoria:&nbsp; </h5> {subcategory ? <h5>{subcategory.subcategory}</h5> : "Cargando subcategoria..."}
           </div>
         </div>
       ) : (

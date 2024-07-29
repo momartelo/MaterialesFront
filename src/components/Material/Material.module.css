@@ -119,6 +119,13 @@
   display: flex;
 }
 
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 /* .customSelect {
   appearance: none;
   -webkit-appearance: none;

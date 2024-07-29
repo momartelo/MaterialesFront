@@ -13,6 +13,7 @@
 
 .sectionMaterialItem > img {
   width: 100px;
+  margin-bottom: 10px;
 }
 
 /* .sectionMaterialItem > div {
@@ -74,7 +75,7 @@
   /* border: 1px solid #999; */
   border-radius: 10px;
   margin: 5px;
-  padding: 0 2rem;
+  padding: 0 2rem 1rem 2rem;
   z-index: 5;
 }
 

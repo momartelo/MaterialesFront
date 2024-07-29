@@ -8,7 +8,7 @@ import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory";
 import { fetchUnitsWithoutAuth } from "../../functions/getUnit";
 import { Table } from "antd";
-import { Line } from 'react-chartjs-2';
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   Title,
@@ -18,9 +18,9 @@ import {
   LineElement,
   TimeScale,
   LinearScale,
-  PointElement 
-} from 'chart.js';
-import 'chartjs-adapter-date-fns';
+  PointElement,
+} from "chart.js";
+import "chartjs-adapter-date-fns";
 
 ChartJS.register(
   Title,
@@ -32,7 +32,6 @@ ChartJS.register(
   LinearScale,
   PointElement
 );
-
 
 const MaterialDescription = () => {
   const { materialId } = useParams();
@@ -112,7 +111,7 @@ const MaterialDescription = () => {
         })
       : "";
   };
-  
+
   const formatDollars = (amount) => {
     return amount
       ? (() => {
@@ -145,22 +144,22 @@ const MaterialDescription = () => {
     return <p>No se encontró el material solicitado.</p>;
   }
 
-
-  const dataSourceGraphics = material?.historialPrecio?.map((historia, index) => ({
-    key: index,
-    fecha: new Date(historia.fecha).toLocaleDateString(),
-    precioDolares: historia.precioEnDolares,
-    precioPesos: historia.precioEnPesos,
-  }));
+  const dataSourceGraphics = material?.historialPrecio?.map(
+    (historia, index) => ({
+      key: index,
+      fecha: new Date(historia.fecha).toLocaleDateString(),
+      precioDolares: historia.precioEnDolares,
+      precioPesos: historia.precioEnPesos,
+    })
+  );
 
   const dataSourceTable = material?.historialPrecio?.map((historia, index) => ({
     key: index,
     fecha: new Date(historia.fecha).toLocaleDateString(),
     precioDolares: formatDollars(historia.precioEnDolares),
-    precioPesos: formatPesos(historia.precioEnPesos)
+    precioPesos: formatPesos(historia.precioEnPesos),
   }));
 
- 
   const columns = [
     {
       title: "Fecha",
@@ -178,33 +177,32 @@ const MaterialDescription = () => {
 
   const convertToNumber = (amount) => {
     if (!amount) return null;
-    if (amount)
-  console.log("monto ",amount)
+    if (amount) console.log("monto ", amount);
     // Remove symbols (e.g., $, USD) and replace decimal separator with comma
-    const cleanValue = amount.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
-  console.log("cleanValue", cleanValue)
+    const cleanValue = amount.replace(/[^0-9,.]/g, "").replace(/,/g, ".");
+    console.log("cleanValue", cleanValue);
     // Split the cleaned value into integer and decimal parts
-    const parts = cleanValue.split('.');
-  console.log("parts ",parts)
+    const parts = cleanValue.split(".");
+    console.log("parts ", parts);
     // Format the integer part with thousands separators
-    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  console.log("integerPart ",integerPart)
+    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    console.log("integerPart ", integerPart);
     // Join the formatted integer part with the decimal part
-    const formattedValue = parts.length > 1 ? `${integerPart}.${parts[1]}` : integerPart;
-    
-    console.log(formattedValue)
+    const formattedValue =
+      parts.length > 1 ? `${integerPart}.${parts[1]}` : integerPart;
+
+    console.log(formattedValue);
     return formattedValue;
   };
-
 
   const chartDataDollars = {
     labels: dataSourceGraphics.map((historia) => historia.fecha), // Fechas del historial
     datasets: [
       {
-        label: 'Precio en USD',
+        label: "Precio en USD",
         data: dataSourceGraphics.map((historia) => historia.precioDolares), // Convertir a números
         fill: false,
-        borderColor: 'rgba(75, 192, 192, 1)',
+        borderColor: "rgba(75, 192, 192, 1)",
         tension: 0.1,
         pointRadius: 4,
       },
@@ -215,10 +213,10 @@ const MaterialDescription = () => {
     labels: dataSourceGraphics.map((historia) => historia.fecha), // Fechas del historial
     datasets: [
       {
-        label: 'Precio en ARS',
+        label: "Precio en ARS",
         data: dataSourceGraphics.map((historia) => historia.precioPesos), // Convertir a números
         fill: false,
-        borderColor: 'rgba(54, 162, 235, 1)',
+        borderColor: "rgba(54, 162, 235, 1)",
         tension: 0.1,
         pointRadius: 4,
       },
@@ -228,48 +226,50 @@ const MaterialDescription = () => {
   const chartOptions = {
     scales: {
       x: {
-        type: 'time',
+        type: "time",
         time: {
-          parser: 'dd/MM/yyyy',
-          unit: 'day',
-          tooltipFormat: 'dd/MM/yyyy',
+          parser: "dd/MM/yyyy",
+          unit: "day",
+          tooltipFormat: "dd/MM/yyyy",
         },
         title: {
           display: true,
-          text: 'Fecha',
+          text: "Fecha",
         },
       },
       y: {
         beginAtZero: false,
         title: {
           display: true,
-          text: 'Precio',
+          text: "Precio",
         },
         ticks: {
-          callback: function(value) {
+          callback: function (value) {
             // Formatear el valor con separador de miles y coma decimal
-            return value.toLocaleString('es-AR');
-          }
-        }
+            return value.toLocaleString("es-AR");
+          },
+        },
       },
     },
     plugins: {
       tooltip: {
         callbacks: {
-          label: function(tooltipItem) {
+          label: function (tooltipItem) {
             // Asegurar que tooltipItem.raw sea un número
-            const value = parseFloat(tooltipItem.raw).toFixed(2).toLocaleString('es-AR');
+            const value = parseFloat(tooltipItem.raw)
+              .toFixed(2)
+              .toLocaleString("es-AR");
             return `${tooltipItem.dataset.label}: ${value}`;
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   };
 
   const handleBack = () => {
     navigate(-1); // Navegar hacia atrás
   };
- 
+
   return (
     <>
       <Navbar />
@@ -278,8 +278,16 @@ const MaterialDescription = () => {
           <div className={styles.materialDetails}>
             <h1>{material.name}</h1>
             <div className={styles.containerCategory}>
-              <p>Categoria:&nbsp;</p>
+              <p>- Categoria:&nbsp;</p>
               <p>{category ? category.category : "No disponible"}</p>
+            </div>
+            <div className={styles.containerSubcategory}>
+              <p>- Subcategoria:&nbsp;</p>
+              <p>{subcategory ? subcategory.subcategory : "No disponible"}</p>
+            </div>
+            <div className={styles.containerUnit}>
+              <p>- Unidad:&nbsp;</p>
+              <p>{unit ? unit.unit : "No disponible"}</p>
             </div>
             <div className={styles.materialImageAndPrice}>
               <div className={styles.materialImage}>
@@ -294,26 +302,42 @@ const MaterialDescription = () => {
               </div>
             </div>
             <div className={styles.containerButtons}>
-            <button className={styles.buttonEdit}>
-              Editar
-             </button>
-              <button className={styles.buttonBack} onClick={handleBack} >
-              Volver
-             </button>
+              <Link
+                className={styles.buttonEdit}
+                to={`/material/update/${materialId}`}
+              >
+                Editar
+              </Link>
+              <button className={styles.buttonBack} onClick={handleBack}>
+                Volver
+              </button>
             </div>
           </div>
           <div className={styles.historialPrices}>
-              <h2>Historial de Precios</h2>
-              <Table dataSource={dataSourceTable} columns={columns} pagination={{ pageSize: 3 }}className={styles.tableData} />
+            <h2>Historial de Precios</h2>
+            <Table
+              dataSource={dataSourceTable}
+              columns={columns}
+              pagination={{ pageSize: 3 }}
+              className={styles.tableData}
+            />
           </div>
         </div>
         <div className={styles.containerGraphics}>
-        <div className={styles.containerGraphicDollar}>
-        <Line className={styles.graphicDollar} data={chartDataDollars} options={chartOptions} />
-        </div>
-        <div className={styles.containerGraphicPesos}>
-        <Line className={styles.graphicPesos} data={chartDataPesos} options={chartOptions} />
-        </div>
+          <div className={styles.containerGraphicDollar}>
+            <Line
+              className={styles.graphicDollar}
+              data={chartDataDollars}
+              options={chartOptions}
+            />
+          </div>
+          <div className={styles.containerGraphicPesos}>
+            <Line
+              className={styles.graphicPesos}
+              data={chartDataPesos}
+              options={chartOptions}
+            />
+          </div>
         </div>
       </div>
     </>

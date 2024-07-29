@@ -4,7 +4,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
-import styles from "./DeleteMaterialModal.module.css"
+import styles from "./DeleteMaterialModal.module.css";
 
 const DeleteMaterialModal = ({
   show,
@@ -15,7 +15,6 @@ const DeleteMaterialModal = ({
 }) => {
   const navigate = useNavigate();
 
-
   const handleDelete = async () => {
     console.log("estoy en el handleDelete");
     console.log("Eliminar material", materialId);
@@ -24,7 +23,7 @@ const DeleteMaterialModal = ({
       const res = await fetch(`${API_URL}/material/${materialId}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, 
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -35,19 +34,32 @@ const DeleteMaterialModal = ({
       handleClose();
       await getMaterial();
 
-      navigate(-1);
+      navigate("/material");
       console.log("saliendo del handledelete"); // Asegúrate de esperar esta llamada para obtener datos frescos
     } catch (error) {
       console.error("Error al eliminar el material:", error);
     }
   };
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    if (e) {
+      e.stopPropagation();
+    }
     onHide();
   };
 
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <Modal className={styles.containerModalDeleteMaterial} show={show} onHide={handleClose} centered>
+    <Modal
+      className={styles.containerModalDeleteMaterial}
+      show={show}
+      onHide={handleClose}
+      onClick={handleModalClick}
+      centered
+    >
       <Modal.Header closeButton>
         <Modal.Title>Eliminar Material</Modal.Title>
       </Modal.Header>

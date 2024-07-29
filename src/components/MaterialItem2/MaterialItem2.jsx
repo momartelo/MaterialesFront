@@ -6,6 +6,7 @@ import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchUnitsWithoutAuth } from "../../functions/getUnit";
+import UpdateMaterialModal from "../UpdateMaterialModal/UpdateMaterialModal";
 
 const MaterialItem2 = ({ material, getMaterial, onClick }) => {
   const modalId = useId();
@@ -28,7 +29,10 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
     setShowUpdateModal(true); // Abrir el modal al hacer clic en el icono
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (e) => {
+    if (e) {
+      e.stopPropagation();
+    }
     setShowDeleteModal(false); // Cerrar el modal de eliminar
     setShowUpdateModal(false); // Cerrar el modal de actualizar
   };
@@ -95,8 +99,13 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
     return `U$S ${parts.join(",")}`;
   };
 
+  const handleClick = (e) => {
+    if (e.defaultPrevented) return;
+    onClick(e);
+  };
+
   return (
-    <div className={styles.item} onClick={onClick}>
+    <div className={styles.item} onClick={handleClick}>
       <section className={styles.sectionMaterialItem}>
         {/* <p>Material:</p> */}
         <img src={material.image} alt="" />
@@ -122,16 +131,35 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
         <div className={styles.containerIcons}>
           <Link
             style={{ fontSize: "30px", color: "green" }}
-            onClick={handleUpdateClick}
+            to={`/material/update/${material._id}`}
+            // onClick={(e) => {
+            //   e.stopPropagation();
+            //   handleUpdateClick(e);
+            // }}
           >
             <HiOutlinePencilAlt />
           </Link>
           <Link
             style={{ fontSize: "30px", color: "red" }}
-            onClick={handleDeleteClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteClick(e);
+            }}
           >
             <HiOutlineTrash />
           </Link>
+
+          <UpdateMaterialModal
+            show={showUpdateModal}
+            onHide={handleCloseModal}
+            getMaterial={async () => {
+              await getMaterial();
+              getCategories();
+            }}
+            modalId={modalId}
+            materialId={material._id}
+            material={material}
+          />
 
           <DeleteMaterialModal
             show={showDeleteModal}

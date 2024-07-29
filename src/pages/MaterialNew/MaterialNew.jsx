@@ -86,6 +86,15 @@ const MaterialNew = () => {
 
     if (!name.trim() || !price.trim()) return;
 
+    console.log("Datos a enviar:", {
+      name: name.trim(),
+      precio: parseFloat(price),
+      moneda: currency,
+      unit: unitName,
+      category: categoryName,
+      subcategory: subcategoryName,
+    });
+
     fetch(`${API_URL}/material/new`, {
       method: "POST",
       headers: {

@@ -77,6 +77,7 @@ function MaterialPageFiltered2() {
       <h2>Materiales</h2>
       {category ? (
           <div className={styles.containerCategoryText}> 
+          <img src="../../../public/img/flecha-correcta.png" alt="" />
             <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
           </div>
       ) : (

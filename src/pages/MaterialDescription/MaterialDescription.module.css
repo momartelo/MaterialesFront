@@ -24,19 +24,20 @@
 }
 
 .materialDetails > h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  font-family: "Roboto", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 0.1rem;
 }
 
-.materialWrapper{
+.materialWrapper {
   display: flex;
   flex-direction: row;
-  align-items:flex-start;
+  align-items: flex-start;
   /* justify-content: space-evenly; */
   padding-top: 1rem;
-  justify-content: center; 
- /* column-gap: 0px; */
+  justify-content: center;
+  /* column-gap: 0px; */
   width: 90%;
 }
 
@@ -46,11 +47,53 @@
 }
 
 .containerCategory > p:first-child {
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .containerCategory > p:last-child {
   font-weight: 600;
+}
+
+.containerSubcategory {
+  display: flex;
+  flex-direction: row;
+}
+
+.containerSubcategory > p:first-child {
+  font-weight: 200;
+}
+
+.containerSubcategory > p:last-child {
+  font-weight: 600;
+}
+
+.containerCategory > p {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.containerUnit {
+  display: flex;
+  flex-direction: row;
+}
+
+.containerUnit > p:first-child {
+  font-weight: 200;
+}
+
+.containerUnit > p:last-child {
+  font-weight: 600;
+}
+
+.containerSubcategory > p {
+  font-size: 0.9rem;
+  margin-bottom: 0.15rem;
+}
+
+
+.containerUnit > p {
+  font-size: 0.8rem;
+  margin-bottom: 0;
 }
 
 .materialImage {
@@ -104,13 +147,14 @@
   width: 50%;
 }
 
-.historialPrices > h2{
-  margin: 0 0 1rem 0  ;
+.historialPrices > h2 {
+  margin: 0 0 0.6rem 0;
   padding: 0;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: "Inter";
 }
 
-.tableData{
+.tableData {
   font-family: "Inter", sans-serif;
   min-height: 285px;
 }
@@ -120,9 +164,7 @@
   color: #fff !important;
 }
 
-
-
-.containerGraphics{
+.containerGraphics {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -131,58 +173,60 @@
   /* justify-content: space-evenly; */
 }
 
-.containerGraphicDollar{
+.containerGraphicDollar {
   width: 45%;
   display: flex;
   justify-content: center;
 }
-.containerGraphicDollar>canvas{
+.containerGraphicDollar > canvas {
   width: 100%;
 }
 
-.containerGraphicPesos{
+.containerGraphicPesos {
   width: 45%;
   display: flex;
   justify-content: center;
 }
 
-.containerGraphicPesos>canvas{
+.containerGraphicPesos > canvas {
   width: 100%;
-
 }
 
-.containerButtons{
+.containerButtons {
   width: 100%;
-display: flex;
-flex-direction: row;
-justify-content: space-evenly;
-padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1rem 0;
 }
 
-.buttonBack{
+.buttonBack {
   width: 25%;
   background-color: #ff3a41;
   color: #f5f5f5;
   font-weight: 400;
 }
 
-.buttonBack:hover{
+.buttonBack:hover {
   background-color: #dc3545;
   border: none;
   font-weight: 600;
 }
 
-.buttonEdit{
+.buttonEdit {
   width: 25%;
   background-color: #2ac97a;
   color: #f5f5f5;
   font-weight: 400;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.buttonEdit:hover{
+.buttonEdit:hover {
   background-color: #198754;
   color: white;
   border: none;
   font-weight: 600;
 }
-

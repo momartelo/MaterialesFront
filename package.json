@@ -28,6 +28,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.1",
     "react-select": "^5.8.0",
+    "react-spinners": "^0.14.1",
     "react-toggle-switch": "^3.0.4"
   },
   "devDependencies": {

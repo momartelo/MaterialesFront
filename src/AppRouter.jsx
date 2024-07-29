@@ -15,6 +15,7 @@ import CategoryPage2 from "./pages/CategoryPage2/CategoryPage2";
 import MaterialPageFiltered2 from "./pages/MaterialPageFiltered2/MaterialPageFiltered2";
 import MaterialPageBySub2 from "./pages/MaterialPageBySub2/MaterialPageBySub2";
 import MaterialDescription from "./pages/MaterialDescription/MaterialDescription";
+import MaterialUpdate from "./pages/MaterialUpdate/MaterialUpdate";
 
 function AppRouter() {
   return (
@@ -31,12 +32,16 @@ function AppRouter() {
       <Route path="/" element={<HomePage />} /> // !TODO luego poner en privadas
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/material" element={<MaterialPage2 />} />
+      <Route path="/material/update/:materialId" element={<MaterialUpdate />} />
       <Route path="/material/:categoryId" element={<MaterialPageFiltered2 />} />
       <Route
         path="/material/:categoryId/:subcategoryId"
         element={<MaterialPageBySub2 />}
       />
-      <Route path="/material/description/:materialId" element={<MaterialDescription/>} />
+      <Route
+        path="/material/description/:materialId"
+        element={<MaterialDescription />}
+      />
     </Routes>
   );
 }

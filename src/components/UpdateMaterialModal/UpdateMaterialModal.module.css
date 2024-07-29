@@ -1,0 +1,159 @@
+*{
+    font-family: "Inter";
+}
+
+
+
+.modalHeaderUpdate{
+    background-color: #f5f5f5;
+}
+
+.modalTitleUpdate{
+    color: #111;
+}
+
+.modalHeaderUpdate > button{
+    font-size: 0.75rem;
+}
+
+.modalHeaderUpdate > button:hover{
+    background-color: red;
+}
+
+.containerModalBodUpdatey{
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+.modalBodyTitleUpdate{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1rem;
+}
+
+.modalBodyTitleUpdate > h2{
+    margin: 0;
+    }
+
+.modalBodyTitleUpdate > img{
+    width: 32px;
+}
+
+.formGroupImageUpdate,  .formGroupNameUpdate, .formGroupPrecioUpdate, .formGroupMonedaUpdate, .formGroupUnidadUpdate, .formGroupCategoriaUpdate, .formGroupSubcategoriaUpdate{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.formUpdateMaterial{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    padding: 1rem 0;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    max-width: 600px;
+
+}
+
+.formGroupImageUpdate > label,  .formGroupNameUpdate > label, .formGroupPrecioUpdate > label, .formGroupMonedaUpdate > label, .formGroupUnidadUpdate > label, .formGroupCategoriaUpdate > label, .formGroupSubcategoriaUpdate > label{
+    /* margin-bottom: 5px; */
+    margin-left: 5px;
+    margin-top: 5px; 
+}
+
+
+.formGroupImageUpdate > input,  .formGroupNameUpdate > input, .formGroupPrecioUpdate > input {
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    padding-left: 5px;
+    border: 1px #ddd solid;
+}
+
+.formGroupImageUpdate > input:focus,  .formGroupNameUpdate > input:focus, .formGroupPrecioUpdate > input:focus{
+    border: 2px #0d6efd solid;
+    outline: none;
+    padding-left: 5px;
+}
+
+.containerButtons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1.5rem;
+    column-gap: 2rem;
+}
+
+.buttonSubmit {
+    width: 35%;
+    background-color: #0d6efd;
+    color: #f5f5f5;
+    font-weight: 400;
+}
+
+.buttonSubmit:hover{
+    background-color: #105bd5;
+    border: none;
+    font-weight: 600;
+}
+
+.buttonBack{
+    width: 25%;
+    background-color: #ff3a41;
+    color: #f5f5f5;
+    font-weight: 400;
+}
+
+.buttonBack:hover{
+    background-color: #dc3545;
+    border: none;
+    font-weight: 600;
+}
+
+.containerSelect{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.containerSelect> select{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    height: 2.5rem;
+
+}
+
+.formGroupMonedaUpdate> select{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    height: 2.5rem;
+
+}
+
+.buttonNew {
+    /* width: 10rem; */
+    padding: 0.6rem;
+    border-radius: 5px;
+    background-color: #2ac97a;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    text-align: center;
+}
+
+.buttonNew:hover {
+    background-color: #198754;
+    color: white;
+}
