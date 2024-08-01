@@ -1,4 +1,5 @@
 import { API_URL } from "../utils/consts";
+import axios from 'axios'
 
 export const fetchMaterials = async (token) => {
     try {
@@ -121,3 +122,31 @@ export const fetchUnitsWithoutAuth = async () => {
     }
     
   };
+
+
+  export const getCovertExchangePair = async (moneda_origen, moneda_final) => {
+    const api_URL_convert = `https://v6.exchangerate-api.com/v6/b4664edbd01707d626c5ddcc/pair/${moneda_origen}/${moneda_final}`;
+    console.log("Dentro del fetch");
+    console.log(api_URL_convert);
+    try {
+      const response = await axios.get(api_URL_convert);
+      const tipo_cambio = response.data.conversion_rate;
+      const lastUpdate = response.data.time_last_update_utc;
+      return { tipo_cambio, lastUpdate };
+    } catch (error) {
+      if (error.response) {
+        // El servidor respondió con un código de estado que está fuera del rango de 2xx
+        console.error("Error status:", error.response.status);
+        console.error("Error data:", error.response.data);
+        console.error("Error headers:", error.response.headers);
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+        console.error("Error request:", error.request);
+      } else {
+        // Algo sucedió al configurar la solicitud
+        console.error("Error message:", error.message);
+      }
+      throw new Error("Error al obtener el tipo de cambio");
+    }
+  };
+  

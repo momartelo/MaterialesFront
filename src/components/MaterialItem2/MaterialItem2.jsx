@@ -130,7 +130,7 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
       {auth ? (
         <div className={styles.containerIcons}>
           <Link
-            style={{ fontSize: "30px", color: "green" }}
+            style={{ fontSize: "30px", color: "#0d6efd" }}
             to={`/material/update/${material._id}`}
             // onClick={(e) => {
             //   e.stopPropagation();

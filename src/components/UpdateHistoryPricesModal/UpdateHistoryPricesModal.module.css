@@ -1,0 +1,163 @@
+/* UpdateHistoryPricesModal.module.css */
+.modal {
+    position: fixed; /* Necesario para que se superponga */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 100%; /* Ocupa toda la altura de la pantalla */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: flex; /* Flexbox para centrar contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    z-index: 1000; /* Asegúrate de que el modal esté por encima de otros elementos */
+  }
+  
+  .modalContent {
+    background: white; /* Fondo blanco para el contenido del modal */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+
+
+
+
+/* *{
+    font-family: "Inter";
+}
+
+.modalHeaderTitle{
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+
+}
+.modalHeaderTitle> button{
+    font-size: 0.8rem;
+background-color: #999;    
+}
+
+.modalHeaderTitle> button:hover{
+    background-color: #dc3545 ;
+
+}
+
+.modalTitleHistory{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    font-weight: 600;
+}
+
+.formUpdateHistory{
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+.priceEntry{
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px rgb(212, 212, 212) solid;
+    padding-bottom: 0.5rem;
+}
+
+.divHistoryPrice{
+width: 40%;
+padding: 0.5rem 1rem;
+}
+.divHistoryPrice>label{
+    width: 40%;
+    }
+
+.divHistoryPrice>input{
+    width: 60%;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+
+    }
+
+.divHistoryPrice>input:focus{
+    outline: none;
+    border: 3px #2ac97a solid;
+    }
+
+.divHistoryDate{
+    width: 60%;
+    padding: 0.5rem 1rem;
+    }
+    
+.divHistoryDate>label{
+    width: 30%;
+    margin-left: 1rem;
+    }
+.divHistoryDate>input{
+    width: 60%;
+    border: none;
+    height: 35px;
+    text-align: center;
+    border-radius: 5px;
+    }
+
+.divHistoryDate>input:focus{
+    outline: none;
+    border: 3px #2ac97a solid;
+    }
+
+.divHistoryCurrency{
+        width: 100%;
+}
+
+.divHistoryCurrency>label{
+    width: 30%;
+    margin-left: 1rem;
+    }
+.divHistoryCurrency>input{
+    width: 60%;
+    border: none;
+    height: 35px;
+    text-align: center;
+    border-radius: 5px;
+    }
+
+.containerButtons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+    .buttonSubmit {
+        margin-top: 1rem;
+        width: 50%;
+        background-color: #0d6efd;
+        color: #f5f5f5;
+        font-weight: 400;
+        height: 40px;
+        border-radius: 8px;
+    }
+    
+    .buttonSubmit:hover{
+        background-color: #105bd5;
+        border: none;
+        font-weight: 600;
+    }
+
+    .buttonBack{
+        margin-top: 1rem;
+        width: 25%;
+        background-color: #ff3a41;
+        color: #f5f5f5;
+        font-weight: 400;
+        border: #ff3a41;
+        height: 40px;
+        border-radius: 8px;
+    }
+    
+    .buttonBack:hover{
+        background-color: #dc3545;
+        border: none;
+        font-weight: 600;
+    } */

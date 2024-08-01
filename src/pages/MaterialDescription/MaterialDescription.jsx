@@ -1,9 +1,10 @@
 import styles from "./MaterialDescription.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchMaterialsWithoutAuth } from "../../functions/getMaterial";
+import { HiOutlineTrash } from "react-icons/hi";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory";
 import { fetchUnitsWithoutAuth } from "../../functions/getUnit";
@@ -21,6 +22,7 @@ import {
   PointElement,
 } from "chart.js";
 import "chartjs-adapter-date-fns";
+import DeleteMaterialModal from "../../components/DeleteMaterialModal/DeleteMaterialModal";
 
 ChartJS.register(
   Title,
@@ -34,12 +36,14 @@ ChartJS.register(
 );
 
 const MaterialDescription = () => {
+  const modalId = useId();
   const { materialId } = useParams();
   const [materials, setMaterials] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -270,6 +274,18 @@ const MaterialDescription = () => {
     navigate(-1); // Navegar hacia atrás
   };
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setShowDeleteModal(true); // Abrir el modal al hacer clic en el icono
+  };
+
+  const handleCloseModal = (e) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setShowDeleteModal(false); // Cerrar el modal de eliminar
+  };
+
   return (
     <>
       <Navbar />
@@ -301,6 +317,7 @@ const MaterialDescription = () => {
                 <span>{formatPesos(material.precioEnPesos)}</span>
               </div>
             </div>
+            {auth ? (  
             <div className={styles.containerButtons}>
               <Link
                 className={styles.buttonEdit}
@@ -311,7 +328,33 @@ const MaterialDescription = () => {
               <button className={styles.buttonBack} onClick={handleBack}>
                 Volver
               </button>
-            </div>
+              <Link
+              className={styles.buttonEraseDescription}
+                        onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteClick(e);
+            }}
+          >
+              <HiOutlineTrash />
+              </Link>
+              <DeleteMaterialModal
+            show={showDeleteModal}
+            onHide={handleCloseModal}
+            getMaterial={async () => {
+              await getMaterial();
+              getCategory();
+            }}
+            modalId={modalId}
+            materialId={material._id}
+            nombre={material.name}
+          />
+            </div>): (
+            <div className={styles.containerButtons}>
+              <button className={styles.buttonBack} onClick={handleBack}>
+                Volver
+              </button>
+            </div>)}
+
           </div>
           <div className={styles.historialPrices}>
             <h2>Historial de Precios</h2>

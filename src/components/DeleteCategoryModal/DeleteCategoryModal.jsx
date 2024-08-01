@@ -30,7 +30,7 @@ const DeleteCategoryModal = ({
             }
             handleClose();
             await getCategory();
-            navigate(-1);
+            navigate("/category");
         } catch (error) {
             console.error("Error al eliminar el material:", error);
         }

@@ -99,51 +99,7 @@ const UpdateMaterialModal = ({
     setUnitName(selectedUnit ? selectedUnit.unit : "");
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const formData = {
-  //       name: name.trim(),
-  //       precio: parseFloat(price),
-  //       moneda: currency,
-  //       unit: unitName,
-  //       category: categoryName,
-  //       subcategory: subcategoryName,
-  //     };
-  //     console.log(name)
-  //     console.log(price)
-  //     console.log(currency)
-  //     console.log(unitName)
-  //     console.log(categoryName)
-  //     console.log(subcategoryName)
-  //     const body = JSON.stringify(formData);
-  //     console.log(formData);
-  //     console.log(body) 
-
-  //     const req = await fetch(`${API_URL}/material/${materialId}`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: auth.token,
-  //       },
-  //       body,
-  //     });
-
-  //     if (!req.ok) {
-  //       throw new Error("Error al actualizar el material");
-  //     }
-
-  //     formRef.current.reset(); // Limpiar el formulario
-  //     handleClose(); // Cerrar el modal
-  //     await getMaterial(); // Actualizar la lista de materiales
-  //     navigate("/material"); // Navegar a la lista de materiales
-  //   } catch (error) {
-  //     console.error("Error al actualizar el material:", error);
-  //     alert("Error al actualizar el material. Por favor, inténtelo nuevamente.");
-  //   }
-  // };
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
 

@@ -124,7 +124,10 @@ const MaterialNew = () => {
     <>
       <Navbar />
       <div className={styles.containerMaterialNew}>
+        <div className={styles.containerTitle}>
+        <img src="../../../public/img/papel.png" alt="" />
         <h2>Crear un nuevo material</h2>
+        </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor={nameId}>Nombre:</label>

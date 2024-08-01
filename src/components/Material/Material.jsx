@@ -110,7 +110,8 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      width: "200px", // Ancho fijo para el control
+      // width: "200px", // Ancho fijo para el control
+      height: "40px",
       borderRadius: "5px",
       borderColor: "none",
       // boxShadow: state.isFocused ? "0 0 0 1px blue" : "none",
@@ -127,6 +128,7 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
       ...provided,
       width: "200px", // Ancho fijo para el menú
       borderRadius: "10px",
+      zIndex: 100,
       marginTop: 0,
       backgroundColor: "red", // Fondo rojo para el menú desplegable
       boxShadow: "none", // Elimina la sombra al desplegar
@@ -160,7 +162,8 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
   const customStyles2 = {
     control: (provided, state) => ({
       ...provided,
-      width: "80px", // Ancho fijo para el control
+      // width: "80px", // Ancho fijo para el control
+      height: "40px",
       borderRadius: "5px",
       borderColor: "none",
       // boxShadow: state.isFocused ? "0 0 0 1px blue" : "none",
@@ -178,6 +181,7 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
       width: "80px", // Ancho fijo para el menú
       borderRadius: "10px",
       marginTop: 0,
+      zIndex: 100,
       backgroundColor: "orange", // Fondo rojo para el menú desplegable
       boxShadow: "none", // Elimina la sombra al desplegar
       border: "none", // Elimina el borde al desplegar
@@ -237,50 +241,53 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
 
   return (
     <div className={styles.containerMaterial}>
-      <div className={styles.searchBar}>
-        <input
-          type="text"
-          placeholder="Buscar material..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <FaSearch className={styles.searchIcon} />
-      </div>
-      <div className={styles.containerActions}>
-        <div className={styles.itemsPerPage}>
-          <Select
-            options={[
-              { value: 10, label: "10" },
-              { value: 20, label: "20" },
-              { value: 50, label: "50" },
-            ]}
-            defaultValue={{ value: 10, label: "10" }}
-            onChange={handleMaterialsPerPageChange}
-            styles={customStyles2}
-            theme={customTheme2}
-            placeholder="Items"
-          />
-        </div>
-        <div className={styles.sortSelect}>
-          <Select
-            id={sortId}
-            options={sortOptions}
-            value={sortOptions.find((option) => option.value === sort)}
-            onChange={(selectedOption) => setSort(selectedOption.value)}
-            styles={customStyles}
-            theme={customTheme}
-            placeholder="Ordenar por:"
-          />
-        </div>
-        <div className={styles.addMaterialButton}>
+      <div className={styles.containerVarSearch}>
+        <div className={styles.addMaterialContainer}>
           {auth ? (
             <button
               className={styles.addMaterialButton}
-              onClick={() => navigate("/materiales/crear")}
+              onClick={() => navigate("/material/new")}
             >
-              + Crear Material
+              Crear Material
             </button>
           ) : null}
+        </div>
+        <div className={styles.searchContainer}>
+          <input
+            type="text"
+            className={styles.formControl}
+            placeholder="Buscar material..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <FaSearch className={styles.searchIcon} />
+        </div>
+        <div className={styles.containerActions}>
+          <div className={styles.sortSelect}>
+            <Select
+              id={sortId}
+              options={sortOptions}
+              value={sortOptions.find((option) => option.value === sort)}
+              onChange={(selectedOption) => setSort(selectedOption.value)}
+              styles={customStyles}
+              theme={customTheme}
+              placeholder="Ordenar por:"
+            />
+          </div>
+          <div className={styles.itemsPerPage}>
+            <Select
+              options={[
+                { value: 10, label: "10" },
+                { value: 20, label: "20" },
+                { value: 50, label: "50" },
+              ]}
+              defaultValue={{ value: 10, label: "10" }}
+              onChange={handleMaterialsPerPageChange}
+              styles={customStyles2}
+              theme={customTheme2}
+              placeholder="Items"
+            />
+          </div>
         </div>
       </div>
       {loading ? (
@@ -289,7 +296,7 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
         </div>
       ) : (
         <>
-          <div className={styles.materialItems}>
+          <div className={styles.containerItem}>
             {filterMaterials.length > 0 ? (
               filterMaterials
                 .slice(
@@ -309,7 +316,11 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
                   />
                 ))
             ) : (
-              <p>No hay Materiales que mostrar!!!</p>
+              <div className={styles.containerNoShow}>
+                <img src="../../../public/img/archivo.png" alt="" />
+                <p>¡No hay Materiales que mostrar!!!</p>
+                <img src="../../../public/img/archivo.png" alt="" />
+              </div>
             )}
           </div>
           <div className={styles.paginationControls}>
