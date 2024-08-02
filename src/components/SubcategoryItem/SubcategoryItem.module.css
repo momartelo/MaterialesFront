@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-.sectionCategoryItem {
+.sectionSubcategoryItem {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,9 +39,16 @@
   padding-bottom: 1rem;
 }
 
-.sectionCategoryItem > h2 {
+.sectionSubcategoryItem > h2 {
   margin: 0;
   font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sectionSubcategoryItem > p {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  font-weight: 300;
 }
 
 .containerIcons {

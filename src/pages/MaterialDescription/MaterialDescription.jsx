@@ -294,15 +294,13 @@ const MaterialDescription = () => {
           <div className={styles.materialDetails}>
             <h1>{material.name}</h1>
             <div className={styles.containerCategory}>
-              <p>- Categoria:&nbsp;</p>
+              <p>Categoria:&nbsp;</p>
               <p>{category ? category.category : "No disponible"}</p>
-            </div>
-            <div className={styles.containerSubcategory}>
-              <p>- Subcategoria:&nbsp;</p>
+              <p>&nbsp;- Subcategoria:&nbsp;</p>
               <p>{subcategory ? subcategory.subcategory : "No disponible"}</p>
             </div>
             <div className={styles.containerUnit}>
-              <p>- Unidad:&nbsp;</p>
+              <p>Unidad:&nbsp;</p>
               <p>{unit ? unit.unit : "No disponible"}</p>
             </div>
             <div className={styles.materialImageAndPrice}>

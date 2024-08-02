@@ -128,49 +128,56 @@ const Navbar = () => {
                               className={`${styles.menuColumns} ${styles.flex}`}
                             >
                               {categories
-                              .slice()
-                              .sort((a,b) => a.category.localeCompare(b.category))
-                              .map((category) => (
-                                <div
-                                  key={category._id}
-                                  className={styles.menuColumn}
-                                >
-                                  <ul className={styles.ulDropdown}>
-                                    <li
-                                      className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
-                                    >
-                                      <p>{category.category}</p>
-                                    </li>
-                                    {Array.isArray(subcategories) &&
-                                      subcategories.length > 0 &&
-                                      subcategories
-                                        .filter(
-                                          (subcat) =>
-                                            subcat.category._id === category._id
-                                        )
-                                        .sort((a,b) => a.subcategory.localeCompare(b.subcategory))
-                                        .map((subcategory) => (
-                                          <li
-                                            key={subcategory._id}
-                                            className={`${styles.productLinkNav} ${styles.nightMode} `}
-                                          >
-                                            <Link
-                                              to={`/material/${category._id}/${subcategory._id}`}
+                                .slice()
+                                .sort((a, b) =>
+                                  a.category.localeCompare(b.category)
+                                )
+                                .map((category) => (
+                                  <div
+                                    key={category._id}
+                                    className={styles.menuColumn}
+                                  >
+                                    <ul className={styles.ulDropdown}>
+                                      <li
+                                        className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                      >
+                                        <p>{category.category}</p>
+                                      </li>
+                                      {Array.isArray(subcategories) &&
+                                        subcategories.length > 0 &&
+                                        subcategories
+                                          .filter(
+                                            (subcat) =>
+                                              subcat.category._id ===
+                                              category._id
+                                          )
+                                          .sort((a, b) =>
+                                            a.subcategory.localeCompare(
+                                              b.subcategory
+                                            )
+                                          )
+                                          .map((subcategory) => (
+                                            <li
+                                              key={subcategory._id}
+                                              className={`${styles.productLinkNav} ${styles.nightMode} `}
                                             >
-                                              -&nbsp;{subcategory.subcategory}
-                                            </Link>
-                                          </li>
-                                        ))}
-                                    <li
-                                      className={`${styles.navItemTodo} ${styles.nightMode} `}
-                                    >
-                                      <Link to={`/material/${category._id}`}>
-                                        Ver todos
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              ))}
+                                              <Link
+                                                to={`/material/${category._id}/${subcategory._id}`}
+                                              >
+                                                -&nbsp;{subcategory.subcategory}
+                                              </Link>
+                                            </li>
+                                          ))}
+                                      <li
+                                        className={`${styles.navItemTodo} ${styles.nightMode} `}
+                                      >
+                                        <Link to={`/material/${category._id}`}>
+                                          Ver todos
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                ))}
                             </div>
                             <Link to={`/material`}>Todos los materiales</Link>
                           </div>
@@ -224,7 +231,10 @@ const Navbar = () => {
                                   <li
                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
                                   >
-                                    <Link className={styles.linkLogo} to="#">
+                                    <Link
+                                      className={styles.linkLogo}
+                                      to="/subcategory"
+                                    >
                                       <p>- Subcategorias</p>
                                     </Link>
                                   </li>
@@ -381,12 +391,8 @@ const Navbar = () => {
 
 export default Navbar;
 
-
-
-
-
-
-{/* <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
+{
+  /* <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
 <Link
   className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
   to="#"
@@ -463,4 +469,5 @@ export default Navbar;
     </div>
   )}
 </div>
-</li> */}
+</li> */
+}

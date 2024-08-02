@@ -58,6 +58,7 @@
   justify-content: center;
   align-items: center;
   padding: 0 0 0.5rem 0;
+  column-gap: 0.5rem;
 }
 
 .containerIcons > a {
@@ -65,6 +66,7 @@
   justify-content: center;
   align-items: center;
   padding: 0 1rem;
+
 }
 
 .item {
@@ -115,3 +117,56 @@
 .infoCat > p:last-child {
   font-weight: 600;
 }
+
+.containerIconEdit{
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.containerIconEdit:hover{
+background-color: #0d6efd;
+}
+
+.containerIconEdit:hover .iconEdit{
+  color: #f5f5f5;
+  }
+
+.iconEdit{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  color: #0d6efd;
+  margin: 0;
+  padding: 0;
+}
+
+.containerIconErase{
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.containerIconErase:hover{
+background-color: red;
+}
+
+.containerIconErase:hover .iconErase{
+  color: #f5f5f5;
+  }
+
+.iconErase{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  color: red;
+  margin: 0;
+  padding: 0;
+}
+

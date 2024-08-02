@@ -129,24 +129,20 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
       </section>
       {auth ? (
         <div className={styles.containerIcons}>
-          <Link
-            style={{ fontSize: "30px", color: "#0d6efd" }}
-            to={`/material/update/${material._id}`}
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleUpdateClick(e);
-            // }}
-          >
+          <Link className={styles.containerIconEdit} to={`/material/update/${material._id}`}>
+          <div className={styles.iconEdit} >
             <HiOutlinePencilAlt />
+          </div>
           </Link>
-          <Link
-            style={{ fontSize: "30px", color: "red" }}
+          <Link className={styles.containerIconErase}
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteClick(e);
             }}
           >
+            <div className={styles.iconErase}>
             <HiOutlineTrash />
+            </div>
           </Link>
 
           <UpdateMaterialModal
