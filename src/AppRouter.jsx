@@ -24,7 +24,7 @@ function AppRouter() {
       {/*Rutas Protegisa*/}
       <Route element={<PrivateRoutes />}>
         <Route path="/material/new" element={<MaterialNew />} />
-        <Route path="/category/new" element={<CategoryNew />} />
+        {/* <Route path="/category/new" element={<CategoryNew />} /> */}
         <Route path="/category" element={<CategoryPage2 />} />
         <Route path="/subcategory" element={<SubcategoryPage />} />
       </Route>

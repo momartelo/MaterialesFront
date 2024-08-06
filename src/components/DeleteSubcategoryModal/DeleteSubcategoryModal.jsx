@@ -1,49 +1,57 @@
-import styles from "./DeleteCategoryModal.module.css"
+import styles from "./DeleteSubcategoryModal.module.css"
 import { API_URL } from "../../utils/consts"
 import  Button  from "react-bootstrap/Button"
-import  Modal  from "react-bootstrap/Modal"
+import Modal from "react-bootstrap/Modal"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../providers/AuthProvider"
 import { useContext } from "react"
 
-const DeleteCategoryModal = ({ 
+const DeleteSubcategoryModal = ({
     show,
-    categoryId,
-    getCategory,
+    subcategoryId,
+    getSubcategory,
     onHide,
-    category,
+    subcategory,
 }) => {
+
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext)
+
     const handleClose = () => {
         onHide();
     };
 
-    const handleDelete = async () => {
+    const handleDelete = async() => {
         try {
-            const res = await fetch(`${API_URL}/category/${categoryId}`, {
+            const res = await fetch(`${API_URL}/subcategory/${subcategoryId}`, {
                 method: "DELETE",
-                headers: { Authorization: auth.token}
+                headers: {
+                    Authorization: auth.token,
+                    "Content-Type": "application/json",
+                },
             });
-            if (res.status !== 200) { alert("Error al eliminar la categoria");
-            return;
+            if (res.status !== 200) {
+                alert("Error al eliminar la subcategoria")
+                return;
             }
             handleClose();
-            await getCategory();
-            navigate("/category");
+            await getSubcategory();
+            navigate("/subcategory");
         } catch (error) {
-            console.error("Error al eliminar la categoria:", error);
+            console.error("Error al eliminar la subcategoria", error);
         }
     };
+
+
 
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton className={styles.modalHeader}>
-                <Modal.Title className={styles.modalTitle}>Eliminar Categoria</Modal.Title>
+                <Modal.Title className={styles.modalTitle}>Eliminar Subcategoria</Modal.Title>
             </Modal.Header>
             <Modal.Body className={styles.containerModalBody}>
                 <p>
-                    ¿Está seguro de que desea eliminar la categoria <strong>"{category}"</strong>? Esta acción
+                    ¿Está seguro de que desea eliminar la categoria <strong>"{subcategory}"</strong>? Esta acción
                     no se puede deshacer.
                 </p>
             </Modal.Body>
@@ -57,7 +65,7 @@ const DeleteCategoryModal = ({
 
             </Modal.Footer>
         </Modal>
-    );
-};
+    )
+}  
 
-export default DeleteCategoryModal;
+export default DeleteSubcategoryModal;

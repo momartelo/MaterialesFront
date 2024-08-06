@@ -6,6 +6,8 @@ import { API_URL } from "../../utils/consts";
 // import DeleteCategoryModal from "../DeleteCategoryModal/DeleteCategoryModal";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
+import UpdateSubcategoryModal from "../UpdateSubcategoryModal/UpdateSubcategoryModal";
+import DeleteSubcategoryModal from "../DeleteSubcategoryModal/DeleteSubcategoryModal";
 // import UpdateCategoryModal from "../UpdateCategoryModal/UpdateCategoryModal";
 
 const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
@@ -62,7 +64,7 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
       </section>
       {auth ? (
         <div className={styles.containerIcons}>
-          <Link className={styles.containerIconEdit} to={`#`}>
+          <Link className={styles.containerIconEdit} onClick={handleUpdateClick}>
             <div className={styles.iconEdit}>
               <HiOutlinePencilAlt />
             </div>
@@ -78,7 +80,8 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
               <HiOutlineTrash />
             </div>
           </Link>
-
+          <UpdateSubcategoryModal show={showUpdateModal} onHide={handleCloseModal} getSubcategory={async () => {await getSubcategory();}} subcategoryId={subcategory._id} subcategory={subcategory.subcategory} />
+          <DeleteSubcategoryModal show={showDeleteModal} onHide={handleCloseModal} getSubcategory={async () => {await getSubcategory();}} subcategoryId={subcategory._id} subcategory={subcategory.subcategory} />
           {/* <Link
             style={{ fontSize: "30px", color: "green" }}
             onClick={handleUpdateClick}

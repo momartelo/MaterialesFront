@@ -1,17 +1,28 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useId, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Category.module.css"
 import { FaSearch } from "react-icons/fa";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import { AuthContext } from "../../providers/AuthProvider";
-
+import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
+import { fetchCategories } from "../../functions/getCategory";
 
 const Category = ({ categories, getCategory }) => {
+    const modalId = useId();
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("");
     const [filterCategories, setFilterCategories] = useState(categories);
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
+    const [showCategoryNewModal, setShowCategoryNewModal] = useState(false);
+
+    const loadCategories = () => {
+        fetchCategories(auth.token) // Asegúrate de pasar el token correcto
+            .then((data) => {
+                setFilterCategories(data); // Actualiza el estado con las nuevas categorías
+            })
+            .catch((err) => console.error(err));
+    };
 
     useEffect(() =>{
         let filtered = categories.filter((cat) => {
@@ -25,13 +36,29 @@ const Category = ({ categories, getCategory }) => {
         setFilterCategories(filtered);
     }, [search, sort ,categories]);
 
+    const handleCategoryNewClick = (e) => {
+        e.stopPropagation();
+        setShowCategoryNewModal(true);
+      };
+
+      const handleCloseModal = () => {
+        setShowCategoryNewModal(false);
+        
+      };
+
     return (
         <div className={styles.containerCategory}>
             {auth ?
             <div className={styles.wrapperCategory}>
-                <Link to="/category/new" className={styles.btnSuccess}>
+                <Link className={styles.btnSuccess} onClick={handleCategoryNewClick}>
                     Nueva Categoria
                 </Link>
+                <CategoryNewModal
+                show={showCategoryNewModal}
+                onHide={handleCloseModal}
+                onCategoryCreated={loadCategories}
+                // categoryId={category._id}
+                />
                 <div className={styles.searchContainer}>
                     <input type="search" className={styles.formControl} placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                     <div className={styles.containerIcon}>
