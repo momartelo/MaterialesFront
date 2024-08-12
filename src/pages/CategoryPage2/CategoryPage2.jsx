@@ -21,7 +21,10 @@ function CategoryPage2 () {
     return(
         <div className={styles.containerCategoryPage}>
             <Navbar />
+            <div className={styles.containerTitle}>
+            <img src="../../../public/img/categoria.png" alt="" />
             <h2>Categorias</h2>
+            </div>
             <main className={styles.main}>
                 <Category getCategory={getCategory} categories={categories} />
             </main>

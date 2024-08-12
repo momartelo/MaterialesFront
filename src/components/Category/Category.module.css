@@ -59,7 +59,12 @@
   justify-content: center;
 }
 
-.searchIcon {
+.containerIcon > img {
+  width: 28px;
+  
+}
+
+/* .searchIcon {
 font-size: 1.5rem;
   color: #aaa;
   height: 35px;
@@ -69,7 +74,7 @@ font-size: 1.5rem;
 .containerIcon .searchIcon:hover {
   color: #20ad00;
   cursor: pointer;
-}
+} */
 
 .containerItem {
   display: flex;

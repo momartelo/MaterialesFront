@@ -60,22 +60,24 @@ const DeleteMaterialModal = ({
       onClick={handleModalClick}
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title>Eliminar Material</Modal.Title>
+      <Modal.Header closeButton className={styles.modalHeader}>
+        <Modal.Title className={styles.modalTitle}>
+          <img src="../../../public/img/advertencia.png" alt="" />
+          <p> Eliminar Material</p>
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <p>
-          ¿Está seguro de que desea eliminar el material "{nombre}"? Esta acción
-          no se puede deshacer.
-        </p>
+      <Modal.Body className={styles.containerModalBody}>
+        <p>¿Está seguro de que desea eliminar el material <strong>"{nombre}"</strong>? </p>
+        <p>¡Esta acción no se puede deshacer!!!</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancelar
-        </Button>
-        <Button variant="danger" onClick={handleDelete}>
+      <button className={styles.buttonDelete} onClick={handleDelete}>
           Eliminar
-        </Button>
+        </button>
+        <button className={styles.buttonBack} onClick={handleClose}>
+          Cancelar
+        </button>
+
       </Modal.Footer>
     </Modal>
   );

@@ -348,8 +348,8 @@ const MaterialUpdate = () => {
           </div>
           <div className={styles.containerData}>
             <div className={styles.containerTitleUpdate}>
-              <img src="/img/actualizarRellenoCuadrado.png" alt="" />
-              <h2>Actualizar material:</h2>
+              <img src="../../../public/img/editar-archivo2.png" alt="" />
+              <h2>Editar</h2> <h2>Material:</h2>
             </div>
             <div className={styles.containerNameUpdate}>
               <h3>{material.name}</h3>

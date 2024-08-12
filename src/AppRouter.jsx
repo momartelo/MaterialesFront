@@ -17,6 +17,7 @@ import MaterialPageBySub2 from "./pages/MaterialPageBySub2/MaterialPageBySub2";
 import MaterialDescription from "./pages/MaterialDescription/MaterialDescription";
 import MaterialUpdate from "./pages/MaterialUpdate/MaterialUpdate";
 import SubcategoryPage from "./pages/SubcategoryPage/SubcategoryPage";
+import UnitPage from "./pages/UnitPage/UnitPage";
 
 function AppRouter() {
   return (
@@ -27,6 +28,7 @@ function AppRouter() {
         {/* <Route path="/category/new" element={<CategoryNew />} /> */}
         <Route path="/category" element={<CategoryPage2 />} />
         <Route path="/subcategory" element={<SubcategoryPage />} />
+        <Route path="/unit" element={<UnitPage />} />
       </Route>
       {/*Rutas Publicas*/}
       <Route path="/login" element={<LoginForm />} />

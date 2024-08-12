@@ -1,7 +1,7 @@
 import styles from "./CategoryItem.module.css";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
-import { useCallback, useContext, useId, useState } from "react";
+import { useCallback, useContext, useEffect, useId, useState } from "react";
 import { API_URL } from "../../utils/consts";
 import DeleteCategoryModal from "../DeleteCategoryModal/DeleteCategoryModal";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -32,6 +32,8 @@ const CategoryItem = ({ category, getCategory /* onClick*/ }) => {
     setShowDeleteModal(false);
     setShowUpdateModal(false);
   };
+
+
 
   return (
     <div className={styles.item} /*onClick={onClick}*/>
@@ -97,3 +99,5 @@ const CategoryItem = ({ category, getCategory /* onClick*/ }) => {
 };
 
 export default CategoryItem;
+
+

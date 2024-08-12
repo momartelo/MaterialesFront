@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL, IMAGES_API_URL } from "../../utils/consts";
+import { API_URL} from "../../utils/consts";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../providers/ThemeProvider";
@@ -10,6 +10,7 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
+
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
@@ -23,19 +24,45 @@ const Navbar = () => {
     toggleTheme();
   };
 
-  useEffect(() => {
-    fetch(`${API_URL}/category`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`${API_URL}/category`)
+  //     .then((res) => res.json())
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch(`${API_URL}/subcategory`)
+  //     .then((res) => res.json())
+  //     .then((data) => setSubcategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+ const fetchCategories = async () => {
+    try {
+      const response = await fetch(`${API_URL}/category`);
+      const data = await response.json();
+      setCategories(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchSubcategories = async () => {
+    try {
+      const response = await fetch(`${API_URL}/subcategory`);
+      const data = await response.json();
+      setSubcategories(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    fetch(`${API_URL}/subcategory`)
-      .then((res) => res.json())
-      .then((data) => setSubcategories(data))
-      .catch((err) => console.error(err));
+    fetchCategories();
+    fetchSubcategories();
   }, []);
+
 
   const handleLogout = () => {
     logout();
@@ -241,7 +268,7 @@ const Navbar = () => {
                                   <li
                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
                                   >
-                                    <Link className={styles.linkLogo} to="#">
+                                    <Link className={styles.linkLogo} to="/unit">
                                       <p>- Unidades</p>
                                     </Link>
                                   </li>

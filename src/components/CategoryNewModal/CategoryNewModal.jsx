@@ -58,6 +58,7 @@ const CategoryNewModal = ({
                 setShowModal(true);
             }
             handleClose()
+            navigate(0)
 
         })
         .catch(()=>{
@@ -83,10 +84,15 @@ const CategoryNewModal = ({
   return (
     <Modal show={show} onHide={handleClose} className={styles.containerModal}  onClick={handleModalClick} centered>
         <Modal.Header closeButton className={styles.modalHeader}>
-        <Modal.Title className={styles.modalTitle}>Crear una nueva categoria</Modal.Title>
+        <Modal.Title className={styles.modalTitle}>
+            <img src="../../../public/img/nuevo-documento.png" alt="" />
+            <div className={styles.modalTitleP}>
+            <p>Crear una nueva</p>&nbsp;<p>categoria</p>
+            </div>
+        </Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.containerModalBody}>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.formCategory}>
             <div className={styles.inputGroup}>
                 <label htmlFor={categoryId}>Categoria:</label>
                 <div className={styles.containerInput}>

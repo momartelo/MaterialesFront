@@ -30,7 +30,7 @@ const DeleteCategoryModal = ({
             }
             handleClose();
             await getCategory();
-            navigate("/category");
+            navigate(0);
         } catch (error) {
             console.error("Error al eliminar la categoria:", error);
         }
@@ -39,19 +39,22 @@ const DeleteCategoryModal = ({
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton className={styles.modalHeader}>
-                <Modal.Title className={styles.modalTitle}>Eliminar Categoria</Modal.Title>
+                <Modal.Title className={styles.modalTitle}>
+                    <img src="../../../public/img/advertencia.png" alt="" />
+                    <p> Eliminar Categoria</p>
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body className={styles.containerModalBody}>
-                <p>
-                    ¿Está seguro de que desea eliminar la categoria <strong>"{category}"</strong>? Esta acción
-                    no se puede deshacer.
-                </p>
+                <p>¿Está seguro de que desea eliminar la categoria <strong>"{category}"</strong>?</p>
+                <p> Las Subcategorias asociadas a esta categoria tambien se borraran. </p> 
+
+                <p>¡Esta acción no se puede deshacer!!!</p>
             </Modal.Body>
             <Modal.Footer>
-                <button className={styles.buttonBack} onClick={handleDelete}>
+                <button className={styles.buttonDelete} onClick={handleDelete}>
                     Eliminar
                 </button>
-                <button className={styles.buttonNew} onClick={handleClose}>
+                <button className={styles.buttonBack} onClick={handleClose}>
                     Cancelar
                 </button>
 

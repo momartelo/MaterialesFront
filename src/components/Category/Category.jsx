@@ -62,14 +62,16 @@ const Category = ({ categories, getCategory }) => {
                 <div className={styles.searchContainer}>
                     <input type="search" className={styles.formControl} placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                     <div className={styles.containerIcon}>
-                    <FaSearch className={styles.searchIcon} />
+                    <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+                    {/* <FaSearch className={styles.searchIcon} /> */}
                     </div>
                 </div>
             </div>
             :   <div className={styles.wrapperCategory}>
                     <input type="search" className={styles.formControl} placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                     <div className={styles.containerIcon}>
-                    <FaSearch className={styles.searchIcon} />
+                    <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+                    {/* <FaSearch className={styles.searchIcon} /> */}
                     </div>
                 </div>}
             <div className={styles.containerItem}>

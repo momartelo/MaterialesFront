@@ -4,6 +4,8 @@ import styles from "./Subcategory.module.css";
 import { FaSearch } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import SubcategoryItem from "../SubcategoryItem/SubcategoryItem";
+import SubcategoryNewModal from "../SubcategoryNewModal/SubcategoryNewModal";
+import { fetchSubcategories } from "../../functions/getSubcategory";
 
 const Subcategory = ({ subcategories, getSubcategory }) => {
   const [search, setSearch] = useState("");
@@ -11,6 +13,16 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
   const [filterSubcategories, setFilterSubcategories] = useState(subcategories);
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
+  const [showSubcategoryNewModal, setShowSubcategoryNewModal] = useState(false);
+
+  const loadSubcategories = () => {
+    fetchSubcategories(auth.token)
+    .then((data) => {
+      setFilterSubcategories(data);
+    })
+    .catch((err) => console.error(err));
+  };
+
 
   useEffect(() => {
     let filtered = subcategories.filter((subcat) => {
@@ -24,13 +36,24 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
     setFilterSubcategories(filtered);
   }, [search, sort, subcategories]);
 
+
+  const handleSubcategoryNewClick = (e) => {
+    e.stopPropagation();
+    setShowSubcategoryNewModal(true);
+  }
+
+  const handleCloseModal = () => {
+    setShowSubcategoryNewModal(false);
+  };
+
   return (
     <div className={styles.containerSubcategory}>
       {auth ? (
         <div className={styles.wrapperSubcategory}>
-          <Link to="/category/new" className={styles.btnSuccess}>
+          <Link className={styles.btnSuccess} onClick={handleSubcategoryNewClick}>
             Nueva Subcategoria
           </Link>
+          <SubcategoryNewModal show={showSubcategoryNewModal} onHide={handleCloseModal} onSubcategoryCreated={loadSubcategories} />
           <div className={styles.searchContainer}>
             <input
               type="search"
@@ -40,7 +63,8 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className={styles.containerIcon}>
-              <FaSearch className={styles.searchIcon} />
+            <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+              {/* <FaSearch className={styles.searchIcon} /> */}
             </div>
           </div>
         </div>
@@ -54,7 +78,8 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className={styles.containerIcon}>
-            <FaSearch className={styles.searchIcon} />
+          <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+            {/* <FaSearch className={styles.searchIcon} /> */}
           </div>
         </div>
       )}

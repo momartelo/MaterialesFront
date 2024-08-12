@@ -7,7 +7,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Select from "react-select";
 import { ClipLoader } from "react-spinners";
 
-const Material = ({ materials, getMaterial, categories, loading }) => {
+const Material = ({ materials, getMaterial, categories }) => {
   const sortId = useId();
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
@@ -16,6 +16,12 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
   const [materialsPerPage, setMaterialsPerPage] = useState(10); // Valor inicial
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   getMaterial();
+  // }, [getMaterial]);
 
   useEffect(() => {
     // Filtrar materiales por nombre
@@ -50,6 +56,7 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
 
     // Reiniciar currentPage a 1 cuando se cambian los filtros
     setCurrentPage(1);
+    setIsLoading(false);
   }, [search, sort, materials, categories]);
 
   const paginate = (pageNumber) => {
@@ -290,9 +297,9 @@ const Material = ({ materials, getMaterial, categories, loading }) => {
           </div>
         </div>
       </div>
-      {loading ? (
+      {isLoading ? (
         <div className={styles.loaderContainer}>
-          <ClipLoader size={50} color={"#123abc"} loading={loading} />
+          {/* <ClipLoader size={50} color={"#123abc"} loading={isLoading} /> */}
         </div>
       ) : (
         <>

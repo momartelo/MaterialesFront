@@ -51,7 +51,7 @@ const UpdateSubcategoryModal = ({
             formRef.current.reset();
             handleClose();
             await getSubcategory();
-            navigate("/subcategory");
+            navigate(0);
         } catch (error) {
             console.error("Error al actualizar la subcategoria", error);
         }
@@ -66,21 +66,22 @@ const UpdateSubcategoryModal = ({
     > 
     <Modal.Header closeButton className={styles.modalHeader}>
         <Modal.Title className={styles.modalTitle}>
-            Subcategorias
+            <img src="../../../public/img/editar-documento.png" alt="" />
+            <p>Subcategorias</p>
         </Modal.Title>
     </Modal.Header>
     <Modal.Body className={styles.containerModalBody}>
         <div className={styles.modalBody}>
             <div className={styles.modalBodyTitle}>
-                <img
+                {/* <img
                     src="../../../public/img/actualizarRellenoCuadrado.png"
                     alt=""
-                />
-                <h2>Actualizar Subcategoria</h2>
+                /> */}
+                <h2>Editar Subcategoria</h2>
             </div>
             <form ref={formRef} onSubmit={handleSubmit}>
                 <div className={styles.formSubcategory}>
-                    <label>Subcategoria: </label>
+                    {/* <label>Subcategoria: </label> */}
                     <input type="text" name="subcategory" value={subcategoryValue} onChange={(e) => setSubcategoryValue(e.target.value)} required />
                 </div>
                 <div className={styles.containerButtons}>

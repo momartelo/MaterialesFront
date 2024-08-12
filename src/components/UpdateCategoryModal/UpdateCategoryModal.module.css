@@ -9,7 +9,23 @@
 }
 
 .modalTitle{
-    color: #111;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1rem;
+    align-items: center;
+}
+
+.modalTitle > h2{
+    margin: 0;
+    }
+
+.modalTitle > img{
+    height: 40px;
+}
+
+.modalTitle > p{
+    margin: 0;
 }
 
 .modalHeader > button{
@@ -35,6 +51,7 @@
 
 .modalBodyTitle > h2{
     margin: 0;
+    font-size: 1.5rem;
     }
 
 .modalBodyTitle > img{
@@ -44,10 +61,6 @@
 .formCategory {
     display: flex;
     flex-direction: column;
-}
-
-form{
-    background-color: white;
 }
 
 .formCategory > label{

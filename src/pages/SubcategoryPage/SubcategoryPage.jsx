@@ -21,7 +21,10 @@ function SubcategoryPage() {
   return (
     <div className={styles.containerSubcategoryPage}>
       <Navbar />
+      <div className={styles.containerTitle}>
+      <img src="../../../public/img/categoria.png" alt="" />
       <h2>Subcategorias</h2>
+      </div>
       <main className={styles.main}>
         <Subcategory
           getSubcategory={getSubcategory}

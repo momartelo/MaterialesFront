@@ -45,7 +45,7 @@ const UpdateCategoryModal = ({
       formRef.current.reset();
       handleClose();
       await getCategory();
-      navigate("/category");
+      navigate(0);
     } catch (error) {
       console.error("Error al actualizar la categoria:", error);
     }
@@ -63,20 +63,23 @@ const UpdateCategoryModal = ({
       centered
     >
       <Modal.Header closeButton className={styles.modalHeader}>
-        <Modal.Title className={styles.modalTitle}>Categorias</Modal.Title>
+        <Modal.Title className={styles.modalTitle}>
+          <img src="../../../public/img/editar-documento.png" alt="" />
+          <p>Categorias</p>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles.containerModalBody}>
         <div className={styles.modalBody}>
           <div className={styles.modalBodyTitle}>
-            <img
+            {/* <img
               src="../../../public/img/actualizarRellenoCuadrado.png"
               alt=""
-            />
-            <h2>Actualizar Categoria</h2>
+            /> */}
+            <h2>Editar Categoria</h2>
           </div>
           <form ref={formRef} onSubmit={handleSubmit}>
             <div className={styles.formCategory}>
-              <label>Categoria: </label>
+              {/* <label>Categoria: </label> */}
               <input
                 type="text"
                 name="category"
