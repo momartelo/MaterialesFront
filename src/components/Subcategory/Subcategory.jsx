@@ -30,9 +30,21 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
     });
 
     filtered = filtered.slice().sort((a, b) => {
-      return (a.subcategory || "").localeCompare(b.subcategory || "");
-    });
+      const subcategoryA = String(a.subcategory || "");  // Asegura que sea una cadena
+      const subcategoryB = String(b.subcategory || "");  // Asegura que sea una cadena
+      const subcategoryComparison = subcategoryA.localeCompare(subcategoryB); // Comparación ascendente
 
+      if (subcategoryComparison !== 0) {
+          return subcategoryComparison; // Si las subcategorías son diferentes, retorna esa comparación
+      }
+
+      const categoryA = String(a.category.category || "");  // Asegura que sea una cadena
+      const categoryB = String(b.category.category || "");  // Asegura que sea una cadena
+      return categoryA.localeCompare(categoryB); // Comparación ascendente por categoría
+  });
+
+    console.log(filtered)
+  
     setFilterSubcategories(filtered);
   }, [search, sort, subcategories]);
 

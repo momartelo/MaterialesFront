@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar"
 import { fetchUnitsWithoutAuth } from "../../functions/getUnit"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../providers/AuthProvider"
-import Item from "antd/es/list/Item"
+import Unit from "../../components/Unit/Unit"
 
 
 const UnitPage = () => {
@@ -27,7 +27,7 @@ const UnitPage = () => {
                 <h2>Unidades</h2>
             </div>
             <main className={styles.main}>
-                <Item getUnit={getUnit} units={units} />
+                <Unit getUnit={getUnit} units={units} />
             </main>
         </div>
     )

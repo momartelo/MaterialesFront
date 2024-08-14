@@ -9,13 +9,16 @@ import AppRouter from "./AppRouter";
 
 import AuthProvider from "./providers/AuthProvider";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import { ResponsiveProvider } from "./providers/ResponsiveContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <ThemeProvider>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <ResponsiveProvider> 
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </ResponsiveProvider>
     </ThemeProvider>
   </AuthProvider>
 );

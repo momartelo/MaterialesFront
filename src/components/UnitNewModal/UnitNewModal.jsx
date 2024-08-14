@@ -13,7 +13,7 @@ const UnitNewModal = ({ show, onUnitCreated, onHide }) => {
     const [unit, setUnit] = useState("");
     const [units, setUnits] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    cosnt [ modalMessage, setModalMessage] = useState("");
+    const [ modalMessage, setModalMessage] = useState("");
 
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);

@@ -4,6 +4,7 @@ import { fetchUnits } from "../../functions/getUnit"
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import UnitItem from "../UnitItem/UnitItem"
+import UnitNewModal from "../UnitNewModal/UnitNewModal"
 
 
 const Unit = ({units, getUnit}) => {
@@ -50,7 +51,7 @@ const Unit = ({units, getUnit}) => {
             <Link className={styles.btnSuccess} onClick={handleUnitNewClick}>
                 Nueva Unidad
             </Link>
-            // ! Falta modal
+            <UnitNewModal show={showUnitNewModal} onHide={handleCloseModal} onUnitCreated={loadUnits} />
             <div className={styles.searchContainer}>
                 <input type="search" className={styles.formControl} placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                 <div className={styles.containerIcon}>

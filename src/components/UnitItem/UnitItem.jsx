@@ -3,6 +3,8 @@ import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi"
 import { AuthContext } from "../../providers/AuthProvider"
 import { useContext, useId, useState } from "react"
 import { Link } from "react-router-dom"
+import UpdateUnitModal from "../UpdateUnitModal/UpdateUnitModal"
+import DeleteUnitModal from "../DeleteUnitModal/DeleteUnitModal"
 
 
 const UnitItem = ({ unit, getUnit }) => {
@@ -43,7 +45,8 @@ const UnitItem = ({ unit, getUnit }) => {
                         <HiOutlineTrash/>
                     </div>
                 </Link>
-                //!! Aca van Los Modales Edit y Update
+                <UpdateUnitModal show={showUpdateModal} onHide={handleCloseModal} getUnit={async () => { await getUnit();}} unitId={unit._id} unit={unit.unit}/>
+                <DeleteUnitModal show={showDeleteModal} onHide={handleCloseModal} getUnit={async () => { await getUnit();}} unitId={unit._id} unit={unit.unit}/>
             </div>
         ) : (
             <div className={styles.containerIcons}></div>
