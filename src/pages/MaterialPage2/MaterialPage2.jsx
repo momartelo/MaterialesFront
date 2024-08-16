@@ -47,7 +47,10 @@ function MaterialPage2() {
   return (
     <div className={styles.containerMaterialPage}>
       <Navbar />
-      <h2>Materiales</h2>
+      <div className={styles.containerTitle}>
+        <img src="../../../public/img/categoria.png" alt="" />
+        <h2>Materiales</h2>
+      </div>
       <main className={styles.mainMaterialPage}>
         {loading || !minLoadingTimeElapsed ? ( // Muestra el loader si está cargando o no ha pasado el tiempo mínimo
           <div className={styles.loaderContainer}>

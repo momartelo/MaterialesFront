@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import styles from "./HomePage.module.css";
 import { useTheme } from "../../providers/ThemeProvider";
 import { useResponsive } from "../../providers/ResponsiveContext";
+import Footer from "../../components/Footer/Footer";
 
 function HomePage() {
   const { isNightMode } = useTheme();
@@ -28,6 +29,7 @@ function HomePage() {
             el valor a pesos, dolares o euros de acuardo a la cotizacion del
             dia.
           </p>
+          <Footer />
         </div>
       )}
       {isDesktopHD && (
@@ -47,6 +49,7 @@ function HomePage() {
             el valor a pesos, dolares o euros de acuardo a la cotizacion del
             dia.
           </p>
+          <Footer />
         </div>
       )}
       {isTablet && (
@@ -66,6 +69,7 @@ function HomePage() {
             el valor a pesos, dolares o euros de acuardo a la cotizacion del
             dia.
           </p>
+          <Footer />
         </div>
       )}
     </>

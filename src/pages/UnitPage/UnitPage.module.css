@@ -9,10 +9,9 @@
   height: 100%;
   min-height: 100vh;
   width: 100%;
-
 }
 
-.containerTitle{
+.containerTitle {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,7 +19,7 @@
   margin: 20px 0;
 }
 
-.containerTitle> img{
+.containerTitle > img {
   width: 32px;
   height: 32px;
 }
@@ -34,7 +33,14 @@
   font-weight: 600;
 }
 
-
 .main {
   width: 100%;
+  margin-top: 20px;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 }

@@ -325,7 +325,9 @@ const Material = ({ materials, getMaterial, categories }) => {
             ) : (
               <div className={styles.containerNoShow}>
                 <img src="../../../public/img/archivo.png" alt="" />
-                <p>¡No hay Materiales que mostrar!!!</p>
+                <p>¡No hay </p>
+                <p>&nbsp;Materiales</p>
+                <p>&nbsp;creados!!!</p>
                 <img src="../../../public/img/archivo.png" alt="" />
               </div>
             )}

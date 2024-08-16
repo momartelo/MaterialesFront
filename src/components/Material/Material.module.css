@@ -2,16 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
-.containerVarSearch{
+.containerVarSearch {
   display: flex;
   flex-direction: row;
   width: 70%;
   column-gap: 0.5rem;
 }
 
-.addMaterialContainer{
+.addMaterialContainer {
   width: 20%;
   height: 40px;
 }
@@ -71,7 +72,7 @@
   cursor: pointer;
 }
 
-.containerActions{
+.containerActions {
   display: flex;
   flex-direction: row;
   width: 30%;
@@ -79,17 +80,15 @@
   column-gap: 0.5rem;
 }
 
-.sortSelect{
+.sortSelect {
   width: 65%;
   height: 40px;
 }
 
-.itemsPerPage{
+.itemsPerPage {
   width: 35%;
   height: 40px;
 }
-
-
 
 .subcontainerMaterial {
   display: flex;
@@ -98,7 +97,6 @@
   justify-content: center;
   column-gap: 10px;
 }
-
 
 .containerItem {
   display: flex;
@@ -120,22 +118,30 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding-top: 150px;
+  padding: 125px 0;
 }
 
 .containerNoShow > p {
   font-size: 1.5rem;
-  font-weight: 600;
   margin: 0;
+}
+
+.containerNoShow > p:nth-child(2) {
+  font-weight: 200;
+}
+
+.containerNoShow > p:nth-child(3) {
+  font-weight: 600;
+}
+
+.containerNoShow > p:nth-child(4) {
+  font-weight: 200;
 }
 
 .containerNoShow > img {
   width: 50px;
   margin: 0 1rem;
 }
-
-
-
 
 .containerSort {
   width: 20%;

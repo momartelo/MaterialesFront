@@ -19,7 +19,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="50%"
+          width="40%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
@@ -45,7 +45,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="45%"
+          width="35%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
@@ -71,7 +71,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="45%"
+          width="35%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
@@ -97,7 +97,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="45%"
+          width="35%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>

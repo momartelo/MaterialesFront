@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL} from "../../utils/consts";
+import { API_URL } from "../../utils/consts";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../providers/ThemeProvider";
@@ -10,7 +10,6 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
-
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
@@ -38,7 +37,7 @@ const Navbar = () => {
   //     .catch((err) => console.error(err));
   // }, []);
 
- const fetchCategories = async () => {
+  const fetchCategories = async () => {
     try {
       const response = await fetch(`${API_URL}/category`);
       const data = await response.json();
@@ -51,6 +50,10 @@ const Navbar = () => {
   const fetchSubcategories = async () => {
     try {
       const response = await fetch(`${API_URL}/subcategory`);
+
+      if (!response.ok) {
+        throw new Error("Error de red");
+      }
       const data = await response.json();
       setSubcategories(data);
     } catch (err) {
@@ -62,7 +65,6 @@ const Navbar = () => {
     fetchCategories();
     fetchSubcategories();
   }, []);
-
 
   const handleLogout = () => {
     logout();
@@ -80,16 +82,12 @@ const Navbar = () => {
   const getAvatarImageUrl = (gender) => {
     switch (gender) {
       case "MASC":
-        console.log("Seleccionado avatar masculino");
         return "/avatars/avatar-hombre.png";
       case "FEM":
-        console.log("Seleccionado avatar femenino");
         return "/avatars/avatar-mujer.png";
       case "NO-BIN":
-        console.log("Seleccionado avatar no binario");
         return "/avatars/avatar-no-binario.png";
       default:
-        console.log("Seleccionado avatar por defecto");
         return "/avatars/avatarBordeNegro.png";
     }
   };
@@ -147,7 +145,17 @@ const Navbar = () => {
                       >
                         {categories.length === 0 ? (
                           <div className={styles.noCategories}>
-                            <p>No hay categorias existentes</p>
+                            <img
+                              src="../../../public/img/bandeja-de-entrada-vacia.png"
+                              alt=""
+                            />
+                            <p>¡¡¡No hay materiales existentes!!!</p>
+                            {/* <Link
+                              className={styles.buttonNewMaterial}
+                              to={"/material/new"}
+                            >
+                              Crear Material
+                            </Link> */}
                           </div>
                         ) : (
                           <div className={styles.menuRow}>
@@ -250,6 +258,16 @@ const Navbar = () => {
                                   >
                                     <Link
                                       className={styles.linkLogo}
+                                      to="/material"
+                                    >
+                                      <p>- Materiales</p>
+                                    </Link>
+                                  </li>
+                                  <li
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                  >
+                                    <Link
+                                      className={styles.linkLogo}
                                       to="/category"
                                     >
                                       <p>- Categorias</p>
@@ -268,7 +286,10 @@ const Navbar = () => {
                                   <li
                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
                                   >
-                                    <Link className={styles.linkLogo} to="/unit">
+                                    <Link
+                                      className={styles.linkLogo}
+                                      to="/unit"
+                                    >
                                       <p>- Unidades</p>
                                     </Link>
                                   </li>

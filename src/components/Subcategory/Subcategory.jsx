@@ -17,12 +17,11 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
 
   const loadSubcategories = () => {
     fetchSubcategories(auth.token)
-    .then((data) => {
-      setFilterSubcategories(data);
-    })
-    .catch((err) => console.error(err));
+      .then((data) => {
+        setFilterSubcategories(data);
+      })
+      .catch((err) => console.error(err));
   };
-
 
   useEffect(() => {
     let filtered = subcategories.filter((subcat) => {
@@ -30,29 +29,26 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
     });
 
     filtered = filtered.slice().sort((a, b) => {
-      const subcategoryA = String(a.subcategory || "");  // Asegura que sea una cadena
-      const subcategoryB = String(b.subcategory || "");  // Asegura que sea una cadena
+      const subcategoryA = String(a.subcategory || ""); // Asegura que sea una cadena
+      const subcategoryB = String(b.subcategory || ""); // Asegura que sea una cadena
       const subcategoryComparison = subcategoryA.localeCompare(subcategoryB); // Comparación ascendente
 
       if (subcategoryComparison !== 0) {
-          return subcategoryComparison; // Si las subcategorías son diferentes, retorna esa comparación
+        return subcategoryComparison; // Si las subcategorías son diferentes, retorna esa comparación
       }
 
-      const categoryA = String(a.category.category || "");  // Asegura que sea una cadena
-      const categoryB = String(b.category.category || "");  // Asegura que sea una cadena
+      const categoryA = String(a.category.category || ""); // Asegura que sea una cadena
+      const categoryB = String(b.category.category || ""); // Asegura que sea una cadena
       return categoryA.localeCompare(categoryB); // Comparación ascendente por categoría
-  });
+    });
 
-    console.log(filtered)
-  
     setFilterSubcategories(filtered);
   }, [search, sort, subcategories]);
-
 
   const handleSubcategoryNewClick = (e) => {
     e.stopPropagation();
     setShowSubcategoryNewModal(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setShowSubcategoryNewModal(false);
@@ -62,10 +58,17 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
     <div className={styles.containerSubcategory}>
       {auth ? (
         <div className={styles.wrapperSubcategory}>
-          <Link className={styles.btnSuccess} onClick={handleSubcategoryNewClick}>
+          <Link
+            className={styles.btnSuccess}
+            onClick={handleSubcategoryNewClick}
+          >
             Nueva Subcategoria
           </Link>
-          <SubcategoryNewModal show={showSubcategoryNewModal} onHide={handleCloseModal} onSubcategoryCreated={loadSubcategories} />
+          <SubcategoryNewModal
+            show={showSubcategoryNewModal}
+            onHide={handleCloseModal}
+            onSubcategoryCreated={loadSubcategories}
+          />
           <div className={styles.searchContainer}>
             <input
               type="search"
@@ -75,7 +78,7 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className={styles.containerIcon}>
-            <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+              <img src="../../../public/img/lupaAzulRellena.png" alt="" />
               {/* <FaSearch className={styles.searchIcon} /> */}
             </div>
           </div>
@@ -90,19 +93,29 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className={styles.containerIcon}>
-          <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+            <img src="../../../public/img/lupaAzulRellena.png" alt="" />
             {/* <FaSearch className={styles.searchIcon} /> */}
           </div>
         </div>
       )}
       <div className={styles.containerItem}>
-        {filterSubcategories.map((subcategory) => (
-          <SubcategoryItem
-            getSubcategory={getSubcategory}
-            key={subcategory._id}
-            subcategory={subcategory}
-          />
-        ))}
+        {filterSubcategories.length > 0 ? (
+          filterSubcategories.map((subcategory) => (
+            <SubcategoryItem
+              getSubcategory={getSubcategory}
+              key={subcategory._id}
+              subcategory={subcategory}
+            />
+          ))
+        ) : (
+          <div className={styles.containerNoShow}>
+            <img src="../../../public/img/archivo.png" alt="" />
+            <p>¡No hay </p>
+            <p>&nbsp;Subcategorias</p>
+            <p>&nbsp;creadas!!!</p>
+            <img src="../../../public/img/archivo.png" alt="" />
+          </div>
+        )}
       </div>
     </div>
   );
