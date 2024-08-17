@@ -7,16 +7,23 @@ import Footer from "../../components/Footer/Footer";
 
 function HomePage() {
   const { isNightMode } = useTheme();
-  const { isDesktopHD, isDesktopFullHD, isTablet, isMobile } = useResponsive();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
   return (
     <>
+      <Navbar />
       {isDesktopFullHD && (
         <div
           className={`${styles.containerFullHD} ${
             isNightMode ? styles.nightMode : styles.dayMode
           }`}
         >
-          <Navbar />
           <CarouselComponent />
           <div className={styles.containerFullHDTitle}>
             <h1>Sistema de Materiales</h1>
@@ -29,7 +36,6 @@ function HomePage() {
             el valor a pesos, dolares o euros de acuardo a la cotizacion del
             dia.
           </p>
-          <Footer />
         </div>
       )}
       {isDesktopHD && (
@@ -38,18 +44,42 @@ function HomePage() {
             isNightMode ? styles.nightMode : styles.dayMode
           }`}
         >
-          <Navbar />
-          <CarouselComponent />
-          <h1>Sistema de Materiales</h1>
-          <p>
-            En este sistema tendremos una base de datos de materiales de obras
-            donde se puedan ver precios, agregar materiales, actualizar, ver
-            historial de precios. Los materiales se cargaran el la moneda que
-            cotize el proveedor y a partir de alli la base se encargara de pasar
-            el valor a pesos, dolares o euros de acuardo a la cotizacion del
-            dia.
-          </p>
-          <Footer />
+          <div className={styles.containerCarousel}>
+            <CarouselComponent />
+          </div>
+          <div className={styles.textsHD}>
+            <h1>Sistema de Materiales</h1>
+            <p>
+              En este sistema tendremos una base de datos de materiales de obras
+              donde se puedan ver precios, agregar materiales, actualizar, ver
+              historial de precios. Los materiales se cargaran el la moneda que
+              cotize el proveedor y a partir de alli la base se encargara de
+              pasar el valor a pesos, dolares o euros de acuardo a la cotizacion
+              del dia.
+            </p>
+          </div>
+        </div>
+      )}
+      {isTabletHD && (
+        <div
+          className={`${styles.containerTabletHD} ${
+            isNightMode ? styles.nightMode : styles.dayMode
+          }`}
+        >
+          <div className={styles.containerCarousel}>
+            <CarouselComponent />
+          </div>
+          <div className={styles.textsTabletHD}>
+            <h1>Sistema de Materiales</h1>
+            <p>
+              En este sistema tendremos una base de datos de materiales de obras
+              donde se puedan ver precios, agregar materiales, actualizar, ver
+              historial de precios. Los materiales se cargaran el la moneda que
+              cotize el proveedor y a partir de alli la base se encargara de
+              pasar el valor a pesos, dolares o euros de acuardo a la cotizacion
+              del dia.
+            </p>
+          </div>
         </div>
       )}
       {isTablet && (
@@ -58,7 +88,28 @@ function HomePage() {
             isNightMode ? styles.nightMode : styles.dayMode
           }`}
         >
-          <Navbar />
+          <div className={styles.containerCarouselTablet}>
+            <CarouselComponent />
+          </div>
+          <div className={styles.textsTablet}>
+            <h1>Sistema de Materiales</h1>
+            <p>
+              En este sistema tendremos una base de datos de materiales de obras
+              donde se puedan ver precios, agregar materiales, actualizar, ver
+              historial de precios. Los materiales se cargaran el la moneda que
+              cotize el proveedor y a partir de alli la base se encargara de
+              pasar el valor a pesos, dolares o euros de acuardo a la cotizacion
+              del dia.
+            </p>
+          </div>
+        </div>
+      )}
+      {isMobile && (
+        <div
+          className={`${styles.containerTablet} ${
+            isNightMode ? styles.nightMode : styles.dayMode
+          }`}
+        >
           <CarouselComponent />
           <h1>Sistema de Materiales</h1>
           <p>
@@ -69,9 +120,9 @@ function HomePage() {
             el valor a pesos, dolares o euros de acuardo a la cotizacion del
             dia.
           </p>
-          <Footer />
         </div>
       )}
+      <Footer />
     </>
   );
 }

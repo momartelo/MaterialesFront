@@ -6,7 +6,14 @@ import styles from "./CarouselComponent.module.css";
 import { useResponsive } from "../../providers/ResponsiveContext";
 
 const CarouselComponent = () => {
-  const { isDesktopHD, isDesktopFullHD, isTablet, isMobile } = useResponsive();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobileLandscape,
+    isMobile,
+  } = useResponsive();
 
   return (
     <div className={styles.carouselContainer}>
@@ -19,7 +26,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="40%"
+          width="55%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
@@ -45,7 +52,33 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="35%"
+          // width="60%"
+          axis="horizontal"
+        >
+          <div className={styles.carouselImages}>
+            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <p className="legend">Emisario Submarino</p>
+          </div>
+          <div className={styles.carouselImages}>
+            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <p className="legend">Planta EDAR</p>
+          </div>
+          <div className={styles.carouselImages}>
+            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <p className="legend">Cisterna Tucuman y Almafuerte</p>
+          </div>
+        </Carousel>
+      )}
+      {isTabletHD && (
+        <Carousel
+          showThumbs={false}
+          showStatus={false}
+          infiniteLoop={true}
+          autoPlay={true}
+          interval={3000}
+          stopOnHover={true}
+          showArrows={true}
+          // width="35%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
@@ -71,7 +104,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="35%"
+          // width="35%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>

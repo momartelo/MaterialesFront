@@ -4,18 +4,31 @@ import { useMediaQuery } from "react-responsive";
 const ResponsiveContext = createContext();
 
 export const ResponsiveProvider = ({ children }) => {
-  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 480px)" });
+  const isMobileLandscape = useMediaQuery({
+    query: "(min-width: 481px) and (max-width: 767px)",
+  });
   const isTablet = useMediaQuery({
-    query: "(min-width: 768px) and (max-width: 1279px)",
+    query: "(min-width: 768px) and (max-width: 1023px)",
+  });
+  const isTabletHD = useMediaQuery({
+    query: "(min-width: 1024px) and (max-width: 1279px)",
   });
   const isDesktopHD = useMediaQuery({
-    query: "(min-width: 1280px) and (max-width: 1360px)",
+    query: "(min-width: 1280px) and (max-width: 1440px)",
   });
-  const isDesktopFullHD = useMediaQuery({ query: "(min-width: 1361px)" });
+  const isDesktopFullHD = useMediaQuery({ query: "(min-width: 1441px)" });
 
   return (
     <ResponsiveContext.Provider
-      value={{ isMobile, isTablet, isDesktopHD, isDesktopFullHD }}
+      value={{
+        isMobile,
+        isMobileLandscape,
+        isTablet,
+        isTabletHD,
+        isDesktopHD,
+        isDesktopFullHD,
+      }}
     >
       {children}
     </ResponsiveContext.Provider>
@@ -26,14 +39,3 @@ export const ResponsiveProvider = ({ children }) => {
 export const useResponsive = () => {
   return useContext(ResponsiveContext);
 };
-
-// Breakpoints más detallados:
-// Algunos desarrolladores utilizan breakpoints más específicos para adaptar el contenido a diferentes dispositivos y orientaciones de pantalla:
-
-// 320px: Dispositivos móviles pequeños.
-// 480px: Teléfonos móviles en general.
-// 768px: Tablets y teléfonos en modo horizontal.
-// 1024px: Tablets grandes, dispositivos híbridos.
-// 1200px: Laptops y monitores pequeños.
-// 1440px: Monitores de escritorio.
-// 1600px: Monitores grandes y pantallas de alta resolución.
