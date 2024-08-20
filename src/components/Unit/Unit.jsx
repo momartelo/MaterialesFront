@@ -62,7 +62,7 @@ const Unit = ({ units, getUnit }) => {
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className={styles.containerIcon}>
-              <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+              <img src="/img/lupaAzulRellena.png" alt="" />
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ const Unit = ({ units, getUnit }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className={styles.containerIcon}>
-            <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+            <img src="/img/lupaAzulRellena.png" alt="" />
           </div>
         </div>
       )}
@@ -87,11 +87,11 @@ const Unit = ({ units, getUnit }) => {
           ))
         ) : (
           <div className={styles.containerNoShow}>
-            <img src="../../../public/img/archivo.png" alt="" />
+            <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>
             <p>&nbsp;Unidades</p>
             <p>&nbsp;creadas!!!</p>
-            <img src="../../../public/img/archivo.png" alt="" />
+            <img src="/img/archivo.png" alt="" />
           </div>
         )}
       </div>

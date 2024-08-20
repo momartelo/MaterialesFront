@@ -5,7 +5,7 @@ import { API_URL } from "../../utils/consts";
 import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
-import {fetchCategoriesWithoutAuth } from "../../functions/getCategory";
+import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 
 function MaterialPageFiltered2() {
   const { categoryId } = useParams();
@@ -76,10 +76,10 @@ function MaterialPageFiltered2() {
       <Navbar />
       <h2>Materiales</h2>
       {category ? (
-          <div className={styles.containerCategoryText}> 
-          <img src="../../../public/img/flecha-correcta.png" alt="" />
-            <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
-          </div>
+        <div className={styles.containerCategoryText}>
+          <img src="/img/flecha-correcta.png" alt="" />
+          <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
+        </div>
       ) : (
         <h3>Cargando categoria....</h3>
       )}

@@ -350,7 +350,7 @@ const MaterialUpdate = () => {
           </div>
           <div className={styles.containerData}>
             <div className={styles.containerTitleUpdate}>
-              <img src="../../../public/img/editar-archivo2.png" alt="" />
+              <img src="/img/editar-archivo2.png" alt="" />
               <h2>Editar</h2> <h2>Material:</h2>
             </div>
             <div className={styles.containerNameUpdate}>
@@ -433,7 +433,7 @@ const MaterialUpdate = () => {
               <ul className={styles.ulHistoryPrices}>
                 {historyPrices.map((priceEntry, index) => (
                   <li key={index} className={styles.liHistoryContainer}>
-                    <img src="../../../public/img/delantero.png" alt="" />
+                    <img src="/img/delantero.png" alt="" />
                     <span className={styles.dateLiHistoryPrice}>
                       {new Date(priceEntry.fecha).toLocaleDateString("es-ES", {
                         timeZone: "UTC", // Asegúrate de ajustar la zona horaria

@@ -87,14 +87,14 @@ const Footer = () => {
           <Link to={"https://www.facebook.com/ossemgp"} target="_blank">
             <img
               className={getIconFacebookClass()}
-              src="../../../public/img/facebook.png"
+              src="/img/facebook.png"
               alt="Facebook"
             />
           </Link>
           <Link to={"https://www.instagram.com/ossemgp/?hl=es"} target="_blank">
             <img
               className={getIconInstagramClass()}
-              src="../../../public/img/instagramNegro.png"
+              src="/img/instagramNegro.png"
               alt="Instagram"
             />
           </Link>
@@ -104,14 +104,14 @@ const Footer = () => {
           >
             <img
               className={getIconYoutubeClass()}
-              src="../../../public/img/youtube.png"
+              src="/img/youtube.png"
               alt="YouTube"
             />
           </Link>
           <Link to={"https://x.com/prensaosse"} target="_blank">
             <img
               className={getIconXClass()}
-              src="../../../public/img/xTransparente.png"
+              src="/img/xTransparente.png"
               alt="X"
             />
           </Link>
@@ -121,7 +121,7 @@ const Footer = () => {
           >
             <img
               className={getIconLinkedinClass()}
-              src="../../../public/img/linkedinNegro.png"
+              src="/img/linkedinNegro.png"
               alt="LinkedIn"
             />
           </Link>

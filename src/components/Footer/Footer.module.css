@@ -151,23 +151,23 @@
 }
 
 .iconFacebookLarge:hover {
-  content: url(../../../public/img/facebookAzul.png);
+  content: url(/img/facebookAzul.png);
 }
 
 .iconInstagramLarge:hover {
-  content: url(../../../public//img/instagram.png);
+  content: url(/img/instagram.png);
 }
 
 .iconYoutubeLarge:hover {
-  content: url(../../../public/img/youtubeColor.png);
+  content: url(/img/youtubeColor.png);
 }
 
 .iconXLarge:hover {
-  content: url(../../../public/img/xNegro.png);
+  content: url(/img/xNegro.png);
 }
 
 .iconLinkedinLarge:hover {
-  content: url(../../../public/img/linkedin.png);
+  content: url(/img/linkedin.png);
 }
 
 .iconFacebookMedium,
@@ -180,23 +180,23 @@
 }
 
 .iconFacebookMedium:hover {
-  content: url(../../../public/img/facebookAzul.png);
+  content: url(/img/facebookAzul.png);
 }
 
 .iconInstagramMedium:hover {
-  content: url(../../../public//img/instagram.png);
+  content: url(/img/instagram.png);
 }
 
 .iconYoutubeMedium:hover {
-  content: url(../../../public/img/youtubeColor.png);
+  content: url(/img/youtubeColor.png);
 }
 
 .iconXMedium:hover {
-  content: url(../../../public/img/xNegro.png);
+  content: url(/img/xNegro.png);
 }
 
 .iconLinkedinMedium:hover {
-  content: url(../../../public/img/linkedin.png);
+  content: url(/img/linkedin.png);
 }
 
 .iconFacebookSmall,
@@ -209,21 +209,21 @@
 }
 
 .iconFacebookSmall:hover {
-  content: url(../../../public/img/facebookAzul.png);
+  content: url(/img/facebookAzul.png);
 }
 
 .iconInstagramSmall:hover {
-  content: url(../../../public//img/instagram.png);
+  content: url(/img/instagram.png);
 }
 
 .iconYoutubeSmall:hover {
-  content: url(../../../public/img/youtubeColor.png);
+  content: url(/img/youtubeColor.png);
 }
 
 .iconXSmall:hover {
-  content: url(../../../public/img/xNegro.png);
+  content: url(/img/xNegro.png);
 }
 
 .iconLinkedinSmall:hover {
-  content: url(../../../public/img/linkedin.png);
+  content: url(/img/linkedin.png);
 }

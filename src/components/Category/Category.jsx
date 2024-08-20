@@ -67,7 +67,7 @@ const Category = ({ categories, getCategory }) => {
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className={styles.containerIcon}>
-              <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+              <img src="/img/lupaAzulRellena.png" alt="" />
               {/* <FaSearch className={styles.searchIcon} /> */}
             </div>
           </div>
@@ -82,7 +82,7 @@ const Category = ({ categories, getCategory }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className={styles.containerIcon}>
-            <img src="../../../public/img/lupaAzulRellena.png" alt="" />
+            <img src="/img/lupaAzulRellena.png" alt="" />
             {/* <FaSearch className={styles.searchIcon} /> */}
           </div>
         </div>
@@ -98,11 +98,11 @@ const Category = ({ categories, getCategory }) => {
           ))
         ) : (
           <div className={styles.containerNoShow}>
-            <img src="../../../public/img/archivo.png" alt="" />
+            <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>
             <p>&nbsp;Categorias</p>
             <p>&nbsp;creadas!!!</p>
-            <img src="../../../public/img/archivo.png" alt="" />
+            <img src="/img/archivo.png" alt="" />
           </div>
         )}
       </div>

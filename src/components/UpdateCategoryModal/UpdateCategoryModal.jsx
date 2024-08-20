@@ -64,7 +64,7 @@ const UpdateCategoryModal = ({
     >
       <Modal.Header closeButton className={styles.modalHeader}>
         <Modal.Title className={styles.modalTitle}>
-          <img src="../../../public/img/editar-documento.png" alt="" />
+          <img src="/img/editar-documento.png" alt="" />
           <p>Categorias</p>
         </Modal.Title>
       </Modal.Header>

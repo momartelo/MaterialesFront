@@ -41,7 +41,7 @@ function CategoryPage2() {
     <div className={styles.containerCategoryPage}>
       <Navbar />
       <div className={styles.containerTitle}>
-        <img src="../../../public/img/categoria.png" alt="" />
+        <img src="/img/categoria.png" alt="" />
         <h2>Categorias</h2>
       </div>
       <main className={styles.main}>

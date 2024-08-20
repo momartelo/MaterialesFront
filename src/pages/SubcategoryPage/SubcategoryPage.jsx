@@ -41,7 +41,7 @@ function SubcategoryPage() {
     <div className={styles.containerSubcategoryPage}>
       <Navbar />
       <div className={styles.containerTitle}>
-        <img src="../../../public/img/categoria.png" alt="" />
+        <img src="/img/categoria.png" alt="" />
         <h2>Subcategorias</h2>
       </div>
       <main className={styles.main}>

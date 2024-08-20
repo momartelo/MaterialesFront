@@ -30,15 +30,15 @@ const CarouselComponent = () => {
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <img src="/img/imagen1.jpg" alt="Slide 1" />
             <p className="legend">Emisario Submarino</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <img src="/img/imagen2.jpg" alt="Slide 2" />
             <p className="legend">Planta EDAR</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <img src="/img/Imagen3.jpg" alt="Slide 3" />
             <p className="legend">Cisterna Tucuman y Almafuerte</p>
           </div>
         </Carousel>
@@ -56,15 +56,15 @@ const CarouselComponent = () => {
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <img src="/img/imagen1.jpg" alt="Slide 1" />
             <p className="legend">Emisario Submarino</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <img src="/img/imagen2.jpg" alt="Slide 2" />
             <p className="legend">Planta EDAR</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <img src="/img/Imagen3.jpg" alt="Slide 3" />
             <p className="legend">Cisterna Tucuman y Almafuerte</p>
           </div>
         </Carousel>
@@ -82,15 +82,15 @@ const CarouselComponent = () => {
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <img src="/img/imagen1.jpg" alt="Slide 1" />
             <p className="legend">Emisario Submarino</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <img src="/img/imagen2.jpg" alt="Slide 2" />
             <p className="legend">Planta EDAR</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <img src="/img/Imagen3.jpg" alt="Slide 3" />
             <p className="legend">Cisterna Tucuman y Almafuerte</p>
           </div>
         </Carousel>
@@ -108,15 +108,15 @@ const CarouselComponent = () => {
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <img src="/img/imagen1.jpg" alt="Slide 1" />
             <p className="legend">Emisario Submarino</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <img src="/img/imagen2.jpg" alt="Slide 2" />
             <p className="legend">Planta EDAR</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <img src="/img/Imagen3.jpg" alt="Slide 3" />
             <p className="legend">Cisterna Tucuman y Almafuerte</p>
           </div>
         </Carousel>
@@ -134,15 +134,15 @@ const CarouselComponent = () => {
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <img src="/img/imagen1.jpg" alt="Slide 1" />
             <p className="legend">Emisario Submarino</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <img src="/img/imagen2.jpg" alt="Slide 2" />
             <p className="legend">Planta EDAR</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <img src="/img/Imagen3.jpg" alt="Slide 3" />
             <p className="legend">Cisterna Tucuman y Almafuerte</p>
           </div>
         </Carousel>
@@ -160,15 +160,15 @@ const CarouselComponent = () => {
           axis="horizontal"
         >
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen1.jpg" alt="Slide 1" />
+            <img src="/img/imagen1.jpg" alt="Slide 1" />
             <p className="legend">Emisario Submarino</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/imagen2.jpg" alt="Slide 2" />
+            <img src="/img/imagen2.jpg" alt="Slide 2" />
             <p className="legend">Planta EDAR</p>
           </div>
           <div className={styles.carouselImages}>
-            <img src="../../../public/img/Imagen3.jpg" alt="Slide 3" />
+            <img src="/img/Imagen3.jpg" alt="Slide 3" />
             <p className="legend">Cisterna Tucuman y Almafuerte</p>
           </div>
         </Carousel>

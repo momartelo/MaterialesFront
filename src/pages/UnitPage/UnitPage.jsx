@@ -41,7 +41,7 @@ const UnitPage = () => {
     <div className={styles.containerUnitPage}>
       <Navbar />
       <div className={styles.containerTitle}>
-        <img src="../../../public/img/categoria.png" alt="" />
+        <img src="/img/categoria.png" alt="" />
         <h2>Unidades</h2>
       </div>
       <main className={styles.main}>

@@ -201,15 +201,9 @@ const Navbar = () => {
                       >
                         <span>Materiales</span>
                         {isNightMode ? (
-                          <img
-                            src="../../../public/img/angulo-hacia-abajo.png"
-                            alt=""
-                          />
+                          <img src="/img/angulo-hacia-abajo.png" alt="" />
                         ) : (
-                          <img
-                            src="../../../public/img/AnguloAbajo.png"
-                            alt=""
-                          />
+                          <img src="/img/AnguloAbajo.png" alt="" />
                         )}
                       </Link>
                       <div
@@ -221,7 +215,7 @@ const Navbar = () => {
                         {categories.length === 0 ? (
                           <div className={styles.noCategories}>
                             <img
-                              src="../../../public/img/bandeja-de-entrada-vacia.png"
+                              src="/img/bandeja-de-entrada-vacia.png"
                               alt=""
                             />
                             <p>¡¡¡No hay materiales existentes!!!</p>
@@ -303,15 +297,9 @@ const Navbar = () => {
                         >
                           <span>Editar</span>
                           {isNightMode ? (
-                            <img
-                              src="../../../public/img/angulo-hacia-abajo.png"
-                              alt=""
-                            />
+                            <img src="/img/angulo-hacia-abajo.png" alt="" />
                           ) : (
-                            <img
-                              src="../../../public/img/AnguloAbajo.png"
-                              alt=""
-                            />
+                            <img src="/img/AnguloAbajo.png" alt="" />
                           )}
                         </Link>
                         <div
@@ -479,11 +467,7 @@ const Navbar = () => {
               ) : (
                 <div className={styles.containerLogin}>
                   <div className={styles.iconLogin}>
-                    <img
-                      src="../../../public/img/perfil.png"
-                      alt=""
-                      onClick={openModal}
-                    />
+                    <img src="/img/perfil.png" alt="" onClick={openModal} />
                   </div>
                 </div>
               )}

@@ -50,7 +50,7 @@ function MaterialPage2() {
       <Navbar />
       <div className={styles.containerMaterialPage}>
         <div className={styles.containerTitle}>
-          <img src="../../../public/img/categoria.png" alt="" />
+          <img src="/img/categoria.png" alt="" />
           <h2>Materiales</h2>
         </div>
         <main className={styles.mainMaterialPage}>
