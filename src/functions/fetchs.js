@@ -163,3 +163,16 @@ export const getConvertExchangeLatest = async (moneda) => {
 };
 
 // ver API dolarapi.com/
+
+export const getExchangesRates = async () => {
+  const api_URL = `https://dolarapi.com/v1/cotizaciones`;
+
+  try {
+    const response = await axios.get(api_URL);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error al obtener las cotizaciones");
+  }
+};

@@ -20,6 +20,7 @@ const MaterialUpdate = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [currency, setCurrency] = useState("");
+  const [source, setSource] = useState("");
   const [unitIdState, setUnitIdState] = useState("");
   const [categoryIdState, setCategoryIdState] = useState("");
   const [subcategoryIdState, setSubcategoryIdState] = useState("");
@@ -75,6 +76,7 @@ const MaterialUpdate = () => {
         setName(materialData.name);
         setPrice(materialData.precio.toString());
         setCurrency(materialData.moneda);
+        setSource(materialData.fuente);
         setHistoryPrices(materialData.historialPrecio);
 
         const unitResponse = await fetch(`${API_URL}/unit/`, {
@@ -212,6 +214,7 @@ const MaterialUpdate = () => {
           name: name.trim(),
           precio: parseFloat(price),
           moneda: currency,
+          fuente: source,
           unit: unitName,
           category: categoryName,
           subcategory: subcategoryName,
@@ -304,7 +307,6 @@ const MaterialUpdate = () => {
       }
 
       setShowModal(false); // Cierra el modal después de guardar
-      
     } catch (error) {
       console.error("Error al actualizar el historial de precios:", error);
     }
@@ -328,7 +330,7 @@ const MaterialUpdate = () => {
 
   const formatDollars = (amount) => {
     const numericAmount = parseFloat(amount); // Convierte a número
-    
+
     return !isNaN(numericAmount) && numericAmount !== 0
       ? (() => {
           const parts = numericAmount.toFixed(2).toString().split(".");
@@ -364,7 +366,6 @@ const MaterialUpdate = () => {
           onSave={handleSaveEditedPrice}
         />
 
-
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="image">Imagen:</label>
@@ -393,53 +394,6 @@ const MaterialUpdate = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
-          <div className={styles.historyToggleContainer}>
-          <button type="button" className={styles.buttonToggleHistory} onClick={() => setShowHistory((prev) => !prev)}>
-          {!showHistory ? (
-            <div className={styles.spanOpenContainer}>
-            <span className={styles.showHistoryText}>Mostrar Historial de Precios</span>
-            </div>
-            ) : (
-            <div className={styles.spanCloseContainer}>
-            <span className={styles.closeHistory}>X</span>
-            </div>
-            )}
-          </button>
-          </div>
-
-        {showHistory && (
-          <div className={styles.historySection}>
-            <h3>Historial de Precios</h3>
-            <ul className={styles.ulHistoryPrices}>
-              {historyPrices.map((priceEntry, index) => (
-                <li key={index} className={styles.liHistoryContainer}>
-                  <img src="../../../public/img/delantero.png" alt="" />
-                  <span className={styles.dateLiHistoryPrice}>
-                    {new Date(priceEntry.fecha).toLocaleDateString("es-ES", {
-                      timeZone: "UTC", // Asegúrate de ajustar la zona horaria
-                    })}
-                  </span>
-                  <span>-</span>
-                  <span>
-                    {priceEntry.moneda === "USD" 
-                    ? formatDollars(priceEntry.precio) 
-                    : priceEntry.moneda === "ARS" 
-                    ? formatPesos(priceEntry.precio) 
-                    : priceEntry.precio} {/* Para otras monedas, mostrar solo el precio */}
-                  </span>
-                  <button className={styles.buttonEditHistoryPrice}
-                    onClick={(e) => {
-                      e.preventDefault(); // Previene el comportamiento por defecto
-                      handleEditPrice(index); // Llama a la función de edición
-                    }}
-                  >
-                    Editar
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
           <div className={styles.inputGroup}>
             <label htmlFor="currency">Moneda:</label>
             <select
@@ -453,6 +407,62 @@ const MaterialUpdate = () => {
               <option value="ARS">ARS</option>
             </select>
           </div>
+          <div className={styles.historyToggleContainer}>
+            <button
+              type="button"
+              className={styles.buttonToggleHistory}
+              onClick={() => setShowHistory((prev) => !prev)}
+            >
+              {!showHistory ? (
+                <div className={styles.spanOpenContainer}>
+                  <span className={styles.showHistoryText}>
+                    Mostrar Historial de Precios
+                  </span>
+                </div>
+              ) : (
+                <div className={styles.spanCloseContainer}>
+                  <span className={styles.closeHistory}>X</span>
+                </div>
+              )}
+            </button>
+          </div>
+
+          {showHistory && (
+            <div className={styles.historySection}>
+              <h3>Historial de Precios</h3>
+              <ul className={styles.ulHistoryPrices}>
+                {historyPrices.map((priceEntry, index) => (
+                  <li key={index} className={styles.liHistoryContainer}>
+                    <img src="../../../public/img/delantero.png" alt="" />
+                    <span className={styles.dateLiHistoryPrice}>
+                      {new Date(priceEntry.fecha).toLocaleDateString("es-ES", {
+                        timeZone: "UTC", // Asegúrate de ajustar la zona horaria
+                      })}
+                    </span>
+                    <span>-</span>
+                    <span>
+                      {priceEntry.moneda === "USD"
+                        ? formatDollars(priceEntry.precio)
+                        : priceEntry.moneda === "ARS"
+                        ? formatPesos(priceEntry.precio)
+                        : priceEntry.precio}{" "}
+                      {/* Para otras monedas, mostrar solo el precio */}
+                    </span>
+                    <button
+                      className={styles.buttonEditHistoryPrice}
+                      onClick={(e) => {
+                        e.preventDefault(); // Previene el comportamiento por defecto
+                        handleEditPrice(index); // Llama a la función de edición
+                      }}
+                    >
+                      Editar
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* <button
               type="button"
               className={styles.buttonEditHistory}
@@ -460,6 +470,15 @@ const MaterialUpdate = () => {
             >
               Editar Historial de Precios
             </button> */}
+          <div className={styles.inputGroup}>
+            <label htmlFor="source">Fuente:</label>
+            <input
+              type="text"
+              id="source"
+              value={source}
+              onChange={(e) => setSource(e.target.value)}
+            />
+          </div>
           <div className={styles.inputGroup}>
             <label htmlFor="unit">Unidad:</label>
             <div className={styles.containerSelect}>
@@ -516,7 +535,7 @@ const MaterialUpdate = () => {
               </Link>
             </div>
           </div>
-                    <div className={styles.containerButtons}>
+          <div className={styles.containerButtons}>
             <button className={styles.buttonMaterialUpdate} type="submit">
               Actualizar
             </button>

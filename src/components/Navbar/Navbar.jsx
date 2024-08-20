@@ -11,7 +11,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { getCovertExchangePair } from "../../functions/fetchs";
+import { getExchangesRates } from "../../functions/fetchs";
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
@@ -19,12 +19,14 @@ const Navbar = () => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const { isNightMode, toggleTheme } = useTheme();
-  const [valorDolar, setValorDolar] = useState(null);
+  const [valorDolarCompra, setValorDolarCompra] = useState(null);
+  const [valorDolarVenta, setValorDolarVenta] = useState(null);
   const [fechaDolar, setFechaDolar] = useState(null);
-  const [valorEuro, setValorEuro] = useState(null);
+  const [valorEuroCompra, setValorEuroCompra] = useState(null);
+  const [valorEuroVenta, setValorEuroVenta] = useState(null);
   const [fechaEuro, setFechaEuro] = useState(null);
   const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const navigate = useNavigate();
 
   const handleChangeTheme = () => {
@@ -55,14 +57,32 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    fetchCategories(), fetchSubcategories();
+  }, []);
+
   const fetchRates = async () => {
     setLoading(true);
-    console.log("Fetching rates..."); // Esto te ayudará a verificar si la función se está ejecutando
     try {
-      const { tipo_cambio: dolar, lastUpdate: fechaActualizacionDolar } =
-        await getCovertExchangePair("USD", "ARS");
-      const { tipo_cambio: euro, lastUpdate: fechaActualizacionEuro } =
-        await getCovertExchangePair("EUR", "ARS");
+      console.log("Dentro del fetch");
+      const response = await getExchangesRates();
+      const data = response.data;
+      console.log(data);
+      const dolar = data.find((moneda) => moneda.moneda === "USD");
+      const euro = data.find((moneda) => moneda.moneda === "EUR");
+
+      const dolarCompra = dolar ? parseFloat(dolar.compra) : "No disponible";
+      const dolarVenta = dolar ? parseFloat(dolar.venta) : "No disponible";
+      const euroCompra = euro ? parseFloat(euro.compra) : "No disponible";
+      const euroVenta = euro ? parseFloat(euro.venta) : "No disponible";
+
+      const fechaCotizacionDolar = dolar
+        ? dolar.fechaActualizacion
+        : "No disponible";
+
+      const fechaCotizacionEuro = euro
+        ? euro.fechaActualizacion
+        : "No disponible";
 
       const opcionesFecha = {
         day: "2-digit",
@@ -71,34 +91,30 @@ const Navbar = () => {
       };
 
       const fechaFormateadaDolar = new Date(
-        fechaActualizacionDolar
+        fechaCotizacionDolar
       ).toLocaleDateString("es-AR", opcionesFecha);
 
       const fechaFormateadaEuro = new Date(
-        fechaActualizacionEuro
+        fechaCotizacionEuro
       ).toLocaleDateString("es-AR", opcionesFecha);
 
-      setValorDolar(dolar.toFixed(2));
+      setValorDolarCompra(dolarCompra.toFixed(2));
+      setValorDolarVenta(dolarVenta.toFixed(2));
+      setValorEuroCompra(euroCompra.toFixed(2));
+      setValorEuroVenta(euroVenta.toFixed(2));
       setFechaDolar(fechaFormateadaDolar);
-      setValorEuro(euro.toFixed(2));
       setFechaEuro(fechaFormateadaEuro);
     } catch (error) {
-      console.error("Error fetching exchanges rates", error);
+      console.error("Error fetching exchanges rates, error");
     } finally {
       setLoading(false);
+      setTimeout(() => setIsRefreshing(false), 1000);
     }
   };
 
   useEffect(() => {
-    // Llama a fetchRates cuando el componente se monte
     fetchRates();
-
-    // Establece el intervalo para actualizar las tasas
-    const intervalId = setInterval(() => {
-      fetchRates();
-    }, 43200000); // Cada 12 horas
-
-    // Limpia el intervalo cuando el componente se desmonte
+    const intervalId = setInterval(fetchRates, 43200000);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -376,30 +392,36 @@ const Navbar = () => {
             <div className={`${styles.containerIconsNav} ${styles.flex}`}>
               <div className={styles.containerExchange}>
                 <div className={styles.containerValorDolar}>
-                  <p>Dolar:</p> <p>${valorDolar}</p>
+                  <p>Dolar:</p> <p>${valorDolarVenta}</p>
                   <p>Actualizado: {fechaDolar}</p>
                   <button
                     className={styles.buttonRefresh}
-                    onClick={fetchRates}
+                    onClick={() => {
+                      setIsRefreshing(true);
+                      fetchRates();
+                    }}
                     disabled={loading}
                   >
                     <RefreshIcon
-                      className={loading ? styles.loadingIcon : ""}
+                      className={isRefreshing ? styles.loadingIcon : ""}
                       style={{ fontSize: "18px" }}
                     />
                   </button>
                 </div>
                 <div className={styles.separataExchange}></div>
                 <div className={styles.containerValorEuro}>
-                  <p>Euro:</p> <p>${valorEuro}</p>
+                  <p>Euro:</p> <p>${valorEuroVenta}</p>
                   <p>Actualizado: {fechaEuro}</p>
                   <button
                     className={styles.buttonRefresh}
-                    onClick={fetchRates}
+                    onClick={() => {
+                      setIsRefreshing(true);
+                      fetchRates();
+                    }}
                     disabled={loading}
                   >
                     <RefreshIcon
-                      className={loading ? styles.loadingIcon : ""}
+                      className={isRefreshing ? styles.loadingIcon : ""}
                       style={{ fontSize: "18px" }}
                     />
                   </button>

@@ -56,16 +56,19 @@
 .line {
   width: 33%;
   border-bottom: 1px #999 solid;
+  margin: 1rem 0; /* Espaciado alrededor de la línea */
 }
 
 .lineMobileL {
   width: 25%;
   border-bottom: 1px #999 solid;
+  margin: 1rem 0; /* Espaciado alrededor de la línea */
 }
 
 .lineMobile {
   width: 15%;
   border-bottom: 1px #999 solid;
+  margin: 1rem 0; /* Espaciado alrededor de la línea */
 }
 
 /*! container Titles */
@@ -74,7 +77,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 1rem;
   justify-content: space-between;
   width: 90%;
 }
@@ -83,7 +85,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 0.5rem;
   justify-content: space-between;
   width: 90%;
 }
@@ -92,7 +93,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0.5rem;
   justify-content: space-between;
   width: 90%;
 }

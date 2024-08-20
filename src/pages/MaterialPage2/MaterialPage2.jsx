@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { fetchMaterialsWithoutAuth } from "../../functions/getMaterial.js";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { ClipLoader, CircleLoader, FadeLoader } from "react-spinners"; // Importa el loader
+import Footer from "../../components/Footer/Footer";
 
 function MaterialPage2() {
   const [materials, setMaterials] = useState([]);
@@ -45,26 +46,29 @@ function MaterialPage2() {
   }, [getMaterial, getCategory]);
 
   return (
-    <div className={styles.containerMaterialPage}>
+    <>
       <Navbar />
-      <div className={styles.containerTitle}>
-        <img src="../../../public/img/categoria.png" alt="" />
-        <h2>Materiales</h2>
+      <div className={styles.containerMaterialPage}>
+        <div className={styles.containerTitle}>
+          <img src="../../../public/img/categoria.png" alt="" />
+          <h2>Materiales</h2>
+        </div>
+        <main className={styles.mainMaterialPage}>
+          {loading || !minLoadingTimeElapsed ? ( // Muestra el loader si está cargando o no ha pasado el tiempo mínimo
+            <div className={styles.loaderContainer}>
+              <FadeLoader color="#007bff" loading={true} size={100} />
+            </div>
+          ) : (
+            <Material
+              getMaterial={getMaterial}
+              materials={materials}
+              categories={categories}
+            />
+          )}
+        </main>
       </div>
-      <main className={styles.mainMaterialPage}>
-        {loading || !minLoadingTimeElapsed ? ( // Muestra el loader si está cargando o no ha pasado el tiempo mínimo
-          <div className={styles.loaderContainer}>
-            <FadeLoader color="#007bff" loading={true} size={100} />
-          </div>
-        ) : (
-          <Material
-            getMaterial={getMaterial}
-            materials={materials}
-            categories={categories}
-          />
-        )}
-      </main>
-    </div>
+      <Footer />
+    </>
   );
 }
 

@@ -157,6 +157,10 @@
   list-style: none;
 }
 
+.paginationControls {
+  margin-bottom: 1rem;
+}
+
 .materialsPerPageSelect {
   width: 10%;
   display: flex;

@@ -313,46 +313,52 @@ const MaterialDescription = () => {
                 <hr className={styles.hr} />
                 <p>Precio en Pesos</p>
                 <span>{formatPesos(material.precioEnPesos)}</span>
+                <hr className={styles.hr} />
+                <div className={styles.containerSource}>
+                  <p>Fuente:&nbsp;</p>
+                  <p>{material.fuente}</p>
+                </div>
               </div>
             </div>
-            {auth ? (  
-            <div className={styles.containerButtons}>
-              <Link
-                className={styles.buttonEdit}
-                to={`/material/update/${materialId}`}
-              >
-                Editar
-              </Link>
-              <button className={styles.buttonBack} onClick={handleBack}>
-                Volver
-              </button>
-              <Link
-              className={styles.buttonEraseDescription}
-                        onClick={(e) => {
-              e.stopPropagation();
-              handleDeleteClick(e);
-            }}
-          >
-              <HiOutlineTrash />
-              </Link>
-              <DeleteMaterialModal
-            show={showDeleteModal}
-            onHide={handleCloseModal}
-            getMaterial={async () => {
-              await getMaterial();
-              getCategory();
-            }}
-            modalId={modalId}
-            materialId={material._id}
-            nombre={material.name}
-          />
-            </div>): (
-            <div className={styles.containerButtons}>
-              <button className={styles.buttonBack} onClick={handleBack}>
-                Volver
-              </button>
-            </div>)}
-
+            {auth ? (
+              <div className={styles.containerButtons}>
+                <Link
+                  className={styles.buttonEdit}
+                  to={`/material/update/${materialId}`}
+                >
+                  Editar
+                </Link>
+                <button className={styles.buttonBack} onClick={handleBack}>
+                  Volver
+                </button>
+                <Link
+                  className={styles.buttonEraseDescription}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteClick(e);
+                  }}
+                >
+                  <HiOutlineTrash />
+                </Link>
+                <DeleteMaterialModal
+                  show={showDeleteModal}
+                  onHide={handleCloseModal}
+                  getMaterial={async () => {
+                    await getMaterial();
+                    getCategory();
+                  }}
+                  modalId={modalId}
+                  materialId={material._id}
+                  nombre={material.name}
+                />
+              </div>
+            ) : (
+              <div className={styles.containerButtons}>
+                <button className={styles.buttonBack} onClick={handleBack}>
+                  Volver
+                </button>
+              </div>
+            )}
           </div>
           <div className={styles.historialPrices}>
             <h2>Historial de Precios</h2>

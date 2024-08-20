@@ -4,11 +4,18 @@ import Navbar from "../../components/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
 import { API_URL } from "../../utils/consts";
 import React, { useContext, useEffect, useState, useId } from "react";
+import { fetchCategories } from "../../functions/getCategory";
+import CategoryNewModal from "../../components/CategoryNewModal/CategoryNewModal";
+import { fetchSubcategories } from "../../functions/getSubcategory";
+import SubcategoryNewModal from "../../components/SubcategoryNewModal/SubcategoryNewModal";
+import { fetchUnits } from "../../functions/getUnit";
+import UnitNewModal from "../../components/UnitNewModal/UnitNewModal";
 
 const MaterialNew = () => {
   const nameId = useId();
   const priceId = useId();
   const currencyId = useId();
+  const sourceId = useId();
   const unitId = useId();
   const categoryId = useId();
   const subcategoryId = useId();
@@ -16,17 +23,25 @@ const MaterialNew = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [currency, setCurrency] = useState("");
+  const [source, setSource] = useState("");
   const [unitIdState, setUnitIdState] = useState("");
   const [unitName, setUnitName] = useState("");
   const [categoryIdState, setCategoryIdState] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [subcategoryIdState, setSubcategoryIdState] = useState("");
   const [subcategoryName, setSubcategoryName] = useState("");
+  const [filterCategories, setFilterCategories] = useState([]);
+  const [filterSubcategories, setFilterSubcategories] = useState([]);
+  const [filterUnits, setFilterUnits] = useState([]);
 
   const [units, setUnits] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [filteredSubcategories, setFilteredSubcategories] = useState([]);
+
+  const [showCategoryNewModal, setShowCategoryNewModal] = useState(false);
+  const [showSubcategoryNewModal, setShowSubcategoryNewModal] = useState(false);
+  const [showUnitNewModal, setShowUnitNewModal] = useState(false);
 
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
@@ -81,6 +96,30 @@ const MaterialNew = () => {
     setUnitName(selectedUnit ? selectedUnit.unit : "");
   };
 
+  const loadCategories = () => {
+    fetchCategories(auth.token) // Asegúrate de pasar el token correcto
+      .then((data) => {
+        setFilterCategories(data); // Actualiza el estado con las nuevas categorías
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const loadSubcategories = () => {
+    fetchSubcategories(auth.token)
+      .then((data) => {
+        setFilterSubcategories(data);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const loadUnits = () => {
+    fetchUnits(auth.token)
+      .then((data) => {
+        setFilterUnits(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -90,6 +129,7 @@ const MaterialNew = () => {
       name: name.trim(),
       precio: parseFloat(price),
       moneda: currency,
+      fuente: source,
       unit: unitName,
       category: categoryName,
       subcategory: subcategoryName,
@@ -105,6 +145,7 @@ const MaterialNew = () => {
         name: name.trim(),
         precio: parseFloat(price),
         moneda: currency,
+        fuente: source,
         unit: unitName,
         category: categoryName,
         subcategory: subcategoryName,
@@ -116,6 +157,27 @@ const MaterialNew = () => {
     });
   };
 
+  const handleCategoryNewClick = (e) => {
+    e.stopPropagation();
+    setShowCategoryNewModal(true);
+  };
+
+  const handleSubcategoryNewClick = (e) => {
+    e.stopPropagation();
+    setShowSubcategoryNewModal(true);
+  };
+
+  const handleUnitNewClick = (e) => {
+    e.stopPropagation();
+    setShowUnitNewModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowSubcategoryNewModal(false);
+    setShowCategoryNewModal(false);
+    setShowUnitNewModal(false);
+  };
+
   const handleBack = () => {
     navigate(-1); // Navegar hacia atrás
   };
@@ -125,8 +187,8 @@ const MaterialNew = () => {
       <Navbar />
       <div className={styles.containerMaterialNew}>
         <div className={styles.containerTitle}>
-        <img src="../../../public/img/papel.png" alt="" />
-        <h2>Crear un nuevo material</h2>
+          <img src="../../../public/img/papel.png" alt="" />
+          <h2>Crear un nuevo material</h2>
         </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
@@ -161,6 +223,15 @@ const MaterialNew = () => {
             </select>
           </div>
           <div className={styles.inputGroup}>
+            <label htmlFor={sourceId}>Fuente:</label>
+            <input
+              type="text"
+              id={sourceId}
+              value={source}
+              onChange={(e) => setSource(e.target.value)}
+            />
+          </div>
+          <div className={styles.inputGroup}>
             <label htmlFor={unitId}>Unidad:</label>
             <div className={styles.containerSelect}>
               <select
@@ -175,9 +246,14 @@ const MaterialNew = () => {
                   </option>
                 ))}
               </select>
-              <Link className={styles.buttonNew} to="/unit/new">
+              <Link className={styles.buttonNew} onClick={handleUnitNewClick}>
                 Nueva
               </Link>
+              <UnitNewModal
+                show={showUnitNewModal}
+                onHide={handleCloseModal}
+                onUnitCreated={loadUnits}
+              />
             </div>
           </div>
           <div className={styles.inputGroup}>
@@ -195,9 +271,17 @@ const MaterialNew = () => {
                   </option>
                 ))}
               </select>
-              <Link className={styles.buttonNew} to="/category/new">
+              <Link
+                className={styles.buttonNew}
+                onClick={handleCategoryNewClick}
+              >
                 Nueva
               </Link>
+              <CategoryNewModal
+                show={showCategoryNewModal}
+                onHide={handleCloseModal}
+                onCategoryCreated={loadCategories}
+              />
             </div>
           </div>
           <div className={styles.inputGroup}>
@@ -215,9 +299,17 @@ const MaterialNew = () => {
                   </option>
                 ))}
               </select>
-              <Link className={styles.buttonNew} to="/subcategorynew">
+              <Link
+                className={styles.buttonNew}
+                onClick={handleSubcategoryNewClick}
+              >
                 Nueva
               </Link>
+              <SubcategoryNewModal
+                show={showSubcategoryNewModal}
+                onHide={handleCloseModal}
+                onSubcategoryCreated={loadSubcategories}
+              />
             </div>
           </div>
           <div className={styles.containerButtons}>
