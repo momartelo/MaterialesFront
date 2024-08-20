@@ -104,22 +104,48 @@ function HomePage() {
           </div>
         </div>
       )}
-      {isMobile && (
+      {isMobileLandscape && (
         <div
-          className={`${styles.containerTablet} ${
+          className={`${styles.containerMobileLandscape} ${
             isNightMode ? styles.nightMode : styles.dayMode
           }`}
         >
-          <CarouselComponent />
-          <h1>Sistema de Materiales</h1>
-          <p>
-            En este sistema tendremos una base de datos de materiales de obras
-            donde se puedan ver precios, agregar materiales, actualizar, ver
-            historial de precios. Los materiales se cargaran el la moneda que
-            cotize el proveedor y a partir de alli la base se encargara de pasar
-            el valor a pesos, dolares o euros de acuardo a la cotizacion del
-            dia.
-          </p>
+          <div className={styles.containerCarouselMobileLandscape}>
+            <CarouselComponent />
+          </div>
+          <div className={styles.textsMobileLandscape}>
+            <h1>Sistema de Materiales</h1>
+            <p>
+              En este sistema tendremos una base de datos de materiales de obras
+              donde se puedan ver precios, agregar materiales, actualizar, ver
+              historial de precios. Los materiales se cargaran el la moneda que
+              cotize el proveedor y a partir de alli la base se encargara de
+              pasar el valor a pesos, dolares o euros de acuardo a la cotizacion
+              del dia.
+            </p>
+          </div>
+        </div>
+      )}
+      {isMobile && (
+        <div
+          className={`${styles.containerMobile} ${
+            isNightMode ? styles.nightMode : styles.dayMode
+          }`}
+        >
+          <div className={styles.containerCarouselMobile}>
+            <CarouselComponent />
+          </div>
+          <div className={styles.textsMobile}>
+            <h1>Sistema de Materiales</h1>
+            <p>
+              En este sistema tendremos una base de datos de materiales de obras
+              donde se puedan ver precios, agregar materiales, actualizar, ver
+              historial de precios. Los materiales se cargaran el la moneda que
+              cotize el proveedor y a partir de alli la base se encargara de
+              pasar el valor a pesos, dolares o euros de acuardo a la cotizacion
+              del dia.
+            </p>
+          </div>
         </div>
       )}
       <Footer />

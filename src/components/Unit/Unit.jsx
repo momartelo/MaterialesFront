@@ -40,7 +40,7 @@ const Unit = ({ units, getUnit }) => {
   const handleCloseModal = () => {
     setShowUnitNewModal(false);
   };
-
+  console.log(filterUnits);
   return (
     <div className={styles.containerUnit}>
       {auth ? (
@@ -81,7 +81,7 @@ const Unit = ({ units, getUnit }) => {
         </div>
       )}
       <div className={styles.containerItem}>
-        {filterUnits.legth > 0 ? (
+        {filterUnits.length > 0 ? (
           filterUnits.map((unit) => (
             <UnitItem getUnit={getUnit} key={unit._id} unit={unit} />
           ))

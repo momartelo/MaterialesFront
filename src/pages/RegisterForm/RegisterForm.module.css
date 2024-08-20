@@ -71,6 +71,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .containerRegister > h2 {
@@ -86,7 +87,7 @@
   border-radius: 20px;
   background-color: #fff;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -96,10 +97,12 @@
   width: 75%;
 }
 
-.inputGroup > input {
+.inputGroup > input,
+.inputGroup > select {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid #ccc;
   outline: none;
@@ -129,16 +132,16 @@
   border: 1px solid var(--background-header-color);
 }
 
-.inputGroup:nth-child(5) {
+.inputGroup:nth-child(6) {
   flex-direction: row;
 }
 
-.inputGroup:nth-child(5) > label {
+.inputGroup:nth-child(6) > label {
   display: flex;
   align-items: center;
 }
 
-.inputGroup:nth-child(5) > input {
+.inputGroup:nth-child(6) > input {
   width: fit-content;
   margin-left: 20px;
 }
