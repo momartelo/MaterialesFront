@@ -178,7 +178,7 @@ const Navbar = () => {
           <div className={`${styles.generalNav} ${styles.flex}`}>
             <div className={`${styles.logoAnchor} ${styles.flex}`}>
               <Link className={styles.linkLogo} to="#">
-                <img src="../../../public/img/osse.jpg" alt="" />
+                <img src="/img/osse.jpg" alt="" />
               </Link>
             </div>
             <div className={styles.containerNavbarCentral}>
