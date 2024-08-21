@@ -74,6 +74,10 @@
   /* min-height: 100vh; */
 }
 
+.containerCarouselFullHD {
+  width: 50%;
+}
+
 .containerFullHDTitle {
   width: 70%;
   margin-top: 1.5rem;

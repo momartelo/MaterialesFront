@@ -26,7 +26,7 @@ const CarouselComponent = () => {
           interval={3000}
           stopOnHover={true}
           showArrows={true}
-          width="55%"
+          // width="55%"
           axis="horizontal"
         >
           <div className={styles.carouselImages}>

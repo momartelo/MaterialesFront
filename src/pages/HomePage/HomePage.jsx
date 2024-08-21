@@ -24,7 +24,9 @@ function HomePage() {
             isNightMode ? styles.nightMode : styles.dayMode
           }`}
         >
-          <CarouselComponent />
+          <div className={styles.containerCarouselFullHD}>
+            <CarouselComponent />
+          </div>
           <div className={styles.containerFullHDTitle}>
             <h1>Sistema de Materiales</h1>
           </div>
