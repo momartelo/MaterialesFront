@@ -10,6 +10,7 @@ import { fetchSubcategories } from "../../functions/getSubcategory";
 import SubcategoryNewModal from "../../components/SubcategoryNewModal/SubcategoryNewModal";
 import { fetchUnits } from "../../functions/getUnit";
 import UnitNewModal from "../../components/UnitNewModal/UnitNewModal";
+import { ClipLoader } from "react-spinners";
 
 const MaterialNew = () => {
   const nameId = useId();
@@ -42,6 +43,8 @@ const MaterialNew = () => {
   const [showCategoryNewModal, setShowCategoryNewModal] = useState(false);
   const [showSubcategoryNewModal, setShowSubcategoryNewModal] = useState(false);
   const [showUnitNewModal, setShowUnitNewModal] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
@@ -120,28 +123,17 @@ const MaterialNew = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!name.trim() || !price.trim()) return;
+    try {
+      if (!name.trim() || !price.trim()) {
+        alert("Por favor, completa todos los campos requeridos");
+        return;
+      }
 
-    console.log("Datos a enviar:", {
-      name: name.trim(),
-      precio: parseFloat(price),
-      moneda: currency,
-      fuente: source,
-      unit: unitName,
-      category: categoryName,
-      subcategory: subcategoryName,
-    });
-
-    fetch(`${API_URL}/material/new`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        Authorization: auth.token,
-      },
-      body: JSON.stringify({
+      console.log("Datos a enviar:", {
         name: name.trim(),
         precio: parseFloat(price),
         moneda: currency,
@@ -149,12 +141,39 @@ const MaterialNew = () => {
         unit: unitName,
         category: categoryName,
         subcategory: subcategoryName,
-      }),
-    }).then((res) => {
-      if (res.status !== 201) return alert("Error creating material");
+      });
 
+      const response = await fetch(`${API_URL}/material/new`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: auth.token,
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          precio: parseFloat(price),
+          moneda: currency,
+          fuente: source,
+          unit: unitName,
+          category: categoryName,
+          subcategory: subcategoryName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al crear el material");
+      }
+
+      alert("Material creado exitosamente!");
       navigate("/material");
-    });
+    } catch (error) {
+      console.error("Error", error);
+      alert(
+        "Hubo un error al crear el material. Por favor, intente nuevamente."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCategoryNewClick = (e) => {
@@ -313,13 +332,22 @@ const MaterialNew = () => {
             </div>
           </div>
           <div className={styles.containerButtons}>
-            <button className={styles.buttonMaterialNew} type="submit">
+            <button
+              className={styles.buttonMaterialNew}
+              type="submit"
+              disabled={loading}
+            >
               Crear
             </button>
             <button className={styles.buttonBack} onClick={handleBack}>
               Volver
             </button>
           </div>
+          {loading && (
+            <div className={styles.loaderOverlay}>
+              <ClipLoader color="#3498db" loading={loading} />
+            </div>
+          )}
         </form>
       </div>
     </>

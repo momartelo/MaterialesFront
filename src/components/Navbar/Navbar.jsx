@@ -27,6 +27,8 @@ const Navbar = () => {
   const [fechaEuro, setFechaEuro] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [loadingCategories, setLoadingCategories] = useState(true);
+  const [loadingSubcategories, setLoadingSubcategories] = useState(true);
   const navigate = useNavigate();
 
   const handleChangeTheme = () => {
@@ -34,16 +36,20 @@ const Navbar = () => {
   };
 
   const fetchCategories = async () => {
+    setLoadingCategories(true); // Inicia la carga
     try {
       const response = await fetch(`${API_URL}/category`);
       const data = await response.json();
       setCategories(data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoadingCategories(false); // Termina la carga
     }
   };
 
   const fetchSubcategories = async () => {
+    setLoadingSubcategories(true); // Inicia la carga
     try {
       const response = await fetch(`${API_URL}/subcategory`);
 
@@ -54,6 +60,8 @@ const Navbar = () => {
       setSubcategories(data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoadingSubcategories(false); // Termina la carga
     }
   };
 
@@ -212,19 +220,21 @@ const Navbar = () => {
                         // }`}
                         className={`${styles.menuDropdown} ${styles.nightMode} }`}
                       >
-                        {categories.length === 0 ? (
+                        {loadingCategories || loadingSubcategories ? (
+                          <div className={styles.noCategories}>
+                            <img
+                              src="/img/loading-spinner.gif"
+                              alt="Cargando..."
+                            />
+                            <p>Cargando materiales...</p>
+                          </div>
+                        ) : categories.length === 0 ? (
                           <div className={styles.noCategories}>
                             <img
                               src="/img/bandeja-de-entrada-vacia.png"
                               alt=""
                             />
                             <p>¡¡¡No hay materiales existentes!!!</p>
-                            {/* <Link
-                              className={styles.buttonNewMaterial}
-                              to={"/material/new"}
-                            >
-                              Crear Material
-                            </Link> */}
                           </div>
                         ) : (
                           <div className={styles.menuRow}>
