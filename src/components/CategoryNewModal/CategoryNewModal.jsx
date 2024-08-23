@@ -5,27 +5,28 @@ import Modal from "react-bootstrap/Modal";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchCategories } from "../../functions/getCategory";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 const CategoryNewModal = ({ show, onCategoryCreated, onHide }) => {
   const categoryId = useId();
   const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchCategories(auth.token)
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
-  }, [auth]);
+  // useEffect(() => {
+  //   fetchCategories(auth.token)
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.error(err));
+  // }, [auth]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     fetch(`${API_URL}/category/new`, {
       method: "POST",
       headers: {

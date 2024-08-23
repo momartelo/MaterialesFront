@@ -1,7 +1,7 @@
 import styles from "./LoginForm.module.css";
 
 import { useId, useRef } from "react";
-import { API_URL } from "../../utils/consts.js";
+import { API_URL } from "../../utils/config";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";

@@ -1,7 +1,7 @@
 import styles from "./RegisterForm.module.css";
 import { useId, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../utils/consts.js";
+import { API_URL } from "../../utils/config";
 
 function RegisterForm() {
   const ref = useRef(null);

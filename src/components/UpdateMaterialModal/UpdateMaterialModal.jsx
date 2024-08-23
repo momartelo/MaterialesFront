@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef, useId } from "react";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Modal } from "react-bootstrap";
@@ -99,7 +99,6 @@ const UpdateMaterialModal = ({
     setUnitName(selectedUnit ? selectedUnit.unit : "");
   };
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -129,20 +128,20 @@ const UpdateMaterialModal = ({
         subcategory: subcategoryName,
       }),
     })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error al actualizar el material")
-      }
-      formRef.current.reset();
-      handleClose();
-      return getMaterial();
-    })
-    .then(() =>{
-      navigate("/material");
-    })
-    .catch((error) =>{
-      console.error("Error al actualizar el material:", error);
-    });
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Error al actualizar el material");
+        }
+        formRef.current.reset();
+        handleClose();
+        return getMaterial();
+      })
+      .then(() => {
+        navigate("/material");
+      })
+      .catch((error) => {
+        console.error("Error al actualizar el material:", error);
+      });
   };
 
   const handleBack = () => {
@@ -224,7 +223,11 @@ const UpdateMaterialModal = ({
             </div>
             <div className={styles.formGroupUnidadUpdate}>
               <label htmlFor={unitId}>Unidad: </label>
-              <select id={unitId} value={unitIdState} onChange={handleUnitChange}>
+              <select
+                id={unitId}
+                value={unitIdState}
+                onChange={handleUnitChange}
+              >
                 <option value="">Seleccionar Unidad</option>
                 {units.map((unit) => (
                   <option key={unit._id} value={unit._id}>
@@ -290,9 +293,6 @@ const UpdateMaterialModal = ({
 
 export default UpdateMaterialModal;
 
-
-
-
 // import styles from "./UpdateMaterialModal.module.css";
 // import { API_URL } from "../../utils/consts";
 // import Button from "react-bootstrap/Button";
@@ -302,7 +302,6 @@ export default UpdateMaterialModal;
 // import { useContext, useEffect, useState, useRef, useId } from "react";
 
 // import React from "react";
-
 
 // const UpdateMaterialModal = ({
 //   show,
@@ -325,7 +324,6 @@ export default UpdateMaterialModal;
 
 //   const formRef = useRef(null);
 
-
 //   const imageId = useId();
 //   const nameId = useId();
 //   const priceId = useId();
@@ -345,7 +343,6 @@ export default UpdateMaterialModal;
 //   const [unitName, setUnitName] = useState("");
 //   const [categoryName, setCategoryName] = useState("");
 //   const [subcategoryName, setSubcategoryName] = useState("");
-
 
 //   useEffect(() => {
 //     if (material)
@@ -603,4 +600,3 @@ export default UpdateMaterialModal;
 // };
 
 // export default UpdateMaterialModal;
-

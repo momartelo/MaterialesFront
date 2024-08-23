@@ -2,7 +2,7 @@ import styles from "./UnitNewModal.module.css";
 import Modal from "react-bootstrap/Modal";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchUnits } from "../../functions/getUnit";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import { useContext, useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +24,7 @@ const UnitNewModal = ({ show, onUnitCreated, onHide }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     fetch(`${API_URL}/unit/new`, {
       method: "POST",
       headers: {

@@ -1,20 +1,19 @@
 import styles from "./ConfirmModal.module.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const ConfirmModal = ({ show, onHide, modalMessage, onConfirm }) => {
-  const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  const handleClose = () => {
-    onConfirm();
+  const handleConfirm = () => {
+    if (onConfirm) onConfirm();
+    onHide();
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
         <Modal.Title>Mensaje</Modal.Title>
       </Modal.Header>
@@ -22,7 +21,7 @@ const ConfirmModal = ({ show, onHide, modalMessage, onConfirm }) => {
         <p>{modalMessage}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={onConfirm}>
+        <Button variant="primary" onClick={handleConfirm}>
           OK
         </Button>
       </Modal.Footer>

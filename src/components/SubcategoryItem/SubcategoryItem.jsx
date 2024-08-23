@@ -2,7 +2,7 @@ import styles from "./SubcategoryItem.module.css";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
 import { useCallback, useContext, useEffect, useId, useState } from "react";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 // import DeleteCategoryModal from "../DeleteCategoryModal/DeleteCategoryModal";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
@@ -57,7 +57,6 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
     fetchCategories();
   }, [subcategory.category]);
 
-
   return (
     <div className={styles.item} /*onClick={onClick}*/>
       <section className={styles.sectionSubcategoryItem}>
@@ -66,7 +65,10 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
       </section>
       {auth ? (
         <div className={styles.containerIcons}>
-          <Link className={styles.containerIconEdit} onClick={handleUpdateClick}>
+          <Link
+            className={styles.containerIconEdit}
+            onClick={handleUpdateClick}
+          >
             <div className={styles.iconEdit}>
               <HiOutlinePencilAlt />
             </div>
@@ -82,8 +84,20 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
               <HiOutlineTrash />
             </div>
           </Link>
-          <UpdateSubcategoryModal show={showUpdateModal} onHide={handleCloseModal} getSubcategory={getSubcategory} subcategoryId={subcategory._id} subcategory={subcategory.subcategory} />
-          <DeleteSubcategoryModal show={showDeleteModal} onHide={handleCloseModal} getSubcategory={getSubcategory} subcategoryId={subcategory._id} subcategory={subcategory.subcategory} />
+          <UpdateSubcategoryModal
+            show={showUpdateModal}
+            onHide={handleCloseModal}
+            getSubcategory={getSubcategory}
+            subcategoryId={subcategory._id}
+            subcategory={subcategory.subcategory}
+          />
+          <DeleteSubcategoryModal
+            show={showDeleteModal}
+            onHide={handleCloseModal}
+            getSubcategory={getSubcategory}
+            subcategoryId={subcategory._id}
+            subcategory={subcategory.subcategory}
+          />
           {/* <Link
             style={{ fontSize: "30px", color: "green" }}
             onClick={handleUpdateClick}

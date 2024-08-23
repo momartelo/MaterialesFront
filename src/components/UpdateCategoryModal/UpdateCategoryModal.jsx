@@ -1,18 +1,12 @@
 import styles from "./UpdateCategoryModal.module.css";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext, useEffect, useState, useRef } from "react";
 
-const UpdateCategoryModal = ({
-  show,
-  categoryId,
-  getCategory,
-  onHide,
-  category,
-}) => {
+const UpdateCategoryModal = ({ show, categoryId, onHide, category }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const [categoryValue, setCategoryValue] = useState("");
@@ -44,7 +38,6 @@ const UpdateCategoryModal = ({
 
       formRef.current.reset();
       handleClose();
-      await getCategory();
       navigate(0);
     } catch (error) {
       console.error("Error al actualizar la categoria:", error);
@@ -71,10 +64,6 @@ const UpdateCategoryModal = ({
       <Modal.Body className={styles.containerModalBody}>
         <div className={styles.modalBody}>
           <div className={styles.modalBodyTitle}>
-            {/* <img
-              src="../../../public/img/actualizarRellenoCuadrado.png"
-              alt=""
-            /> */}
             <h2>Editar Categoria</h2>
           </div>
           <form ref={formRef} onSubmit={handleSubmit}>

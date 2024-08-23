@@ -1,4 +1,4 @@
-import { API_URL } from "../utils/consts";
+import { API_URL } from "../utils/config";
 import axios from "axios";
 
 export const fetchMaterials = async (token) => {

@@ -5,7 +5,6 @@ import { useCallback, useContext, useEffect, useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchMaterialsWithoutAuth } from "../../functions/getMaterial";
 import { HiOutlineTrash } from "react-icons/hi";
-import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory";
 import { fetchUnitsWithoutAuth } from "../../functions/getUnit";
 import { Table } from "antd";
@@ -23,6 +22,10 @@ import {
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 import DeleteMaterialModal from "../../components/DeleteMaterialModal/DeleteMaterialModal";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
+import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
+import { useMaterialsWithoutAuth } from "../../hooks/useMaterialsWithoutAuth";
 
 ChartJS.register(
   Title,
@@ -38,74 +41,102 @@ ChartJS.register(
 const MaterialDescription = () => {
   const modalId = useId();
   const { materialId } = useParams();
-  const [materials, setMaterials] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
-  const [units, setUnits] = useState([]);
+  // const [materials, setMaterials] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  // const [subcategories, setSubcategories] = useState([]);
+  // const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const getMaterial = useCallback(async () => {
-    try {
-      const data = await fetchMaterialsWithoutAuth();
-      setMaterials(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { materials, loadingMat, minLoadingTimeElapsedMat, errorMat } =
+    useMaterialsWithoutAuth();
 
-  useEffect(() => {
-    getMaterial();
-  }, [getMaterial]);
+  if (errorMat) {
+    return <div>Error al cargar materiales: {errorMat.message}</div>;
+  }
 
-  const getCategory = useCallback(async () => {
-    try {
-      const data = await fetchCategoriesWithoutAuth();
-      setCategories(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  // const getMaterial = useCallback(async () => {
+  //   try {
+  //     const data = await fetchMaterialsWithoutAuth();
+  //     setMaterials(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    getCategory();
-  }, [getCategory]);
+  // useEffect(() => {
+  //   getMaterial();
+  // }, [getMaterial]);
 
-  const getSubcategory = useCallback(async () => {
-    try {
-      const data = await fetchSubcategoriesWithoutAuth();
-      setSubcategories(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { categories, loadingCat, minLoadingTimeElapsedCat, errorCat } =
+    useCategoriesWithoutAuth();
 
-  useEffect(() => {
-    getSubcategory();
-  }, [getSubcategory]);
+  if (errorCat) {
+    return <div>Error al cargar categorías: {errorCat.message}</div>;
+  }
 
-  const getUnit = useCallback(async () => {
-    try {
-      const data = await fetchUnitsWithoutAuth();
-      setUnits(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  // const getCategory = useCallback(async () => {
+  //   try {
+  //     const data = await fetchCategoriesWithoutAuth();
+  //     setCategories(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    getUnit();
-  }, [getUnit]);
+  // useEffect(() => {
+  //   getCategory();
+  // }, [getCategory]);
+
+  const { subcategories, loadingSub, minLoadingTimeElapsedSub, errorSub } =
+    useSubcategoriesWithoutAuth();
+
+  if (errorSub) {
+    return <div>Error al cargar subcategorías: {errorSub.message}</div>;
+  }
+
+  // const getSubcategory = useCallback(async () => {
+  //   try {
+  //     const data = await fetchSubcategoriesWithoutAuth();
+  //     setSubcategories(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getSubcategory();
+  // }, [getSubcategory]);
+
+  // const getUnit = useCallback(async () => {
+  //   try {
+  //     const data = await fetchUnitsWithoutAuth();
+  //     setUnits(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getUnit();
+  // }, [getUnit]);
+
+  const { units, loadingUnits, minLoadingTimeElapsedUnits, errorUnits } =
+    useUnitsWithoutAuth();
+
+  if (errorUnits) {
+    return <div>Error al cargar unidades: {errorUnits.message}</div>;
+  }
 
   const formatPesos = (amount) => {
     return amount
@@ -126,7 +157,12 @@ const MaterialDescription = () => {
       : "";
   };
 
-  if (loading || materials.length === 0 || categories.length === 0) {
+  if (
+    materials.length === 0 ||
+    categories.length === 0 ||
+    subcategories.length === 0 ||
+    units.length === 0
+  ) {
     return <p>Cargando....</p>;
   }
 
@@ -392,166 +428,3 @@ const MaterialDescription = () => {
 };
 
 export default MaterialDescription;
-
-// import styles from "./MaterialDescription.module.css";
-// import Navbar from "../../components/Navbar/Navbar";
-// import { AuthContext } from "../../providers/AuthProvider";
-// import { useCallback, useContext, useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { fetchMaterials2 } from "../../functions/getMaterial";
-// import { fetchCategories2 } from "../../functions/getCategory";
-// import { fetchSubcategories2 } from "../../functions/getSubcategory";
-// import { fetchUnits2 } from "../../functions/getUnit";
-
-// const MaterialDescription = () => {
-//   const { materialId } = useParams();
-//   const [materials, setMaterials] = useState([]);
-//   const [categories, setCategories] = useState([]);
-//   const [subcategories, setSubcategories] = useState([]);
-//   const [units, setUnits] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const { auth } = useContext(AuthContext);
-
-//   const getMaterial = useCallback(async () => {
-//     try {
-//       const data = await fetchMaterials2();
-//       setMaterials(data);
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     getMaterial();
-//   }, [getMaterial]);
-
-//   const getCategory = useCallback(async () => {
-//     try {
-//       const data = await fetchCategories2();
-//       setCategories(data);
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     getCategory();
-//   }, [getCategory]);
-
-//   const getSubcategory = useCallback(async () => {
-//     try {
-//       const data = await fetchSubcategories2();
-//       setSubcategories(data);
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     getSubcategory();
-//   }, [getSubcategory]);
-
-//   const getUnit = useCallback(async () => {
-//     try {
-//       const data = await fetchUnits2();
-//       setUnits(data);
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     getUnit();
-//   }, [getUnit]);
-
-//   const formatPesos = (amount) => {
-//     return amount
-//       ? amount.toLocaleString("es-AR", {
-//           style: "currency",
-//           currency: "ARS",
-//         })
-//       : "";
-//   };
-
-//   const formatDollars = (amount) => {
-//     return amount
-//       ? (() => {
-//           const parts = amount.toFixed(2).toString().split(".");
-//           parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-//           return `U$S ${parts.join(",")}`;
-//         })()
-//       : "";
-//   };
-//   const material = materials.find((mat) => mat._id === materialId);
-//   console.log(material);
-
-//   const category = categories.find((cat) => cat._id === material.category);
-//   console.log(category);
-
-//   const subcategory = subcategories.find(
-//     (sub) => sub._id === material.subcategory
-//   );
-//   console.log(subcategory);
-
-//   const unit = units.find((u) => u._id === material.unit);
-//   console.log(unit);
-
-//   if (loading) {
-//     return <p>Cargando....</p>;
-//   }
-
-//   return (
-//     <>
-//       <Navbar />
-//       <div className={styles.containerMaterialDescription}>
-//         {material ? (
-//           <div className={styles.materialDetails}>
-//             <h1>{material.name}</h1>
-//             <div className={styles.containerCategory}>
-//               <p>Categoria:&nbsp;</p>
-//               <p>{category ? category.category : "No disponible"}</p>
-//             </div>
-//             <div className={styles.materialImageAndPrice}>
-//               <div className={styles.materialImage}>
-//                 <img src={material.image} alt="" />
-//               </div>
-//               <div className={styles.priceMaterialItem}>
-//                 <p>Precio en Dolares</p>
-//                 <span>{formatDollars(material.precioEnDolares)}</span>
-//                 <hr className={styles.hr} />
-//                 <p>Precio en Pesos</p>
-//                 <span>{formatPesos(material.precioEnPesos)}</span>
-//               </div>
-//             </div>
-//             <div className={styles.historialPrecios}>
-//               <h2>Historial de Precios</h2>
-//               {material.historialPrecio.map((historia, index) => (
-//                 <div key={index} className={styles.conteinerHistoryPrice}>
-//                   <span>{new Date(historia.fecha).toLocaleDateString()}</span>
-//                   <div className={styles.historialPrices}>
-//                     <span>{formatDollars(historia.precioEnDolares)}</span>
-//                     <span>&nbsp;-&nbsp;</span>
-//                     <span>{formatPesos(historia.precioEnPesos)}</span>
-//                   </div>
-//                   <hr className={styles.hr} />
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         ) : (
-//           <p>No se encontró el material solicitado.</p>
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default MaterialDescription;

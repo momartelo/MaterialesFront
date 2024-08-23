@@ -2,7 +2,7 @@ import styles from "./MaterialNew.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import React, { useContext, useEffect, useState, useId } from "react";
 import { fetchCategories } from "../../functions/getCategory";
 import CategoryNewModal from "../../components/CategoryNewModal/CategoryNewModal";
@@ -34,6 +34,7 @@ const MaterialNew = () => {
   const [filterCategories, setFilterCategories] = useState([]);
   const [filterSubcategories, setFilterSubcategories] = useState([]);
   const [filterUnits, setFilterUnits] = useState([]);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const [units, setUnits] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -125,14 +126,14 @@ const MaterialNew = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!name.trim() || !price.trim()) {
+      alert("Por favor, completa todos los campos requeridos");
+      return;
+    }
     setLoading(true);
 
     try {
-      if (!name.trim() || !price.trim()) {
-        alert("Por favor, completa todos los campos requeridos");
-        return;
-      }
-
       console.log("Datos a enviar:", {
         name: name.trim(),
         precio: parseFloat(price),

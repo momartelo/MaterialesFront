@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchSubcategories } from "../../functions/getSubcategory";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
 import { fetchCategories } from "../../functions/getCategory";
 
@@ -40,6 +40,7 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setModalMessage(""); // Opcional: Limpiar mensaje anterior antes de la nueva solicitud
 
     try {

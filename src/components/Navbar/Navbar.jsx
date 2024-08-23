@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../providers/ThemeProvider";
@@ -223,7 +223,7 @@ const Navbar = () => {
                         {loadingCategories || loadingSubcategories ? (
                           <div className={styles.noCategories}>
                             <img
-                              src="/img/loading-spinner.gif"
+                              src="/img/Skateboarding.gif"
                               alt="Cargando..."
                             />
                             <p>Cargando materiales...</p>
@@ -293,7 +293,9 @@ const Navbar = () => {
                                   </div>
                                 ))}
                             </div>
-                            <Link to={`/material`}>Todos los materiales</Link>
+                            <div className={styles.navItemTodoMat}>
+                              <Link to={`/material`}>Todos los materiales</Link>
+                            </div>
                           </div>
                         )}
                       </div>

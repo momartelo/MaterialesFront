@@ -1,5 +1,5 @@
 import { useId, useRef } from "react";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";

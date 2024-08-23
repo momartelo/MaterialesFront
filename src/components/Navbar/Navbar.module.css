@@ -186,7 +186,6 @@ ul {
   flex-direction: row;
   column-gap: 25px;
   width: 100%;
-  border: 1px #ffc107 solid;
   flex-wrap: wrap;
   /* Menu despleglable */
 }
@@ -195,7 +194,8 @@ ul {
   padding: 0 10px;
   display: flex;
   /* width: 250px; */
-  border: #ff3a41 1px solid;
+  /* border-left: #ff3a41 1px solid;
+  border-right: #ff3a41 1px solid; */
   /* Menu despleglable individual */
 }
 
@@ -206,7 +206,7 @@ ul {
   display: flex;
   flex-direction: column;
   height: auto;
-  border: 1px #2ac97a solid;
+  /* border: 1px #2ac97a solid; */
 }
 
 .ulDropdown li:last-child {
@@ -245,7 +245,7 @@ ul {
 .menuRow {
   width: 100%;
   text-align: center;
-  border: 1px #00f solid;
+  border: 1px #d8d8d8 solid;
 }
 
 .menuRow > a {
@@ -280,7 +280,7 @@ ul {
   z-index: 10;
   padding: var(--margin-10px);
   border-radius: 5px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   white-space: nowrap;
 }
 
@@ -297,7 +297,7 @@ ul {
 
 .productLinkNav {
   margin-top: 10px;
-  border: 1px #0d6efd solid;
+  /* border: 1px #0d6efd solid; */
 }
 
 .productLinkNav.nightMode {
@@ -361,6 +361,25 @@ ul {
 }
 
 .navItemTodo > a:hover {
+  color: #007bff; /* Color de hover */
+}
+
+.navItemTodoMat {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 0.25rem 0;
+  border-top: 1px #d8d8d8 solid; /* Color de hover */
+}
+
+.navItemTodoMat > a {
+  font-weight: 600;
+  font-size: 14px;
+  color: black;
+  transition: color var(--transition-speed);
+}
+
+.navItemTodoMat > a:hover {
   color: #007bff; /* Color de hover */
 }
 

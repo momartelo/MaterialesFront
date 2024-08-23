@@ -1,4 +1,4 @@
-import { API_URL } from "../utils/consts";
+import { API_URL } from "../utils/config";
 
 export const fetchSubcategories = async (token) => {
   try {

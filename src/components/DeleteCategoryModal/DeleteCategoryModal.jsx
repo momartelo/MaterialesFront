@@ -1,18 +1,11 @@
 import styles from "./DeleteCategoryModal.module.css";
-import { API_URL } from "../../utils/consts";
-import Button from "react-bootstrap/Button";
+import { API_URL } from "../../utils/config";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 
-const DeleteCategoryModal = ({
-  show,
-  categoryId,
-  getCategory,
-  onHide,
-  category,
-}) => {
+const DeleteCategoryModal = ({ show, categoryId, onHide, category }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const handleClose = () => {
@@ -30,7 +23,6 @@ const DeleteCategoryModal = ({
         return;
       }
       handleClose();
-      await getCategory();
       navigate(0);
     } catch (error) {
       console.error("Error al eliminar la categoria:", error);

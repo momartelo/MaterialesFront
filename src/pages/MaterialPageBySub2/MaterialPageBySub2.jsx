@@ -1,7 +1,7 @@
 import styles from "./MaterialPageBySub2.module.css";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";

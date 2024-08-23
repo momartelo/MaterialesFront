@@ -1,5 +1,5 @@
 import styles from "./DeleteUnitModal.module.css";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";

@@ -5,7 +5,7 @@ import UpdateHistoryPricesModal from "../../components/UpdateHistoryPricesModal/
 import PriceEditModal from "../../components/UpdateHistoryPricesModal/UpdateHistoryPricesModal";
 import { getCovertExchangePair } from "../../functions/fetchs";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 import styles from "./MaterialUpdate.module.css";
 // import UpdateHistoryPricesModal from "../../components/UpdateHistoryPricesModal/UpdateHistoryPricesModal";
 // import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";

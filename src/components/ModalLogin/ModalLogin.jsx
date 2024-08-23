@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import styles from "./ModalLogin.module.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../../utils/consts";
+import { API_URL } from "../../utils/config";
 
 Modal.setAppElement("#root");
 
