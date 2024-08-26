@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
 import { API_URL } from "../../utils/config";
-import React, { useContext, useEffect, useState, useId } from "react";
-import { fetchCategories } from "../../functions/getCategory";
+import React, { useContext, useState, useId } from "react";
 import CategoryNewModal from "../../components/CategoryNewModal/CategoryNewModal";
-import { fetchSubcategories } from "../../functions/getSubcategory";
 import SubcategoryNewModal from "../../components/SubcategoryNewModal/SubcategoryNewModal";
-import { fetchUnits } from "../../functions/getUnit";
 import UnitNewModal from "../../components/UnitNewModal/UnitNewModal";
 import { ClipLoader } from "react-spinners";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
+import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
 
 const MaterialNew = () => {
   const nameId = useId();
@@ -31,14 +31,7 @@ const MaterialNew = () => {
   const [categoryName, setCategoryName] = useState("");
   const [subcategoryIdState, setSubcategoryIdState] = useState("");
   const [subcategoryName, setSubcategoryName] = useState("");
-  const [filterCategories, setFilterCategories] = useState([]);
-  const [filterSubcategories, setFilterSubcategories] = useState([]);
-  const [filterUnits, setFilterUnits] = useState([]);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-  const [units, setUnits] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
   const [filteredSubcategories, setFilteredSubcategories] = useState([]);
 
   const [showCategoryNewModal, setShowCategoryNewModal] = useState(false);
@@ -50,22 +43,13 @@ const MaterialNew = () => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetch(`${API_URL}/unit/`)
-      .then((res) => res.json())
-      .then((data) => setUnits(data))
-      .catch((err) => console.error(err));
+  const { categories, errorCat } = useCategoriesWithoutAuth();
+  const { subcategories, errorSub } = useSubcategoriesWithoutAuth();
+  const { units, errorUnits } = useUnitsWithoutAuth();
 
-    fetch(`${API_URL}/category/`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
-
-    fetch(`${API_URL}/subcategory/`)
-      .then((res) => res.json())
-      .then((data) => setSubcategories(data))
-      .catch((err) => console.error(err));
-  }, []);
+  if (errorCat || errorSub || errorUnits) {
+    return <div>Error al cargar datos</div>;
+  }
 
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
@@ -98,30 +82,6 @@ const MaterialNew = () => {
     const selectedUnit = units.find((unit) => unit._id === selectedUnitId);
     setUnitIdState(selectedUnit ? selectedUnit._id : "");
     setUnitName(selectedUnit ? selectedUnit.unit : "");
-  };
-
-  const loadCategories = () => {
-    fetchCategories(auth.token) // Asegúrate de pasar el token correcto
-      .then((data) => {
-        setFilterCategories(data); // Actualiza el estado con las nuevas categorías
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const loadSubcategories = () => {
-    fetchSubcategories(auth.token)
-      .then((data) => {
-        setFilterSubcategories(data);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const loadUnits = () => {
-    fetchUnits(auth.token)
-      .then((data) => {
-        setFilterUnits(data);
-      })
-      .catch((err) => console.log(err));
   };
 
   const handleSubmit = async (e) => {
@@ -198,7 +158,9 @@ const MaterialNew = () => {
     setShowUnitNewModal(false);
   };
 
-  const handleBack = () => {
+  const handleBack = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     navigate(-1); // Navegar hacia atrás
   };
 
@@ -272,7 +234,7 @@ const MaterialNew = () => {
               <UnitNewModal
                 show={showUnitNewModal}
                 onHide={handleCloseModal}
-                onUnitCreated={loadUnits}
+                onUnitCreated={useUnitsWithoutAuth}
               />
             </div>
           </div>
@@ -300,7 +262,7 @@ const MaterialNew = () => {
               <CategoryNewModal
                 show={showCategoryNewModal}
                 onHide={handleCloseModal}
-                onCategoryCreated={loadCategories}
+                onCategoryCreated={useCategoriesWithoutAuth}
               />
             </div>
           </div>
@@ -328,7 +290,7 @@ const MaterialNew = () => {
               <SubcategoryNewModal
                 show={showSubcategoryNewModal}
                 onHide={handleCloseModal}
-                onSubcategoryCreated={loadSubcategories}
+                onSubcategoryCreated={useSubcategoriesWithoutAuth}
               />
             </div>
           </div>
@@ -356,3 +318,53 @@ const MaterialNew = () => {
 };
 
 export default MaterialNew;
+
+// const [filterCategories, setFilterCategories] = useState([]);
+// const [filterSubcategories, setFilterSubcategories] = useState([]);
+// const [filterUnits, setFilterUnits] = useState([]);
+// const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+// const [units, setUnits] = useState([]);
+// const [categories, setCategories] = useState([]);
+// const [subcategories, setSubcategories] = useState([]);
+
+// useEffect(() => {
+//   fetch(`${API_URL}/unit/`)
+//     .then((res) => res.json())
+//     .then((data) => setUnits(data))
+//     .catch((err) => console.error(err));
+
+//   fetch(`${API_URL}/category/`)
+//     .then((res) => res.json())
+//     .then((data) => setCategories(data))
+//     .catch((err) => console.error(err));
+
+//   fetch(`${API_URL}/subcategory/`)
+//     .then((res) => res.json())
+//     .then((data) => setSubcategories(data))
+//     .catch((err) => console.error(err));
+// }, []);
+
+// const loadCategories = () => {
+//   fetchCategories(auth.token) // Asegúrate de pasar el token correcto
+//     .then((data) => {
+//       setFilterCategories(data); // Actualiza el estado con las nuevas categorías
+//     })
+//     .catch((err) => console.error(err));
+// };
+
+// const loadSubcategories = () => {
+//   fetchSubcategories(auth.token)
+//     .then((data) => {
+//       setFilterSubcategories(data);
+//     })
+//     .catch((err) => console.error(err));
+// };
+
+// const loadUnits = () => {
+//   fetchUnits(auth.token)
+//     .then((data) => {
+//       setFilterUnits(data);
+//     })
+//     .catch((err) => console.log(err));
+// };
