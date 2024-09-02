@@ -1,128 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { AuthContext } from "../../providers/AuthProvider";
-import { API_URL } from "../../utils/config";
-import styles from "./Navbar.module.css";
-import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../providers/ThemeProvider";
+
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { getExchangesRates } from "../../functions/fetchs";
+import styles from "./Navbar.module.css";
+import { fetchRates } from "../../functions/fetchRates";
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
   const { isNightMode, toggleTheme } = useTheme();
-  const [valorDolarCompra, setValorDolarCompra] = useState(null);
-  const [valorDolarVenta, setValorDolarVenta] = useState(null);
-  const [fechaDolar, setFechaDolar] = useState(null);
-  const [valorEuroCompra, setValorEuroCompra] = useState(null);
-  const [valorEuroVenta, setValorEuroVenta] = useState(null);
-  const [fechaEuro, setFechaEuro] = useState(null);
+  const [rates, setRates] = useState({
+    valorDolarCompra: null,
+    valorDolarVenta: null,
+    valorEuroCompra: null,
+    valorEuroVenta: null,
+    fechaDolar: null,
+    fechaEuro: null,
+  });
   const [loading, setLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [loadingCategories, setLoadingCategories] = useState(true);
-  const [loadingSubcategories, setLoadingSubcategories] = useState(true);
   const navigate = useNavigate();
+
+  const { categories, loading: loadingCategories } = useCategoriesWithoutAuth();
+  const { subcategories, loading: loadingSubcategories } =
+    useSubcategoriesWithoutAuth();
 
   const handleChangeTheme = () => {
     toggleTheme();
   };
 
-  const fetchCategories = async () => {
-    setLoadingCategories(true); // Inicia la carga
-    try {
-      const response = await fetch(`${API_URL}/category`);
-      const data = await response.json();
-      setCategories(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoadingCategories(false); // Termina la carga
-    }
-  };
-
-  const fetchSubcategories = async () => {
-    setLoadingSubcategories(true); // Inicia la carga
-    try {
-      const response = await fetch(`${API_URL}/subcategory`);
-
-      if (!response.ok) {
-        throw new Error("Error de red");
-      }
-      const data = await response.json();
-      setSubcategories(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoadingSubcategories(false); // Termina la carga
-    }
-  };
-
   useEffect(() => {
-    fetchCategories(), fetchSubcategories();
-  }, []);
-
-  const fetchRates = async () => {
-    setLoading(true);
-    try {
-      console.log("Dentro del fetch");
-      const response = await getExchangesRates();
-      const data = response.data;
-      console.log(data);
-      const dolar = data.find((moneda) => moneda.moneda === "USD");
-      const euro = data.find((moneda) => moneda.moneda === "EUR");
-
-      const dolarCompra = dolar ? parseFloat(dolar.compra) : "No disponible";
-      const dolarVenta = dolar ? parseFloat(dolar.venta) : "No disponible";
-      const euroCompra = euro ? parseFloat(euro.compra) : "No disponible";
-      const euroVenta = euro ? parseFloat(euro.venta) : "No disponible";
-
-      const fechaCotizacionDolar = dolar
-        ? dolar.fechaActualizacion
-        : "No disponible";
-
-      const fechaCotizacionEuro = euro
-        ? euro.fechaActualizacion
-        : "No disponible";
-
-      const opcionesFecha = {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      };
-
-      const fechaFormateadaDolar = new Date(
-        fechaCotizacionDolar
-      ).toLocaleDateString("es-AR", opcionesFecha);
-
-      const fechaFormateadaEuro = new Date(
-        fechaCotizacionEuro
-      ).toLocaleDateString("es-AR", opcionesFecha);
-
-      setValorDolarCompra(dolarCompra.toFixed(2));
-      setValorDolarVenta(dolarVenta.toFixed(2));
-      setValorEuroCompra(euroCompra.toFixed(2));
-      setValorEuroVenta(euroVenta.toFixed(2));
-      setFechaDolar(fechaFormateadaDolar);
-      setFechaEuro(fechaFormateadaEuro);
-    } catch (error) {
-      console.error("Error fetching exchanges rates, error");
-    } finally {
-      setLoading(false);
-      setTimeout(() => setIsRefreshing(false), 1000);
-    }
-  };
-
-  useEffect(() => {
-    fetchRates();
-    const intervalId = setInterval(fetchRates, 43200000);
+    fetchRates(setRates, setLoading, setIsRefreshing);
+    const intervalId = setInterval(
+      () => fetchRates(setRates, setLoading, setIsRefreshing),
+      43200000
+    ); // Cada 12 horas
     return () => clearInterval(intervalId);
   }, []);
 
@@ -132,21 +53,17 @@ const Navbar = () => {
       if (menuDropdown) {
         const rect = menuDropdown.getBoundingClientRect();
         const overflowRight = rect.right > window.innerWidth;
-
         if (overflowRight) {
-          menuDropdown.style.left = `${window.innerWidth - rect.right - 20}px`; // Ajuste para mantenerlo dentro de la ventana
+          menuDropdown.style.left = `${window.innerWidth - rect.right - 20}px`;
         } else {
-          menuDropdown.style.left = "0"; // Posición normal si no hay desbordamiento
+          menuDropdown.style.left = "0";
         }
       }
     };
 
     adjustMenuPosition();
     window.addEventListener("resize", adjustMenuPosition);
-
-    return () => {
-      window.removeEventListener("resize", adjustMenuPosition);
-    };
+    return () => window.removeEventListener("resize", adjustMenuPosition);
   }, []);
 
   const handleLogout = () => {
@@ -154,13 +71,8 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
 
   const getAvatarImageUrl = (gender) => {
     switch (gender) {
@@ -202,7 +114,7 @@ const Navbar = () => {
                       </Link>
                     </li>
 
-                    <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
+                    <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                       <Link
                         className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
                         to="#"
@@ -215,10 +127,7 @@ const Navbar = () => {
                         )}
                       </Link>
                       <div
-                        // className={`${styles.menuDropdown} ${
-                        //   isNightMode ? styles.nightMode : styles.dayMode
-                        // }`}
-                        className={`${styles.menuDropdown} ${styles.nightMode} }`}
+                        className={`${styles.menuDropdown} ${styles.nightMode}`}
                       >
                         {loadingCategories || loadingSubcategories ? (
                           <div className={styles.noCategories}>
@@ -273,7 +182,7 @@ const Navbar = () => {
                                           .map((subcategory) => (
                                             <li
                                               key={subcategory._id}
-                                              className={`${styles.productLinkNav} ${styles.nightMode} `}
+                                              className={`${styles.productLinkNav} ${styles.nightMode}`}
                                             >
                                               <Link
                                                 to={`/material/${category._id}/${subcategory._id}`}
@@ -283,7 +192,7 @@ const Navbar = () => {
                                             </li>
                                           ))}
                                       <li
-                                        className={`${styles.navItemTodo} ${styles.nightMode} `}
+                                        className={`${styles.navItemTodo} ${styles.nightMode}`}
                                       >
                                         <Link to={`/material/${category._id}`}>
                                           Ver todos
@@ -301,7 +210,6 @@ const Navbar = () => {
                       </div>
                     </li>
                     {auth && auth.user ? (
-                      // ! li de edicion-------------------------------
                       <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                         <Link
                           className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
@@ -392,13 +300,13 @@ const Navbar = () => {
             <div className={`${styles.containerIconsNav} ${styles.flex}`}>
               <div className={styles.containerExchange}>
                 <div className={styles.containerValorDolar}>
-                  <p>Dolar:</p> <p>${valorDolarVenta}</p>
-                  <p>Actualizado: {fechaDolar}</p>
+                  <p>Dolar:</p> <p>${rates.valorDolarVenta}</p>
+                  <p>Actualizado: {rates.fechaDolar}</p>
                   <button
                     className={styles.buttonRefresh}
                     onClick={() => {
                       setIsRefreshing(true);
-                      fetchRates();
+                      fetchRates(setRates, setLoading, setIsRefreshing);
                     }}
                     disabled={loading}
                   >
@@ -410,13 +318,13 @@ const Navbar = () => {
                 </div>
                 <div className={styles.separataExchange}></div>
                 <div className={styles.containerValorEuro}>
-                  <p>Euro:</p> <p>${valorEuroVenta}</p>
-                  <p>Actualizado: {fechaEuro}</p>
+                  <p>Euro:</p> <p>${rates.valorEuroVenta}</p>
+                  <p>Actualizado: {rates.fechaEuro}</p>
                   <button
                     className={styles.buttonRefresh}
                     onClick={() => {
                       setIsRefreshing(true);
-                      fetchRates();
+                      fetchRates(setRates, setLoading, setIsRefreshing);
                     }}
                     disabled={loading}
                   >
@@ -494,165 +402,465 @@ const Navbar = () => {
 
 export default Navbar;
 
-// ------------------con boton de refresh------------------------
+// import React, { useContext, useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+// import ModalLogin from "../ModalLogin/ModalLogin";
+// import { AuthContext } from "../../providers/AuthProvider";
+// import styles from "./Navbar.module.css";
+// import { useNavigate } from "react-router-dom";
+// import { useTheme } from "../../providers/ThemeProvider";
+// import Switch from "@mui/material/Switch";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import WbSunnyIcon from "@mui/icons-material/WbSunny";
+// import Brightness2Icon from "@mui/icons-material/Brightness2";
+// import RefreshIcon from "@mui/icons-material/Refresh";
+// import { getExchangesRates } from "../../functions/fetchs";
+// import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+// import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 
-// import React, { useEffect, useState } from 'react';
-// import { getCovertExchangePair } from './functions/fetchs'; // Ajusta la ruta según tu estructura de carpetas
-
-// const ExchangeRateComponent = () => {
-//   const [dolarRate, setDolarRate] = useState(null);
-//   const [euroRate, setEuroRate] = useState(null);
+// const Navbar = () => {
+//   const { auth, logout } = useContext(AuthContext);
+//   const [modalIsOpen, setModalIsOpen] = useState(false);
+//   const { isNightMode, toggleTheme } = useTheme();
+//   const [valorDolarCompra, setValorDolarCompra] = useState(null);
+//   const [valorDolarVenta, setValorDolarVenta] = useState(null);
+//   const [fechaDolar, setFechaDolar] = useState(null);
+//   const [valorEuroCompra, setValorEuroCompra] = useState(null);
+//   const [valorEuroVenta, setValorEuroVenta] = useState(null);
+//   const [fechaEuro, setFechaEuro] = useState(null);
 //   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
+//   const [isRefreshing, setIsRefreshing] = useState(false);
+//   const navigate = useNavigate();
 
-//   // Función para obtener las tasas de cambio
+//   const { categories, loading: loadingCategories } = useCategoriesWithoutAuth();
+//   const { subcategories, loading: loadingSubcategories } =
+//     useSubcategoriesWithoutAuth();
+
+//   const handleChangeTheme = () => {
+//     toggleTheme();
+//   };
+
 //   const fetchRates = async () => {
 //     setLoading(true);
-//     setError(null); // Resetear el error al intentar obtener datos
 //     try {
-//       const { tipo_cambio: dolar } = await getCovertExchangePair("USD", "ARS");
-//       const { tipo_cambio: euro } = await getCovertExchangePair("EUR", "ARS");
-//       setDolarRate(dolar);
-//       setEuroRate(euro);
+//       console.log("Dentro del fetch");
+//       const response = await getExchangesRates();
+//       const data = response.data;
+//       console.log(data);
+//       const dolar = data.find((moneda) => moneda.moneda === "USD");
+//       const euro = data.find((moneda) => moneda.moneda === "EUR");
+
+//       const dolarCompra = dolar ? parseFloat(dolar.compra) : "No disponible";
+//       const dolarVenta = dolar ? parseFloat(dolar.venta) : "No disponible";
+//       const euroCompra = euro ? parseFloat(euro.compra) : "No disponible";
+//       const euroVenta = euro ? parseFloat(euro.venta) : "No disponible";
+
+//       const fechaCotizacionDolar = dolar
+//         ? dolar.fechaActualizacion
+//         : "No disponible";
+
+//       const fechaCotizacionEuro = euro
+//         ? euro.fechaActualizacion
+//         : "No disponible";
+
+//       const opcionesFecha = {
+//         day: "2-digit",
+//         month: "2-digit",
+//         year: "numeric",
+//       };
+
+//       const fechaFormateadaDolar = new Date(
+//         fechaCotizacionDolar
+//       ).toLocaleDateString("es-AR", opcionesFecha);
+
+//       const fechaFormateadaEuro = new Date(
+//         fechaCotizacionEuro
+//       ).toLocaleDateString("es-AR", opcionesFecha);
+
+//       setValorDolarCompra(dolarCompra.toFixed(2));
+//       setValorDolarVenta(dolarVenta.toFixed(2));
+//       setValorEuroCompra(euroCompra.toFixed(2));
+//       setValorEuroVenta(euroVenta.toFixed(2));
+//       setFechaDolar(fechaFormateadaDolar);
+//       setFechaEuro(fechaFormateadaEuro);
 //     } catch (error) {
-//       setError("Error al obtener las tasas de cambio");
-//       console.error("Error fetching exchange rates:", error);
+//       console.error("Error fetching exchanges rates, error");
 //     } finally {
 //       setLoading(false);
+//       setTimeout(() => setIsRefreshing(false), 1000);
 //     }
 //   };
 
-//   // Llamar a fetchRates cuando el componente se monta por primera vez
 //   useEffect(() => {
 //     fetchRates();
+//     const intervalId = setInterval(fetchRates, 43200000);
+//     return () => clearInterval(intervalId);
 //   }, []);
 
+//   useEffect(() => {
+//     const adjustMenuPosition = () => {
+//       const menuDropdown = document.querySelector(`.${styles.menuDropdown}`);
+//       if (menuDropdown) {
+//         const rect = menuDropdown.getBoundingClientRect();
+//         const overflowRight = rect.right > window.innerWidth;
+
+//         if (overflowRight) {
+//           menuDropdown.style.left = `${window.innerWidth - rect.right - 20}px`; // Ajuste para mantenerlo dentro de la ventana
+//         } else {
+//           menuDropdown.style.left = "0"; // Posición normal si no hay desbordamiento
+//         }
+//       }
+//     };
+
+//     adjustMenuPosition();
+//     window.addEventListener("resize", adjustMenuPosition);
+
+//     return () => {
+//       window.removeEventListener("resize", adjustMenuPosition);
+//     };
+//   }, []);
+
+//   const handleLogout = () => {
+//     logout();
+//     navigate("/");
+//   };
+
+//   const openModal = () => {
+//     setModalIsOpen(true);
+//   };
+
+//   const closeModal = () => {
+//     setModalIsOpen(false);
+//   };
+
+//   const getAvatarImageUrl = (gender) => {
+//     switch (gender) {
+//       case "MASC":
+//         return "/avatars/avatar-hombre.png";
+//       case "FEM":
+//         return "/avatars/avatar-mujer.png";
+//       case "NO-BIN":
+//         return "/avatars/avatar-no-binario.png";
+//       default:
+//         return "/avatars/avatarBordeNegro.png";
+//     }
+//   };
+
 //   return (
-//     <div>
-//       <h2>Exchange Rates</h2>
-//       {loading ? (
-//         <p>Loading...</p>
-//       ) : error ? (
-//         <p>{error}</p>
-//       ) : (
-//         <div>
-//           <p>Dolar to ARS: {dolarRate}</p>
-//           <p>Euro to ARS: {euroRate}</p>
+//     <div
+//       className={`${styles.containerNav} ${
+//         isNightMode ? styles.nightMode : styles.dayMode
+//       }`}
+//     >
+//       <div className={styles.wrapperNav}>
+//         <div className={styles.fluidNav}>
+//           <div className={`${styles.generalNav} ${styles.flex}`}>
+//             <div className={`${styles.logoAnchor} ${styles.flex}`}>
+//               <Link className={styles.linkLogo} to="#">
+//                 <img src="/img/osse.jpg" alt="" />
+//               </Link>
+//             </div>
+//             <div className={styles.containerNavbarCentral}>
+//               <div className={styles.wrappernavbarCentral}>
+//                 <nav className={styles.navbarCentral}>
+//                   <ul className={`${styles.ulNavbarCentral} ${styles.flex}`}>
+//                     <li className={styles.navItem}>
+//                       <Link
+//                         className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+//                         to="/"
+//                       >
+//                         <span>Home</span>
+//                       </Link>
+//                     </li>
+
+//                     <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
+//                       <Link
+//                         className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+//                         to="#"
+//                       >
+//                         <span>Materiales</span>
+//                         {isNightMode ? (
+//                           <img src="/img/angulo-hacia-abajo.png" alt="" />
+//                         ) : (
+//                           <img src="/img/AnguloAbajo.png" alt="" />
+//                         )}
+//                       </Link>
+//                       <div
+//                         // className={`${styles.menuDropdown} ${
+//                         //   isNightMode ? styles.nightMode : styles.dayMode
+//                         // }`}
+//                         className={`${styles.menuDropdown} ${styles.nightMode} }`}
+//                       >
+//                         {loadingCategories || loadingSubcategories ? (
+//                           <div className={styles.noCategories}>
+//                             <img
+//                               src="/img/Skateboarding.gif"
+//                               alt="Cargando..."
+//                             />
+//                             <p>Cargando materiales...</p>
+//                           </div>
+//                         ) : categories.length === 0 ? (
+//                           <div className={styles.noCategories}>
+//                             <img
+//                               src="/img/bandeja-de-entrada-vacia.png"
+//                               alt=""
+//                             />
+//                             <p>¡¡¡No hay materiales existentes!!!</p>
+//                           </div>
+//                         ) : (
+//                           <div className={styles.menuRow}>
+//                             <div
+//                               className={`${styles.menuColumns} ${styles.flex}`}
+//                             >
+//                               {categories
+//                                 .slice()
+//                                 .sort((a, b) =>
+//                                   a.category.localeCompare(b.category)
+//                                 )
+//                                 .map((category) => (
+//                                   <div
+//                                     key={category._id}
+//                                     className={styles.menuColumn}
+//                                   >
+//                                     <ul className={styles.ulDropdown}>
+//                                       <li
+//                                         className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+//                                       >
+//                                         <p>{category.category}</p>
+//                                       </li>
+//                                       {Array.isArray(subcategories) &&
+//                                         subcategories.length > 0 &&
+//                                         subcategories
+//                                           .filter(
+//                                             (subcat) =>
+//                                               subcat.category._id ===
+//                                               category._id
+//                                           )
+//                                           .sort((a, b) =>
+//                                             a.subcategory.localeCompare(
+//                                               b.subcategory
+//                                             )
+//                                           )
+//                                           .map((subcategory) => (
+//                                             <li
+//                                               key={subcategory._id}
+//                                               className={`${styles.productLinkNav} ${styles.nightMode} `}
+//                                             >
+//                                               <Link
+//                                                 to={`/material/${category._id}/${subcategory._id}`}
+//                                               >
+//                                                 -&nbsp;{subcategory.subcategory}
+//                                               </Link>
+//                                             </li>
+//                                           ))}
+//                                       <li
+//                                         className={`${styles.navItemTodo} ${styles.nightMode} `}
+//                                       >
+//                                         <Link to={`/material/${category._id}`}>
+//                                           Ver todos
+//                                         </Link>
+//                                       </li>
+//                                     </ul>
+//                                   </div>
+//                                 ))}
+//                             </div>
+//                             <div className={styles.navItemTodoMat}>
+//                               <Link to={`/material`}>Todos los materiales</Link>
+//                             </div>
+//                           </div>
+//                         )}
+//                       </div>
+//                     </li>
+//                     {auth && auth.user ? (
+//                       // ! li de edicion-------------------------------
+//                       <li className={`${styles.navItem} ${styles.hasDropdown}`}>
+//                         <Link
+//                           className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+//                           to="#"
+//                         >
+//                           <span>Editar</span>
+//                           {isNightMode ? (
+//                             <img src="/img/angulo-hacia-abajo.png" alt="" />
+//                           ) : (
+//                             <img src="/img/AnguloAbajo.png" alt="" />
+//                           )}
+//                         </Link>
+//                         <div
+//                           className={`${styles.menuDropdown2} ${styles.nightMode}`}
+//                         >
+//                           <div className={styles.menuRow}>
+//                             <div
+//                               className={`${styles.menuColumns} ${styles.flex}`}
+//                             >
+//                               <div className={styles.menuColumn}>
+//                                 <ul className={styles.ulDropdown2}>
+//                                   <li
+//                                     className={`${styles.liTitleMenu} ${styles.nightMode}`}
+//                                   >
+//                                     <span>Listar y Editar</span>
+//                                   </li>
+//                                   <li
+//                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+//                                   >
+//                                     <Link
+//                                       className={styles.linkLogo}
+//                                       to="/material"
+//                                     >
+//                                       <p>- Materiales</p>
+//                                     </Link>
+//                                   </li>
+//                                   <li
+//                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+//                                   >
+//                                     <Link
+//                                       className={styles.linkLogo}
+//                                       to="/category"
+//                                     >
+//                                       <p>- Categorias</p>
+//                                     </Link>
+//                                   </li>
+//                                   <li
+//                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+//                                   >
+//                                     <Link
+//                                       className={styles.linkLogo}
+//                                       to="/subcategory"
+//                                     >
+//                                       <p>- Subcategorias</p>
+//                                     </Link>
+//                                   </li>
+//                                   <li
+//                                     className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+//                                   >
+//                                     <Link
+//                                       className={styles.linkLogo}
+//                                       to="/unit"
+//                                     >
+//                                       <p>- Unidades</p>
+//                                     </Link>
+//                                   </li>
+//                                 </ul>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         </div>
+//                       </li>
+//                     ) : (
+//                       <span></span>
+//                     )}
+//                     <li className={styles.navItem}>
+//                       <Link
+//                         className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+//                         to="#"
+//                       >
+//                         <span>Contacto</span>
+//                       </Link>
+//                     </li>
+//                   </ul>
+//                 </nav>
+//               </div>
+//             </div>
+//             <div className={`${styles.containerIconsNav} ${styles.flex}`}>
+//               <div className={styles.containerExchange}>
+//                 <div className={styles.containerValorDolar}>
+//                   <p>Dolar:</p> <p>${valorDolarVenta}</p>
+//                   <p>Actualizado: {fechaDolar}</p>
+//                   <button
+//                     className={styles.buttonRefresh}
+//                     onClick={() => {
+//                       setIsRefreshing(true);
+//                       fetchRates();
+//                     }}
+//                     disabled={loading}
+//                   >
+//                     <RefreshIcon
+//                       className={isRefreshing ? styles.loadingIcon : ""}
+//                       style={{ fontSize: "18px" }}
+//                     />
+//                   </button>
+//                 </div>
+//                 <div className={styles.separataExchange}></div>
+//                 <div className={styles.containerValorEuro}>
+//                   <p>Euro:</p> <p>${valorEuroVenta}</p>
+//                   <p>Actualizado: {fechaEuro}</p>
+//                   <button
+//                     className={styles.buttonRefresh}
+//                     onClick={() => {
+//                       setIsRefreshing(true);
+//                       fetchRates();
+//                     }}
+//                     disabled={loading}
+//                   >
+//                     <RefreshIcon
+//                       className={isRefreshing ? styles.loadingIcon : ""}
+//                       style={{ fontSize: "18px" }}
+//                     />
+//                   </button>
+//                 </div>
+//               </div>
+//               <div className={styles.switchDayNight}>
+//                 <FormControlLabel
+//                   className={styles.toggleTheme}
+//                   control={
+//                     <Switch
+//                       checked={isNightMode}
+//                       onChange={handleChangeTheme}
+//                       color="primary"
+//                       name="nightModeSwitch"
+//                       inputProps={{ "aria-label": "toggle night mode" }}
+//                       icon={
+//                         <WbSunnyIcon
+//                           style={{
+//                             fontSize: 28,
+//                             backgroundColor: "#3498DB",
+//                             padding: "4px",
+//                             borderRadius: "50%",
+//                             color: "#ffc107",
+//                             marginTop: "-4px",
+//                           }}
+//                         />
+//                       }
+//                       checkedIcon={
+//                         <Brightness2Icon
+//                           style={{
+//                             fontSize: 28,
+//                             backgroundColor: "white",
+//                             padding: "4px",
+//                             borderRadius: "50%",
+//                             color: "blue",
+//                             marginTop: "-4px",
+//                           }}
+//                         />
+//                       }
+//                     />
+//                   }
+//                 />
+//               </div>
+//               {auth && auth.user ? (
+//                 <div className={styles.loggedUserContainer}>
+//                   <div className={styles.loggedUserInfo}>
+//                     <img
+//                       src={getAvatarImageUrl(auth.user?.genero)}
+//                       alt={auth.user.username}
+//                     />
+//                     <span>{auth.user.username}</span>
+//                     <button onClick={handleLogout}>Logout</button>
+//                   </div>
+//                 </div>
+//               ) : (
+//                 <div className={styles.containerLogin}>
+//                   <div className={styles.iconLogin}>
+//                     <img src="/img/perfil.png" alt="" onClick={openModal} />
+//                   </div>
+//                 </div>
+//               )}
+//             </div>
+//           </div>
 //         </div>
-//       )}
-//       <button onClick={fetchRates}>Refresh Rates</button>
+//       </div>
+//       <ModalLogin isOpen={modalIsOpen} onRequestClose={closeModal} />
 //     </div>
 //   );
 // };
 
-// ----------------------------------------
-
-// const fetchExchangeRatesDolar = async () => {
-//   try {
-//     const response = await getCovertExchangePair("USD", "ARS");
-//     if (!response.ok) {
-//       throw new Error("Error detectado verifique moneda");
-//     }
-//     const data = await response.json();
-//     console.log(data);
-//     setValorDolar(data);
-//     set;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// const fetchExchangeRatesEuro = async () => {
-//   try {
-//     const response = await getCovertExchangePair("EUR", "ARS");
-//     if (!response.ok) {
-//       throw new Error("Error detectado verifique moneda");
-//     }
-//     const data = await response.json();
-//     setValorEuro(data);
-//     set;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-{
-  /* <li className={`${styles.navItem} ${styles.hasDropdown}  `}>
-<Link
-  className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
-  to="#"
->
-  <span>Materiales</span>
-  {isNightMode ? (
-    <img
-      src="../../../public/img/angulo-hacia-abajo.png"
-      alt=""
-    />
-  ) : (
-    <img
-      src="../../../public/img/AnguloAbajo.png"
-      alt=""
-    />
-  )}
-</Link>
-<div
-  // className={`${styles.menuDropdown} ${
-  //   isNightMode ? styles.nightMode : styles.dayMode
-  // }`}
-  className={`${styles.menuDropdown} ${styles.nightMode} }`}
->
-  {categories.length === 0 ? (
-    <div className={styles.noCategories}>
-      <p>No hay categorias existentes</p>
-    </div>
-  ) : (
-    <div className={styles.menuRow}>
-      <div
-        className={`${styles.menuColumns} ${styles.flex}`}
-      >
-        {categories.map((category) => (
-          <div
-            key={category._id}
-            className={styles.menuColumn}
-          >
-            <ul className={styles.ulDropdown}>
-              <li
-                className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
-              >
-                <p>{category.category}</p>
-              </li>
-              {Array.isArray(subcategories) &&
-                subcategories.length > 0 &&
-                subcategories
-                  .filter(
-                    (subcat) =>
-                      subcat.category._id === category._id
-                  )
-                  .map((subcategory) => (
-                    <li
-                      key={subcategory._id}
-                      className={`${styles.productLinkNav} ${styles.nightMode} `}
-                    >
-                      <Link
-                        to={`/material/${category._id}/${subcategory._id}`}
-                      >
-                        {subcategory.subcategory}
-                      </Link>
-                    </li>
-                  ))}
-              <li
-                className={`${styles.navItemTodo} ${styles.nightMode} `}
-              >
-                <Link to={`/material/${category._id}`}>
-                  Ver todos
-                </Link>
-              </li>
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
-</li> */
-}
+// export default Navbar;

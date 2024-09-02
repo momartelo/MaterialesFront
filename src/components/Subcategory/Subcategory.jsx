@@ -6,6 +6,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 import SubcategoryItem from "../SubcategoryItem/SubcategoryItem";
 import SubcategoryNewModal from "../SubcategoryNewModal/SubcategoryNewModal";
 import { fetchSubcategories } from "../../functions/getSubcategory";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
+import { useSubcategories } from "../../hooks/useSubcategories";
 
 const Subcategory = ({ subcategories, getSubcategory }) => {
   const [search, setSearch] = useState("");
@@ -14,14 +16,6 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const [showSubcategoryNewModal, setShowSubcategoryNewModal] = useState(false);
-
-  const loadSubcategories = () => {
-    fetchSubcategories(auth.token)
-      .then((data) => {
-        setFilterSubcategories(data);
-      })
-      .catch((err) => console.error(err));
-  };
 
   useEffect(() => {
     let filtered = subcategories.filter((subcat) => {
@@ -67,7 +61,7 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
           <SubcategoryNewModal
             show={showSubcategoryNewModal}
             onHide={handleCloseModal}
-            onSubcategoryCreated={loadSubcategories}
+            onSubcategoryCreated={useSubcategories}
           />
           <div className={styles.searchContainer}>
             <input

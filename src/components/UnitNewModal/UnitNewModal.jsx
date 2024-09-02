@@ -9,18 +9,18 @@ import { useNavigate } from "react-router-dom";
 const UnitNewModal = ({ show, onUnitCreated, onHide }) => {
   const unitId = useId();
   const [unit, setUnit] = useState("");
-  const [units, setUnits] = useState([]);
+  // const [units, setUnits] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchUnits(auth.token)
-      .then((data) => setUnits(data))
-      .catch((err) => console.error(err));
-  }, [auth]);
+  // useEffect(() => {
+  //   fetchUnits(auth.token)
+  //     .then((data) => setUnits(data))
+  //     .catch((err) => console.error(err));
+  // }, [auth]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

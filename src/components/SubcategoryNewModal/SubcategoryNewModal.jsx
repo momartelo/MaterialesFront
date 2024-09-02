@@ -7,6 +7,8 @@ import { fetchSubcategories } from "../../functions/getSubcategory";
 import { API_URL } from "../../utils/config";
 import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
 import { fetchCategories } from "../../functions/getCategory";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 
 const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
   const categoryId = useId();
@@ -26,17 +28,34 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetch(`${API_URL}/category/`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
+  const { categories: categoriesData, loading: loadingCategories } =
+    useCategoriesWithoutAuth();
+  const { subcategories: subcategoriesData, loading: loadingSubcategories } =
+    useSubcategoriesWithoutAuth();
 
-    fetch(`${API_URL}/subcategory/`)
-      .then((res) => res.json())
-      .then((data) => setSubcategories(data))
-      .catch((err) => console.error(err));
-  }, []);
+  useEffect(() => {
+    if (!loadingCategories && categoriesData) {
+      setCategories(categoriesData);
+    }
+  }, [loadingCategories, categoriesData]);
+
+  useEffect(() => {
+    if (!loadingSubcategories && subcategoriesData) {
+      setSubcategories(subcategoriesData);
+    }
+  }, [loadingSubcategories, subcategoriesData]);
+
+  // useEffect(() => {
+  //   fetch(`${API_URL}/category/`)
+  //     .then((res) => res.json())
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.error(err));
+
+  //   fetch(`${API_URL}/subcategory/`)
+  //     .then((res) => res.json())
+  //     .then((data) => setSubcategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

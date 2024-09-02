@@ -1,15 +1,11 @@
 import styles from "./SubcategoryItem.module.css";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
-import { useCallback, useContext, useEffect, useId, useState } from "react";
-import { API_URL } from "../../utils/config";
-// import DeleteCategoryModal from "../DeleteCategoryModal/DeleteCategoryModal";
+import { useContext, useEffect, useId, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import UpdateSubcategoryModal from "../UpdateSubcategoryModal/UpdateSubcategoryModal";
 import DeleteSubcategoryModal from "../DeleteSubcategoryModal/DeleteSubcategoryModal";
-import { fetchSubcategories } from "../../functions/getSubcategory";
-// import UpdateCategoryModal from "../UpdateCategoryModal/UpdateCategoryModal";
 
 const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
   const modalId = useId();

@@ -13,13 +13,16 @@ const Unit = ({ units, getUnit }) => {
   const { auth } = useContext(AuthContext);
   const [showUnitNewModal, setShowUnitNewModal] = useState(false);
 
-  const loadUnits = () => {
-    fetchUnits(auth.token)
-      .then((data) => {
-        setFilterUnits(data);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const loadUnits = () => {
+  //   fetchUnits(auth.token)
+  //     .then((data) => {
+  //       setFilterUnits(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // const { units: unitsData, loading: loadingUnits } =
+  // useCategoriesWithoutAuth();
 
   useEffect(() => {
     let filtered = units.filter((unit) => {
@@ -51,7 +54,7 @@ const Unit = ({ units, getUnit }) => {
           <UnitNewModal
             show={showUnitNewModal}
             onHide={handleCloseModal}
-            onUnitCreated={loadUnits}
+            onUnitCreated={getUnit}
           />
           <div className={styles.searchContainer}>
             <input
