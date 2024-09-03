@@ -9,7 +9,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 const UpdateSubcategoryModal = ({
   show,
   subcategory,
-  getSubcategory,
   onHide,
   subcategoryId,
 }) => {
@@ -48,7 +47,7 @@ const UpdateSubcategoryModal = ({
 
       formRef.current.reset();
       handleClose();
-      await getSubcategory();
+      // await getSubcategory();
       navigate(0);
     } catch (error) {
       console.error("Error al actualizar la subcategoria", error);

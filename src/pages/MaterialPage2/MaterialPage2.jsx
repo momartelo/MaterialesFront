@@ -1,11 +1,11 @@
 import styles from "../MaterialPage2/MaterialPage2.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
-import { fetchMaterialsWithoutAuth } from "../../functions/getMaterial.js";
-import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
-import { ClipLoader, CircleLoader, FadeLoader } from "react-spinners"; // Importa el loader
+import { FadeLoader } from "react-spinners"; // Importa el loader
 import Footer from "../../components/Footer/Footer";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useMaterialsWithoutAuth } from "../../hooks/useMaterialsWithoutAuth";
 
 function MaterialPage2() {
   const [materials, setMaterials] = useState([]);
@@ -15,35 +15,57 @@ function MaterialPage2() {
 
   const MIN_LOADING_TIME = 2000; // Tiempo mínimo en milisegundos (2 segundos)
 
-  const getMaterial = useCallback(() => {
-    setLoading(true);
-    fetchMaterialsWithoutAuth()
-      .then((data) => {
-        setMaterials(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  }, []);
+  const { categories: categoriesData, loading: loadingCategories } =
+    useCategoriesWithoutAuth();
+  const { materials: materialsData, loading: loadingMaterials } =
+    useMaterialsWithoutAuth();
 
-  const getCategory = useCallback(() => {
-    fetchCategoriesWithoutAuth()
-      .then((data) => setCategories(data))
-      .catch((err) => console.log(err));
-  }, []);
+  // const getMaterial = useCallback(() => {
+  //   setLoading(true);
+  //   fetchMaterialsWithoutAuth()
+  //     .then((data) => {
+  //       setMaterials(data);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  // const getCategory = useCallback(() => {
+  //   fetchCategoriesWithoutAuth()
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
-    getMaterial();
-    getCategory();
+    if (!loadingCategories && !loadingMaterials) {
+      // Cuando los datos se han cargado
+      setCategories(categoriesData);
+      setMaterials(materialsData);
+      setLoading(false);
+    }
+  }, [loadingCategories, loadingMaterials, categoriesData, materialsData]);
 
+  useEffect(() => {
     const timer = setTimeout(() => {
       setMinLoadingTimeElapsed(true);
     }, MIN_LOADING_TIME);
 
     return () => clearTimeout(timer);
-  }, [getMaterial, getCategory]);
+  }, []);
+
+  // useEffect(() => {
+  //   getMaterial();
+  //   getCategory();
+
+  //   const timer = setTimeout(() => {
+  //     setMinLoadingTimeElapsed(true);
+  //   }, MIN_LOADING_TIME);
+
+  //   return () => clearTimeout(timer);
+  // }, [getMaterial, getCategory]);
 
   return (
     <>
@@ -60,7 +82,7 @@ function MaterialPage2() {
             </div>
           ) : (
             <Material
-              getMaterial={getMaterial}
+              getMaterial={useMaterialsWithoutAuth}
               materials={materials}
               categories={categories}
             />

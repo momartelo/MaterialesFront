@@ -13,11 +13,35 @@ import Brightness2Icon from "@mui/icons-material/Brightness2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import styles from "./Navbar.module.css";
 import { fetchRates } from "../../functions/fetchRates";
+import { useResponsive } from "../../providers/ResponsiveContext";
+import MenuHamburger from "./MenuHamburger/MenuHamburger";
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { isNightMode, toggleTheme } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getResponsiveClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const responsiveClass = getResponsiveClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const [rates, setRates] = useState({
     valorDolarCompra: null,
     valorDolarVenta: null,
@@ -88,26 +112,26 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className={`${styles.containerNav} ${
-        isNightMode ? styles.nightMode : styles.dayMode
-      }`}
-    >
+    <div className={`${styles.containerNav} ${responsiveClass} ${modeClass}`}>
       <div className={styles.wrapperNav}>
         <div className={styles.fluidNav}>
           <div className={`${styles.generalNav} ${styles.flex}`}>
-            <div className={`${styles.logoAnchor} ${styles.flex}`}>
-              <Link className={styles.linkLogo} to="#">
+            <div
+              className={`${styles.logoAnchor} ${styles.flex}  ${responsiveClass} ${modeClass}`}
+            >
+              <Link className={styles.linkLogo} to="/">
                 <img src="/img/osse.jpg" alt="" />
               </Link>
             </div>
             <div className={styles.containerNavbarCentral}>
               <div className={styles.wrappernavbarCentral}>
                 <nav className={styles.navbarCentral}>
-                  <ul className={`${styles.ulNavbarCentral} ${styles.flex}`}>
+                  <ul
+                    className={`${styles.ulNavbarCentral} ${responsiveClass} ${modeClass} ${styles.flex}`}
+                  >
                     <li className={styles.navItem}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
                         to="/"
                       >
                         <span>Home</span>
@@ -116,7 +140,7 @@ const Navbar = () => {
 
                     <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
                         to="#"
                       >
                         <span>Materiales</span>
@@ -212,7 +236,7 @@ const Navbar = () => {
                     {auth && auth.user ? (
                       <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                         <Link
-                          className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+                          className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
                           to="#"
                         >
                           <span>Editar</span>
@@ -287,7 +311,7 @@ const Navbar = () => {
                     )}
                     <li className={styles.navItem}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${styles.nightMode}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
                         to="#"
                       >
                         <span>Contacto</span>
@@ -295,11 +319,30 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </nav>
+                <nav className={styles.navbarHamburger}>
+                  <MenuHamburger />
+                </nav>
+                <div
+                  className={`${styles.logoAnchorMenuHamburger} ${styles.flex}  ${responsiveClass} ${modeClass}`}
+                >
+                  <Link
+                    className={`${styles.linkLogoMenuHamburger} ${responsiveClass} ${modeClass}`}
+                    to="/"
+                  >
+                    <img src="/img/osse.jpg" alt="" />
+                  </Link>
+                </div>
               </div>
             </div>
-            <div className={`${styles.containerIconsNav} ${styles.flex}`}>
-              <div className={styles.containerExchange}>
-                <div className={styles.containerValorDolar}>
+            <div
+              className={`${styles.containerIconsNav} ${styles.flex} ${responsiveClass} ${modeClass}`}
+            >
+              <div
+                className={`${styles.containerExchange} ${responsiveClass} ${modeClass}`}
+              >
+                <div
+                  className={`${styles.containerValorDolar} ${responsiveClass} ${modeClass}`}
+                >
                   <p>Dolar:</p> <p>${rates.valorDolarVenta}</p>
                   <p>Actualizado: {rates.fechaDolar}</p>
                   <button
@@ -316,9 +359,13 @@ const Navbar = () => {
                     />
                   </button>
                 </div>
-                <div className={styles.separataExchange}></div>
-                <div className={styles.containerValorEuro}>
-                  <p>Euro:</p> <p>${rates.valorEuroVenta}</p>
+                <div
+                  className={`${styles.separataExchange} ${responsiveClass} ${modeClass}`}
+                ></div>
+                <div
+                  className={`${styles.containerValorEuro} ${responsiveClass} ${modeClass}`}
+                >
+                  <p>Euro:</p> <p>${rates.valorEuroVenta} </p>
                   <p>Actualizado: {rates.fechaEuro}</p>
                   <button
                     className={styles.buttonRefresh}

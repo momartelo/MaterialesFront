@@ -7,10 +7,10 @@ import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import UpdateSubcategoryModal from "../UpdateSubcategoryModal/UpdateSubcategoryModal";
 import DeleteSubcategoryModal from "../DeleteSubcategoryModal/DeleteSubcategoryModal";
 
-const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
+const SubcategoryItem = ({ subcategory, categories }) => {
   const modalId = useId();
   const { auth } = useContext(AuthContext);
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   // const [ units, setUnits ] = useState([]);
   // const [loadingCategories, setLoadingCategories] = useState(true);
@@ -35,22 +35,22 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
   };
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const categoriesData = await fetchCategoriesWithoutAuth();
-        setCategories(categoriesData);
-        const category = categoriesData.find(
-          (cat) => cat._id === subcategory.category._id
-        );
-        if (category) {
-          setCategoryName(category.category);
-          console.log(category);
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    fetchCategories();
+    // const fetchCategories = async () => {
+    // try {
+    // const categoriesData = await fetchCategoriesWithoutAuth();
+    // setCategories(categoriesData);
+    const category = categories.find(
+      (cat) => cat._id === subcategory.category._id
+    );
+    if (category) {
+      setCategoryName(category.category);
+      console.log(category);
+    }
+    // } catch (error) {
+    //   console.error("Error fetching categories:", error);
+    // }
+    //};
+    // fetchCategories();
   }, [subcategory.category]);
 
   return (
@@ -83,14 +83,12 @@ const SubcategoryItem = ({ subcategory, getSubcategory /* onClick*/ }) => {
           <UpdateSubcategoryModal
             show={showUpdateModal}
             onHide={handleCloseModal}
-            getSubcategory={getSubcategory}
             subcategoryId={subcategory._id}
             subcategory={subcategory.subcategory}
           />
           <DeleteSubcategoryModal
             show={showDeleteModal}
             onHide={handleCloseModal}
-            getSubcategory={getSubcategory}
             subcategoryId={subcategory._id}
             subcategory={subcategory.subcategory}
           />

@@ -9,7 +9,7 @@ import { fetchSubcategories } from "../../functions/getSubcategory";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 import { useSubcategories } from "../../hooks/useSubcategories";
 
-const Subcategory = ({ subcategories, getSubcategory }) => {
+const Subcategory = ({ subcategories, categories }) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [filterSubcategories, setFilterSubcategories] = useState(subcategories);
@@ -96,9 +96,9 @@ const Subcategory = ({ subcategories, getSubcategory }) => {
         {filterSubcategories.length > 0 ? (
           filterSubcategories.map((subcategory) => (
             <SubcategoryItem
-              getSubcategory={getSubcategory}
               key={subcategory._id}
               subcategory={subcategory}
+              categories={categories}
             />
           ))
         ) : (

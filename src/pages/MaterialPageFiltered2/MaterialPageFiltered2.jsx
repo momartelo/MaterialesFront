@@ -6,6 +6,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 
 function MaterialPageFiltered2() {
   const { categoryId } = useParams();
@@ -14,24 +15,28 @@ function MaterialPageFiltered2() {
   const [materialsFitered, setMaterialsFiltered] = useState([]);
   const { auth } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  // console.log("hola");
-  // console.log(categoryId);
+  const [loading, setLoading] = useState(true);
 
-  const getCategories = useCallback(() => {
-    fetchCategoriesWithoutAuth()
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
-  }, []);
-  // console.log("categorias");
-  // console.log(categories);
+  // const getCategories = useCallback(() => {
+  //   fetchCategoriesWithoutAuth()
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+  const { categories: categoriesData, loading: loadingCategories } =
+    useCategoriesWithoutAuth();
+
+  useEffect(() => {
+    if (!loadingCategories) {
+      setCategories(categoriesData);
+      setLoading(false);
+    }
+  }, [loadingCategories, categoriesData]);
 
   const getCategoryName = useCallback(() => {
     const foundCategory = categories.find((cat) => cat._id === categoryId);
     setCategory(foundCategory);
   }, [categories, categoryId]);
-
-  // console.log("categoria");
-  // console.log(category);
 
   const getMaterialFiltered = useCallback(() => {
     setIsLoading(true);
@@ -53,9 +58,9 @@ function MaterialPageFiltered2() {
     }, 1000);
   }, [categoryId]);
 
-  useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+  // useEffect(() => {
+  //   getCategories();
+  // }, [getCategories]);
 
   useEffect(() => {
     if (categories.length > 0) {

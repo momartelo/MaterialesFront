@@ -9,7 +9,7 @@ import { useContext } from "react";
 const DeleteSubcategoryModal = ({
   show,
   subcategoryId,
-  getSubcategory,
+  // getSubcategory,
   onHide,
   subcategory,
 }) => {
@@ -34,7 +34,7 @@ const DeleteSubcategoryModal = ({
         return;
       }
       handleClose();
-      await getSubcategory();
+      // await getSubcategory();
       navigate(0);
     } catch (error) {
       console.error("Error al eliminar la subcategoria", error);

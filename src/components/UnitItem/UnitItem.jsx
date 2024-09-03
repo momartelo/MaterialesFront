@@ -58,9 +58,9 @@ const UnitItem = ({ unit, getUnit }) => {
           <UpdateUnitModal
             show={showUpdateModal}
             onHide={handleCloseModal}
-            getUnit={async () => {
-              await getUnit();
-            }}
+            // getUnit={async () => {
+            //   await getUnit();
+            // }}
             modalId={modalId}
             unitId={unit._id}
             unit={unit.unit}
@@ -68,9 +68,9 @@ const UnitItem = ({ unit, getUnit }) => {
           <DeleteUnitModal
             show={showDeleteModal}
             onHide={handleCloseModal}
-            getUnit={async () => {
-              await getUnit();
-            }}
+            // getUnit={async () => {
+            //   await getUnit();
+            // }}
             modalId={modalId}
             unitId={unit._id}
             unit={unit.unit}

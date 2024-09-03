@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 
-const DeleteUnitModal = ({ show, unitId, getUnit, onHide, unit }) => {
+const DeleteUnitModal = ({ show, unitId, onHide, unit }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const handleClose = () => {
@@ -23,7 +23,7 @@ const DeleteUnitModal = ({ show, unitId, getUnit, onHide, unit }) => {
         return;
       }
       handleClose();
-      await getUnit();
+      // await getUnit();
       navigate(0);
     } catch (error) {
       console.error("Error al eliminar la unidad:", error);

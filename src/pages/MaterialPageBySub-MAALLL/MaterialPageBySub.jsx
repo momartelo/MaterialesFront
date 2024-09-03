@@ -12,14 +12,25 @@ function MaterialPageBySub() {
   const [categories, setCategories] = useState([]);
   const [materialsFitered, setMaterialsFiltered] = useState([]);
   const { auth } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getCategories = useCallback(() => {
-    fetch(`${API_URL}/category`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
-  }, []);
+  // const getCategories = useCallback(() => {
+  //   fetch(`${API_URL}/category`)
+  //     .then((res) => res.json())
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+  const { categories: categoriesData, loading: loadingCategories } =
+    useCategoriesWithoutAuth();
+
+  useEffect(() => {
+    if (!loadingCategories) {
+      setCategories(categoriesData);
+      setLoading(false);
+    }
+  }, [loadingCategories, categoriesData]);
 
   const getCategoryName = useCallback(() => {
     const foundCategory = categories.find((cat) => cat._id === categoryId);
@@ -46,9 +57,9 @@ function MaterialPageBySub() {
     }, 1000);
   }, [auth.token, categoryId, subcategoryId]);
 
-  useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+  // useEffect(() => {
+  //   getCategories();
+  // }, [getCategories]);
 
   useEffect(() => {
     if (categories.length > 0) {

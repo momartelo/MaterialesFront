@@ -5,6 +5,9 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import styles from "./UpdateMaterialModal.module.css";
+import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 
 const UpdateMaterialModal = ({
   show,
@@ -41,6 +44,12 @@ const UpdateMaterialModal = ({
   const { auth } = useContext(AuthContext);
   const formRef = useRef(null);
 
+  const { categories: categoriesData, loading: loadingCategories } =
+    useCategoriesWithoutAuth();
+  const { subcategories: subcategoriesData, loading: loadingSubcategories } =
+    useSubcategoriesWithoutAuth();
+  const { units: unitsData, loading: loadingUnits } = useUnitsWithoutAuth();
+
   useEffect(() => {
     setImage(material.image || "");
     setName(material.name || "");
@@ -50,21 +59,41 @@ const UpdateMaterialModal = ({
     setCategoryName(material.category || "");
     setSubcategoryName(material.subcategory || "");
 
-    fetch(`${API_URL}/unit/`)
-      .then((res) => res.json())
-      .then((data) => setUnits(data))
-      .catch((err) => console.error(err));
+    // fetch(`${API_URL}/unit/`)
+    //   .then((res) => res.json())
+    //   .then((data) => setUnits(data))
+    //   .catch((err) => console.error(err));
 
-    fetch(`${API_URL}/category/`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
+    // fetch(`${API_URL}/category/`)
+    //   .then((res) => res.json())
+    //   .then((data) => setCategories(data))
+    //   .catch((err) => console.error(err));
 
-    fetch(`${API_URL}/subcategory/`)
-      .then((res) => res.json())
-      .then((data) => setSubcategories(data))
-      .catch((err) => console.error(err));
-  }, [material]);
+    // fetch(`${API_URL}/subcategory/`)
+    //   .then((res) => res.json())
+    //   .then((data) => setSubcategories(data))
+    //   .catch((err) => console.error(err));
+
+    if (!loadingCategories && categoriesData) {
+      setCategories(categoriesData);
+    }
+
+    if (!loadingSubcategories && subcategoriesData) {
+      setSubcategories(subcategoriesData);
+    }
+
+    if (!loadingUnits && unitsData) {
+      setUnits(unitsData);
+    }
+  }, [
+    material,
+    loadingCategories,
+    loadingSubcategories,
+    loadingUnits,
+    categoriesData,
+    subcategoriesData,
+    unitsData,
+  ]);
 
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;

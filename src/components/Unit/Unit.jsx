@@ -5,8 +5,9 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UnitItem from "../UnitItem/UnitItem";
 import UnitNewModal from "../UnitNewModal/UnitNewModal";
+import { useUnits } from "../../hooks/useUnits";
 
-const Unit = ({ units, getUnit }) => {
+const Unit = ({ units }) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [filterUnits, setFilterUnits] = useState(units);
@@ -54,7 +55,7 @@ const Unit = ({ units, getUnit }) => {
           <UnitNewModal
             show={showUnitNewModal}
             onHide={handleCloseModal}
-            onUnitCreated={getUnit}
+            onUnitCreated={useUnits}
           />
           <div className={styles.searchContainer}>
             <input
@@ -85,9 +86,7 @@ const Unit = ({ units, getUnit }) => {
       )}
       <div className={styles.containerItem}>
         {filterUnits.length > 0 ? (
-          filterUnits.map((unit) => (
-            <UnitItem getUnit={getUnit} key={unit._id} unit={unit} />
-          ))
+          filterUnits.map((unit) => <UnitItem key={unit._id} unit={unit} />)
         ) : (
           <div className={styles.containerNoShow}>
             <img src="/img/archivo.png" alt="" />

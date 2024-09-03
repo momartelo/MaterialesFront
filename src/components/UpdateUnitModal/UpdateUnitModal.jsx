@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext, useEffect, useRef, useState } from "react";
 
-const UpdateUnitModal = ({ show, unitId, getUnit, onHide, unit }) => {
+const UpdateUnitModal = ({ show, unitId, onHide, unit }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const [unitValue, setUnitValue] = useState("");
@@ -38,7 +38,7 @@ const UpdateUnitModal = ({ show, unitId, getUnit, onHide, unit }) => {
 
       formRef.current.reset();
       handleClose();
-      await getUnit();
+      // await getUnit();
       navigate(0);
     } catch (error) {
       console.error("Error al actualizar la unidad");

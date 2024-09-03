@@ -7,6 +7,8 @@ import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory";
+import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
+import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 
 function MaterialPageBySub2() {
   const { categoryId, subcategoryId } = useParams();
@@ -16,19 +18,40 @@ function MaterialPageBySub2() {
   const [subcategories, setSubcategories] = useState([]);
   const [materialsFitered, setMaterialsFiltered] = useState([]);
   const { auth } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getCategories = useCallback(() => {
-    fetchCategoriesWithoutAuth()
-      .then((data) => setCategories(data))
-      .catch((err) => console.error(err));
-  }, []);
+  // const getCategories = useCallback(() => {
+  //   fetchCategoriesWithoutAuth()
+  //     .then((data) => setCategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
 
-  const getSubcategories = useCallback(() => {
-    fetchSubcategoriesWithoutAuth()
-      .then((data) => setSubcategories(data))
-      .catch((err) => console.error(err));
-  }, []);
+  // const getSubcategories = useCallback(() => {
+  //   fetchSubcategoriesWithoutAuth()
+  //     .then((data) => setSubcategories(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+  const { categories: categoriesData, loading: loadingCategories } =
+    useCategoriesWithoutAuth();
+
+  useEffect(() => {
+    if (!loadingCategories) {
+      setCategories(categoriesData);
+      setLoading(false);
+    }
+  }, [loadingCategories, categoriesData]);
+
+  const { subcategories: subcategoriesData, loading: loadingSubcategories } =
+    useSubcategoriesWithoutAuth();
+
+  useEffect(() => {
+    if (!loadingSubcategories) {
+      setSubcategories(subcategoriesData);
+      setLoading(false);
+    }
+  }, [loadingSubcategories, subcategoriesData]);
 
   const getCategoryName = useCallback(() => {
     const foundCategory = categories.find((cat) => cat._id === categoryId);
@@ -62,13 +85,13 @@ function MaterialPageBySub2() {
     }, 1000);
   }, [categoryId, subcategoryId]);
 
-  useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+  // useEffect(() => {
+  //   getCategories();
+  // }, [getCategories]);
 
-  useEffect(() => {
-    getSubcategories();
-  }, [getSubcategories]);
+  // useEffect(() => {
+  //   getSubcategories();
+  // }, [getSubcategories]);
 
   useEffect(() => {
     if (categories.length > 0) {

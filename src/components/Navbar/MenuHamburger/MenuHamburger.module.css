@@ -1,0 +1,56 @@
+.hamburgerMenu {
+  position: relative;
+}
+
+.hamburgerIcon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu {
+  position: absolute;
+  top: 40px;
+  right: 100;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  display: none;
+}
+
+.menu.open {
+  display: block;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.subMenu {
+  list-style: none;
+  margin: 10px 0 0 20px; /* Ajusta los márgenes según lo necesites */
+  padding: 0;
+}
+
+.subMenu li {
+  margin: 5px 0;
+}
+
+.subMenu a {
+  text-decoration: none;
+  color: #555; /* Cambia el color para diferenciar del menú principal */
+  font-weight: normal;
+}
