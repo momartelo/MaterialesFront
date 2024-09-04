@@ -243,7 +243,9 @@
 }
 
 .containerCarousel.containerMobileLandscape {
+  justify-content: flex-start;
   width: 80%;
+  height: auto;
 }
 
 .texts.containerMobileLandscape {
@@ -280,8 +282,7 @@
   flex-direction: column;
   background-color: #f5f5f5;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+
   width: 90%;
   column-gap: 1.5rem;
   /* min-height: 100vh; */

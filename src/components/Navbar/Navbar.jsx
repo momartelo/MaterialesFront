@@ -123,9 +123,13 @@ const Navbar = () => {
                 <img src="/img/osse.jpg" alt="" />
               </Link>
             </div>
-            <div className={styles.containerNavbarCentral}>
+            <div
+              className={`${styles.containerNavbarCentral} ${responsiveClass} ${modeClass}`}
+            >
               <div className={styles.wrappernavbarCentral}>
-                <nav className={styles.navbarCentral}>
+                <nav
+                  className={`${styles.navbarCentral} ${responsiveClass} ${modeClass}`}
+                >
                   <ul
                     className={`${styles.ulNavbarCentral} ${responsiveClass} ${modeClass} ${styles.flex}`}
                   >
@@ -319,11 +323,13 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </nav>
-                <nav className={styles.navbarHamburger}>
+                <nav
+                  className={`${styles.navbarHamburger} ${responsiveClass} ${modeClass}`}
+                >
                   <MenuHamburger />
                 </nav>
                 <div
-                  className={`${styles.logoAnchorMenuHamburger} ${styles.flex}  ${responsiveClass} ${modeClass}`}
+                  className={`${styles.logoAnchorMenuHamburger}  ${responsiveClass} ${modeClass} ${styles.flex} `}
                 >
                   <Link
                     className={`${styles.linkLogoMenuHamburger} ${responsiveClass} ${modeClass}`}
@@ -337,6 +343,70 @@ const Navbar = () => {
             <div
               className={`${styles.containerIconsNav} ${styles.flex} ${responsiveClass} ${modeClass}`}
             >
+              <div
+                className={`${styles.containerSwitchLog} ${responsiveClass} ${modeClass}`}
+              >
+                <div
+                  className={`${styles.switchDayNight} ${responsiveClass} ${modeClass}`}
+                >
+                  <FormControlLabel
+                    className={styles.toggleTheme}
+                    control={
+                      <Switch
+                        checked={isNightMode}
+                        onChange={handleChangeTheme}
+                        color="primary"
+                        name="nightModeSwitch"
+                        inputProps={{ "aria-label": "toggle night mode" }}
+                        icon={
+                          <WbSunnyIcon
+                            style={{
+                              fontSize: 28,
+                              backgroundColor: "#3498DB",
+                              padding: "4px",
+                              borderRadius: "50%",
+                              color: "#ffc107",
+                              marginTop: "-4px",
+                            }}
+                          />
+                        }
+                        checkedIcon={
+                          <Brightness2Icon
+                            style={{
+                              fontSize: 28,
+                              backgroundColor: "white",
+                              padding: "4px",
+                              borderRadius: "50%",
+                              color: "blue",
+                              marginTop: "-4px",
+                            }}
+                          />
+                        }
+                      />
+                    }
+                  />
+                </div>
+                {auth && auth.user ? (
+                  <div
+                    className={`${styles.loggedUserContainer} ${responsiveClass} ${modeClass}`}
+                  >
+                    <div className={styles.loggedUserInfo}>
+                      <img
+                        src={getAvatarImageUrl(auth.user?.genero)}
+                        alt={auth.user.username}
+                      />
+                      <span>{auth.user.username}</span>
+                      <button onClick={handleLogout}>Logout</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.containerLogin}>
+                    <div className={styles.iconLogin}>
+                      <img src="/img/perfil.png" alt="" onClick={openModal} />
+                    </div>
+                  </div>
+                )}
+              </div>
               <div
                 className={`${styles.containerExchange} ${responsiveClass} ${modeClass}`}
               >
@@ -382,62 +452,6 @@ const Navbar = () => {
                   </button>
                 </div>
               </div>
-              <div className={styles.switchDayNight}>
-                <FormControlLabel
-                  className={styles.toggleTheme}
-                  control={
-                    <Switch
-                      checked={isNightMode}
-                      onChange={handleChangeTheme}
-                      color="primary"
-                      name="nightModeSwitch"
-                      inputProps={{ "aria-label": "toggle night mode" }}
-                      icon={
-                        <WbSunnyIcon
-                          style={{
-                            fontSize: 28,
-                            backgroundColor: "#3498DB",
-                            padding: "4px",
-                            borderRadius: "50%",
-                            color: "#ffc107",
-                            marginTop: "-4px",
-                          }}
-                        />
-                      }
-                      checkedIcon={
-                        <Brightness2Icon
-                          style={{
-                            fontSize: 28,
-                            backgroundColor: "white",
-                            padding: "4px",
-                            borderRadius: "50%",
-                            color: "blue",
-                            marginTop: "-4px",
-                          }}
-                        />
-                      }
-                    />
-                  }
-                />
-              </div>
-              {auth && auth.user ? (
-                <div className={styles.loggedUserContainer}>
-                  <div className={styles.loggedUserInfo}>
-                    <img
-                      src={getAvatarImageUrl(auth.user?.genero)}
-                      alt={auth.user.username}
-                    />
-                    <span>{auth.user.username}</span>
-                    <button onClick={handleLogout}>Logout</button>
-                  </div>
-                </div>
-              ) : (
-                <div className={styles.containerLogin}>
-                  <div className={styles.iconLogin}>
-                    <img src="/img/perfil.png" alt="" onClick={openModal} />
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>

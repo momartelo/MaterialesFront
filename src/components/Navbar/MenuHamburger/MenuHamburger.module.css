@@ -1,25 +1,38 @@
 .hamburgerMenu {
   position: relative;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.hamburgerIcon {
-  font-size: 24px;
-  cursor: pointer;
+.hamburgerMenu:hover {
+  background-color: white;
+}
+
+.hamburgerCloseIcon:hover {
+  color: red;
+}
+
+.hamburgerMenuIcon:hover {
+  color: rgb(109, 230, 109);
 }
 
 .menu {
   position: absolute;
-  top: 40px;
-  right: 100;
+  width: fit-content;
+  top: 50px;
+
   background-color: #fff;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
+  padding-left: 15px;
   display: none;
 }
 
 .menu.open {
   display: block;
+  width: max-content;
 }
 
 .menu ul {
@@ -28,16 +41,16 @@
   padding: 0;
 }
 
-.menu li {
-  margin: 10px 0;
-}
+/* .menu li {
+  margin: 10px 0; 
+   padding-left: 10px;
+} */
 
-.menu a {
-  text-decoration: none;
+/* .menu a {
   color: #333;
   font-weight: bold;
   cursor: pointer;
-}
+} */
 
 .subMenu {
   list-style: none;
@@ -53,4 +66,96 @@
   text-decoration: none;
   color: #555; /* Cambia el color para diferenciar del menú principal */
   font-weight: normal;
+}
+
+.menuDropdownTitles {
+  padding: 5px;
+  margin: 15px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.menuDropdownTitles:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+.menuDropdownTitles > a:hover {
+  color: #007bff;
+}
+
+.menuDropdownTitles > img {
+  height: 22px;
+}
+
+.textTitleMenu {
+  font-size: 1rem;
+  color: #333;
+}
+
+.productLinkNav {
+  margin: 0;
+}
+
+.productLinkNav > p {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  text-decoration: none;
+}
+
+.productLinkNav > a {
+  margin-left: 3rem;
+  padding-bottom: 0.2rem;
+  padding-top: 0.2rem;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.productLinkNav > a:hover {
+  color: #007bff;
+}
+
+.subcategoryName {
+  text-decoration: none;
+  outline: none;
+}
+
+.navItemTodo {
+  /* font-size: 0.75rem;
+  text-decoration: none;
+  font-weight: 300; */
+  text-align: right;
+  border-bottom: 1px #d5d5d5 solid;
+}
+
+.navItemTodo > a {
+  font-size: 0.75rem;
+  text-decoration: none;
+  font-weight: 500;
+  padding-top: 0.8rem;
+  padding-bottom: 0.5rem;
+  color: #333;
+}
+
+.navItemTodo > a:hover {
+  color: #007bff;
+}
+
+.navItemTodoMat {
+  text-align: center;
+  border-bottom: 1px #d5d5d5 solid;
+}
+
+.navItemTodoMat > a {
+  font-size: 0.75rem;
+  text-decoration: none;
+  font-weight: 500;
+  padding-top: 0.8rem;
+  padding-bottom: 0.5rem;
+  color: #333;
+}
+
+.navItemTodoMat > a:hover {
+  color: #007bff;
 }

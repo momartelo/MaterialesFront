@@ -126,6 +126,14 @@ ul {
   align-items: center;
 }
 
+.navbarHamburger {
+  display: none;
+}
+
+.logoAnchorMenuHamburger {
+  display: none;
+}
+
 .containerNavbarCentral {
   /* display: flex;
   width: 80%; */
@@ -405,6 +413,7 @@ ul {
   flex-direction: row;
   align-items: center;
   padding: 5px;
+  order: 3;
 }
 
 .loggedUserInfo {
@@ -443,6 +452,7 @@ ul {
   display: flex;
   flex-direction: row;
   align-items: center;
+  order: 3;
 }
 
 .iconLogin,
@@ -502,6 +512,10 @@ ul {
 .buttonNewMaterial:hover {
   background-color: #198754;
   color: white;
+}
+
+.containerALLExchange {
+  order: 1;
 }
 
 .containerExchange {
@@ -650,9 +664,10 @@ ul {
 }
 
 .logoAnchorMenuHamburger.mobileLandscape {
-  margin-left: 1rem;
+  margin-left: 2rem;
   align-items: center;
   width: 45%;
+  display: block;
 }
 
 .linkLogoMenuHamburger.mobileLandscape {
@@ -664,13 +679,14 @@ ul {
   border-radius: 5px;
 }
 
-.navbarCentral {
+.navbarCentral.mobileLandscape {
   display: none;
 }
 
-.navbarHamburger {
+.navbarHamburger.mobileLandscape {
   display: flex;
   align-items: center;
+  padding-left: 1rem;
 }
 
 .containerIconsNav.mobileLandscape {
@@ -709,12 +725,91 @@ ul {
   height: 0;
 }
 
+/* Estilos Mobile */
+
+.containerNavbarCentral.mobile {
+  width: 60%;
+  margin-right: 0;
+}
+
+.logoAnchor.mobile {
+  display: none;
+}
+
+.logoAnchorMenuHamburger.mobile {
+  margin-left: 1rem;
+  align-items: center;
+  display: block;
+}
+
+.linkLogoMenuHamburger.mobile {
+  display: block;
+}
+
+.linkLogoMenuHamburger.mobile > img {
+  width: 80%;
+  border-radius: 5px;
+}
+
+.navbarCentral.mobile {
+  display: none;
+}
+
+.navbarHamburger.mobile {
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.containerIconsNav.mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 0.5rem;
+  width: max-content;
+  column-gap: 0.5rem;
+}
+
+.containerSwitchLog.mobile {
+  display: flex;
+  border-bottom: 1px #999 solid;
+}
+
+.containerExchange.mobile {
+  display: flex;
+  padding-right: 0.5rem;
+  align-items: center;
+}
+
+.containerValorDolar.mobile > p:nth-child(3) {
+  display: none;
+}
+
+.containerValorDolar.mobile > button {
+  display: none;
+}
+
+.containerValorEuro.mobile > p:nth-child(3) {
+  display: none;
+}
+
+.containerValorEuro.mobile > button {
+  display: none;
+}
+
+.separataExchange.mobileLandscape {
+  border-bottom: 1px #999 solid;
+  width: 75%;
+  height: 0;
+}
+
 /* Theme Day-Nights */
 
 .switchDayNight {
   display: flex;
   justify-content: center;
   align-items: center;
+  order: 2;
 }
 
 .switchDayNight > label {
