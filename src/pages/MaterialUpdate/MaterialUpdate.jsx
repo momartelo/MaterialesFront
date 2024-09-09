@@ -350,7 +350,7 @@ const MaterialUpdate = () => {
           </div>
           <div className={styles.containerData}>
             <div className={styles.containerTitleUpdate}>
-              <img src="/img/editar-archivo2.png" alt="" />
+              <img src="/img/editar-documento.png" alt="" />
               <h2>Editar</h2> <h2>Material:</h2>
             </div>
             <div className={styles.containerNameUpdate}>
