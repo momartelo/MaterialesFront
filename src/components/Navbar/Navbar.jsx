@@ -316,7 +316,7 @@ const Navbar = () => {
                     <li className={styles.navItem}>
                       <Link
                         className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
-                        to="#"
+                        to="/contact"
                       >
                         <span>Contacto</span>
                       </Link>
@@ -390,7 +390,9 @@ const Navbar = () => {
                   <div
                     className={`${styles.loggedUserContainer} ${responsiveClass} ${modeClass}`}
                   >
-                    <div className={styles.loggedUserInfo}>
+                    <div
+                      className={`${styles.loggedUserInfo} ${responsiveClass} ${modeClass}`}
+                    >
                       <img
                         src={getAvatarImageUrl(auth.user?.genero)}
                         alt={auth.user.username}

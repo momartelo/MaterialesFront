@@ -59,13 +59,22 @@
 }
 
 .subMenu li {
-  margin: 5px 0;
+  margin: 0.5rem 0.5rem;
 }
 
 .subMenu a {
   text-decoration: none;
-  color: #555; /* Cambia el color para diferenciar del menú principal */
+  color: #111; /* Cambia el color para diferenciar del menú principal */
   font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.subMenu:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+.subMenu a:hover {
+  color: #007bff;
 }
 
 .menuDropdownTitles {

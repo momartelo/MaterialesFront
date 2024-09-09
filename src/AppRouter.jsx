@@ -13,6 +13,7 @@ import MaterialDescription from "./pages/MaterialDescription/MaterialDescription
 import MaterialUpdate from "./pages/MaterialUpdate/MaterialUpdate";
 import SubcategoryPage from "./pages/SubcategoryPage/SubcategoryPage";
 import UnitPage from "./pages/UnitPage/UnitPage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 
 function AppRouter() {
   return (
@@ -41,6 +42,7 @@ function AppRouter() {
         path="/material/description/:materialId"
         element={<MaterialDescription />}
       />
+      <Route path="/contact" element={<ContactPage />}></Route>
     </Routes>
   );
 }

@@ -568,6 +568,12 @@ ul {
   color: white;
 }
 
+.containerSwitchLog {
+  display: flex;
+  flex-direction: row;
+  order: 2;
+}
+
 .loadingIcon {
   animation: spin 1s linear infinite;
 }
@@ -729,7 +735,7 @@ ul {
 
 .containerNavbarCentral.mobile {
   width: 60%;
-  margin-right: 0;
+  margin: 0;
 }
 
 .logoAnchor.mobile {
@@ -737,9 +743,10 @@ ul {
 }
 
 .logoAnchorMenuHamburger.mobile {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   align-items: center;
-  display: block;
+  display: flex;
+  padding-bottom: 0.5rem;
 }
 
 .linkLogoMenuHamburger.mobile {
@@ -747,7 +754,8 @@ ul {
 }
 
 .linkLogoMenuHamburger.mobile > img {
-  width: 80%;
+  width: 100px;
+  height: auto;
   border-radius: 5px;
 }
 
@@ -755,10 +763,38 @@ ul {
   display: none;
 }
 
+.loggedUserInfo.mobile {
+  flex-direction: row;
+  column-gap: 5px;
+  margin: 0;
+}
+
+.loggedUserInfo.mobile > img {
+  width: 25px;
+  height: 25px;
+}
+
+.loggedUserInfo.mobile > span {
+  font-size: 10px;
+}
+
+.loggedUserInfo > button {
+  margin: 0;
+  padding: 3px;
+  font-size: 10px;
+  border: 1px solid #999;
+}
+
+.loggedUserInfo > button:hover {
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: #fff;
+}
+
 .navbarHamburger.mobile {
   display: flex;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
 }
 
 .containerIconsNav.mobile {
@@ -773,12 +809,16 @@ ul {
 .containerSwitchLog.mobile {
   display: flex;
   border-bottom: 1px #999 solid;
+  order: 1;
 }
 
 .containerExchange.mobile {
   display: flex;
   padding-right: 0.5rem;
   align-items: center;
+  justify-content: center;
+  order: 2;
+  width: 100%;
 }
 
 .containerValorDolar.mobile > p:nth-child(3) {

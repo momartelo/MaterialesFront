@@ -23,23 +23,29 @@ const HamburgerMenu = () => {
 
   const toggleSubMenuMateriales = () => {
     setIsSubMenuMaterialesOpen(!isSubMenuMaterialesOpen);
+    if (isSubMenuEditOpen) {
+      setIsSubMenuEditOpen(false);
+    }
   };
 
   const toggleSubMenuEdit = () => {
     setIsSubMenuEditOpen(!isSubMenuEditOpen);
+    if (isSubMenuMaterialesOpen) {
+      setIsSubMenuMaterialesOpen(false);
+    }
   };
 
   return (
     <div className={styles.hamburgerMenu}>
       {isOpen ? (
         <CloseIcon
-          style={{ fontSize: 30 }}
+          style={{ fontSize: 24 }}
           onClick={toggleMenu}
           className={styles.hamburgerCloseIcon}
         />
       ) : (
         <MenuIcon
-          style={{ fontSize: 30 }}
+          style={{ fontSize: 24 }}
           onClick={toggleMenu}
           className={styles.hamburgerMenuIcon}
         />
@@ -144,7 +150,7 @@ const HamburgerMenu = () => {
           </li>
           <li className={styles.menuDropdownTitles} onClick={toggleSubMenuEdit}>
             <a className={styles.textTitleMenu} href="#home">
-              Editar
+              Listar y Editar
             </a>
             {isSubMenuEditOpen ? (
               <img src="/img/arriba-cheuron.png" alt="" />
@@ -154,13 +160,16 @@ const HamburgerMenu = () => {
             {isSubMenuEditOpen && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#dashboard">Dashboard</a>
+                  <a href="/material">- Materiales</a>
                 </li>
                 <li>
-                  <a href="#profile">Profile</a>
+                  <a href="/category">- Categorias</a>
                 </li>
                 <li>
-                  <a href="#settings">Settings</a>
+                  <a href="/subcategory">- Subcategorias</a>
+                </li>
+                <li>
+                  <a href="/unit">- Unidades</a>
                 </li>
               </ul>
             )}
