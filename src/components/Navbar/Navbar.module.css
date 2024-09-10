@@ -90,7 +90,7 @@ ul {
   width: 100%;
   max-width: 1320px;
   background-color: #f5f5f5;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   justify-content: center;
   border-bottom: 1px solid #e5e5e5;
   position: sticky;
@@ -585,6 +585,16 @@ ul {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Estilos HD */
+
+.containerValorDolar.hd > button {
+  display: none;
+}
+
+.containerValorEuro.hd > button {
+  display: none;
 }
 
 /* Estilos Tablet */

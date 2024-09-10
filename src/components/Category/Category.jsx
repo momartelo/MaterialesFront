@@ -1,27 +1,15 @@
-import { useContext, useEffect, useId, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Category.module.css";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import { AuthContext } from "../../providers/AuthProvider";
 import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
-import { fetchCategories } from "../../functions/getCategory";
 
 const Category = ({ categories }) => {
   const [search, setSearch] = useState("");
-  // const [sort, setSort] = useState("");
   const [filterCategories, setFilterCategories] = useState(categories);
   const [showCategoryNewModal, setShowCategoryNewModal] = useState(false);
-
-  // const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
-
-  // const loadCategories = () => {
-  //   fetchCategories(auth.token) // Asegúrate de pasar el token correcto
-  //     .then((data) => {
-  //       setFilterCategories(data); // Actualiza el estado con las nuevas categorías
-  //     })
-  //     .catch((err) => console.error(err));
-  // };
 
   useEffect(() => {
     let filtered = categories.filter((cat) => {
@@ -54,8 +42,6 @@ const Category = ({ categories }) => {
           <CategoryNewModal
             show={showCategoryNewModal}
             onHide={handleCloseModal}
-            // onCategoryCreated={loadCategories}
-            // categoryId={category._id}
           />
           <div className={styles.searchContainer}>
             <input

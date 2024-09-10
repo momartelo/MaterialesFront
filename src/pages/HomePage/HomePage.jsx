@@ -36,7 +36,7 @@ function HomePage() {
         <div className={`${styles.containerCarousel} ${containerClass} `}>
           <CarouselComponent />
         </div>
-        <div className={`${styles.texts} ${containerClass} ${containerClass}`}>
+        <div className={`${styles.texts} ${containerClass} ${modeClass}`}>
           <h1>Sistema de Materiales</h1>
 
           <p>

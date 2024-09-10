@@ -163,70 +163,91 @@ const ContactPage = () => {
           <img src="../../../public/img/formulario-de-contacto.png" alt="" />
           <h1>Formulario de Contacto</h1>
         </div>
-        <div
+        {/* <div
           className={`${styles.containerMessages} ${containerClass} ${modeClass}`}
         >
-          {/* {enviado && <p>¡Mensaje enviado con éxito!</p>} */}
-          {/* {error && <p>{error}</p>} */}
-        </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className={`${styles.containerForm} ${containerClass} ${modeClass}`}
+        </div> */}
+        <div
+          className={`${styles.containerTextsAndForm} ${containerClass} ${modeClass}`}
         >
-          <div className={`${styles.formName} ${containerClass} ${modeClass}`}>
-            <label htmlFor="nombre">Nombre:</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className={`${styles.formEmail} ${containerClass} ${modeClass}`}>
-            <label htmlFor="email">Correo Electrónico:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
           <div
-            className={`${styles.formMessage} ${containerClass} ${modeClass}`}
+            className={`${styles.containerTextsForm} ${containerClass} ${modeClass}`}
           >
-            <label htmlFor="mensaje">Mensaje:</label>
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              value={formData.mensaje}
-              onChange={handleChange}
-              required
-            />
+            <h2>Dudas, problemas, comentarios, etc.</h2>
+            <p>Necesitas contactarte con nosotros.</p>
+            <p>- ¿tenes una duda?</p>
+            <p>- ¿queres dejarnos un feedback?</p>
+            <p>- ¿queres reportar un bug?</p>
+            <p>
+              Rellena el formulario dejanos un email y a la brevedad si asi lo
+              requiere nos estaremos comunicando con vos.
+            </p>
+            <p>Gracias!!</p>
+            <p>Atte. el equipo de desarrollo</p>
           </div>
-          <div
-            className={`${styles.containerButtons} ${containerClass} ${modeClass}`}
+          <form
+            onSubmit={handleSubmit}
+            className={`${styles.containerForm} ${containerClass} ${modeClass}`}
           >
-            <button
-              type="submit"
-              className={styles.buttonSend}
-              // onClick={handleSubmit}
+            <div
+              className={`${styles.formName} ${containerClass} ${modeClass}`}
             >
-              Enviar
-            </button>
-            <button
-              type="button"
-              className={styles.buttonBack}
-              onClick={handleBack}
+              <label htmlFor="nombre">Nombre:</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div
+              className={`${styles.formEmail} ${containerClass} ${modeClass}`}
             >
-              Volver
-            </button>
-          </div>
-        </form>
+              <label htmlFor="email">Correo Electrónico:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div
+              className={`${styles.formMessage} ${containerClass} ${modeClass}`}
+            >
+              <label htmlFor="mensaje">Mensaje:</label>
+              <textarea
+                id="mensaje"
+                name="mensaje"
+                value={formData.mensaje}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div
+              className={`${styles.containerButtons} ${containerClass} ${modeClass}`}
+            >
+              <button
+                type="submit"
+                className={styles.buttonSend}
+                // onClick={handleSubmit}
+              >
+                Enviar
+              </button>
+              <button
+                type="button"
+                className={styles.buttonBack}
+                onClick={handleBack}
+              >
+                Volver
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
       <Footer />
     </>
