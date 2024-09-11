@@ -104,7 +104,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
   max-width: 1320px;
   /* border: 1px solid #999; */
   border-radius: 10px;
@@ -173,37 +173,99 @@
   height: 100vh;
 }
 
-/* .customSelect {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: red; 
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+/* Estilos TabletHD */
+
+.containerVarSearch.tabletHD,
+.containerVarSearch.tablet {
+  width: 80%;
 }
 
-.customSelect::-ms-expand {
-  display: none;
+.addMaterialContainer.tabletHD,
+.addMaterialContainer.tablet {
+  width: 20%;
 }
 
-.customSelect:focus {
-  outline: none;
+.searchContainer.tabletHD,
+.searchContainer.tablet {
+  width: 45%;
 }
 
-.selectWrapper::after {
-  content: "▼";
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: white;
+.containerActions.tabletHD,
+.containerActions.tablet {
+  width: 35%;
 }
 
-.customSelect option {
-  background-color: #fff;
-  color: black;
-} */
+/* Estilos Tablet */
+
+.containerVarSearch.tablet {
+  width: 60%;
+  display: grid;
+  grid-template-columns: 35% 65%; /* Dos columnas de igual ancho */
+  grid-template-rows: auto auto; /* Dos filas, una para cada fila */
+  row-gap: 0.5rem; /* Espacio entre filas */
+  column-gap: 1%;
+  justify-content: center;
+}
+
+.addMaterialContainer.tablet,
+.addMaterialContainer.mobileLandscape {
+  width: 99%;
+  grid-column: 1 / 2;
+  grid-row: 2;
+  justify-content: center;
+}
+
+.searchContainer.tablet,
+.searchContainer.mobileLandscape,
+.searchContainer.mobile {
+  width: 100%;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-content: center;
+}
+
+.formControl.tablet,
+.formControl.mobileLandscape,
+.formControl.mobile {
+  width: 95%;
+}
+
+.containerActions.tablet,
+.containerActions.mobileLandscape {
+  width: 99%;
+  grid-column: 2 / 3;
+  grid-row: 2;
+  justify-content: center;
+}
+
+/* Estilos Mobile Landscape */
+
+.containerVarSearch.mobileLandscape {
+  width: 60%;
+  display: grid;
+  grid-template-columns: 40% 60%; /* Dos columnas de igual ancho */
+  grid-template-rows: auto auto; /* Dos filas, una para cada fila */
+  row-gap: 0.5rem; /* Espacio entre filas */
+  column-gap: 1%;
+  justify-content: center;
+}
+
+/* Estilos Mobile */
+
+.containerVarSearch.mobile {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 40% 60%; /* Dos columnas de igual ancho */
+  grid-template-rows: auto auto; /* Dos filas, una para cada fila */
+  row-gap: 0.5rem; /* Espacio entre filas */
+  column-gap: 1%;
+  justify-content: center;
+}
+
+.containerActions.mobile {
+  width: 95%;
+}
+
+.addMaterialContainer.mobile {
+  width: 95%;
+}

@@ -6,8 +6,42 @@ import { FadeLoader } from "react-spinners"; // Importa el loader
 import Footer from "../../components/Footer/Footer";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useMaterialsWithoutAuth } from "../../hooks/useMaterialsWithoutAuth";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 function MaterialPage2() {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  console.log({
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  });
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const materialClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const [materials, setMaterials] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,25 +53,6 @@ function MaterialPage2() {
     useCategoriesWithoutAuth();
   const { materials: materialsData, loading: loadingMaterials } =
     useMaterialsWithoutAuth();
-
-  // const getMaterial = useCallback(() => {
-  //   setLoading(true);
-  //   fetchMaterialsWithoutAuth()
-  //     .then((data) => {
-  //       setMaterials(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // const getCategory = useCallback(() => {
-  //   fetchCategoriesWithoutAuth()
-  //     .then((data) => setCategories(data))
-  //     .catch((err) => console.log(err));
-  // }, []);
 
   useEffect(() => {
     if (!loadingCategories && !loadingMaterials) {
@@ -56,21 +71,12 @@ function MaterialPage2() {
     return () => clearTimeout(timer);
   }, []);
 
-  // useEffect(() => {
-  //   getMaterial();
-  //   getCategory();
-
-  //   const timer = setTimeout(() => {
-  //     setMinLoadingTimeElapsed(true);
-  //   }, MIN_LOADING_TIME);
-
-  //   return () => clearTimeout(timer);
-  // }, [getMaterial, getCategory]);
-
   return (
     <>
       <Navbar />
-      <div className={styles.containerMaterialPage}>
+      <div
+        className={`${styles.containerMaterialPage} ${materialClass} ${modeClass}`}
+      >
         <div className={styles.containerTitle}>
           <img src="/img/categoria.png" alt="" />
           <h2>Materiales</h2>
@@ -95,49 +101,3 @@ function MaterialPage2() {
 }
 
 export default MaterialPage2;
-
-// import styles from "../MaterialPage2/MaterialPage2.module.css";
-// import { useCallback, useContext, useEffect, useState } from "react";
-// import { AuthContext } from "../../providers/AuthProvider";
-// import Material from "../../components/Material/Material";
-// import Navbar from "../../components/Navbar/Navbar";
-// import { fetchMaterialsWithoutAuth } from "../../functions/getMaterial.js";
-// import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
-
-// function MaterialPage2() {
-//   const [materials, setMaterials] = useState([]);
-//   const [categories, setCategories] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   // const { auth } = useContext(AuthContext);
-//   const getMaterial = useCallback(() => {
-//     fetchMaterialsWithoutAuth()
-//       .then((data) => setMaterials(data))
-//       .catch((err) => console.log(err));
-//   }, []);
-
-//   const getCategory = useCallback(() =>{
-//     fetchCategoriesWithoutAuth()
-//       .then((data) => setCategories(data))
-//       .catch((err) => console.log(err));
-//   }, []);
-
-//   useEffect(() => {
-//     getMaterial();
-//   }, [getMaterial]);
-
-//   useEffect(() => {
-//     getCategory();
-//   }, [getCategory]);
-
-//   return (
-//     <div className={styles.containerMaterialPage}>
-//       <Navbar />
-//       <h2>Materiales</h2>
-//       <main className={styles.mainMaterialPage}>
-//         <Material getMaterial={getMaterial} materials={materials} categories={categories}/>
-//       </main>
-//     </div>
-//   );
-// }
-
-// export default MaterialPage2;

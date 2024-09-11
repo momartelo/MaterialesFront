@@ -1,13 +1,46 @@
 import { useState, useEffect, useContext, useId } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import styles from "./Material.module.css";
 import MaterialItem2 from "../MaterialItem2/MaterialItem2";
 import { AuthContext } from "../../providers/AuthProvider";
 import Select from "react-select";
-import { ClipLoader } from "react-spinners";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const Material = ({ materials, getMaterial, categories }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  console.log({
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  });
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const materialClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const sortId = useId();
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
@@ -247,9 +280,15 @@ const Material = ({ materials, getMaterial, categories }) => {
   });
 
   return (
-    <div className={styles.containerMaterial}>
-      <div className={styles.containerVarSearch}>
-        <div className={styles.addMaterialContainer}>
+    <div
+      className={`${styles.containerMaterial} ${materialClass} ${modeClass}`}
+    >
+      <div
+        className={`${styles.containerVarSearch} ${materialClass} ${modeClass}`}
+      >
+        <div
+          className={`${styles.addMaterialContainer} ${materialClass} ${modeClass}`}
+        >
           {auth ? (
             <button
               className={styles.addMaterialButton}
@@ -259,17 +298,21 @@ const Material = ({ materials, getMaterial, categories }) => {
             </button>
           ) : null}
         </div>
-        <div className={styles.searchContainer}>
+        <div
+          className={`${styles.searchContainer} ${materialClass} ${modeClass}`}
+        >
           <input
             type="text"
-            className={styles.formControl}
+            className={`${styles.formControl} ${materialClass} ${modeClass}`}
             placeholder="Buscar material..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <FaSearch className={styles.searchIcon} />
         </div>
-        <div className={styles.containerActions}>
+        <div
+          className={`${styles.containerActions} ${materialClass} ${modeClass}`}
+        >
           <div className={styles.sortSelect}>
             <Select
               id={sortId}
