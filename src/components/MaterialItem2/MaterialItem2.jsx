@@ -103,7 +103,7 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
         {loadingCategories && loadingUnits ? (
           <p>Cargando categorías y unidades...</p>
         ) : (
-          <div className={styles.catPrice}>
+          <div className={`${styles.catPrice} ${materialClass} ${modeClass}`}>
             <div
               className={`${styles.priceMaterialItem} ${materialClass} ${modeClass}`}
             >
@@ -112,7 +112,7 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
               <span>{formatPesos(material.precioEnPesos)}</span>
             </div>
             <p>{getUnitName(material.unit)}</p>
-            <div className={styles.infoCat}>
+            <div className={`${styles.infoCat} ${materialClass} ${modeClass}`}>
               <p>Categoria:&nbsp;</p>
               <p>{getCategoryName(material.category)}</p>
             </div>

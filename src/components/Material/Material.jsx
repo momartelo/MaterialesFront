@@ -313,7 +313,7 @@ const Material = ({ materials, getMaterial, categories }) => {
         <div
           className={`${styles.containerActions} ${materialClass} ${modeClass}`}
         >
-          <div className={styles.sortSelect}>
+          <div className={`${styles.sortSelect} ${materialClass} ${modeClass}`}>
             <Select
               id={sortId}
               options={sortOptions}
@@ -321,10 +321,12 @@ const Material = ({ materials, getMaterial, categories }) => {
               onChange={(selectedOption) => setSort(selectedOption.value)}
               styles={customStyles}
               theme={customTheme}
-              placeholder="Ordenar por:"
+              // placeholder="Ordenar por:"
             />
           </div>
-          <div className={styles.itemsPerPage}>
+          <div
+            className={` ${styles.itemsPerPage} ${materialClass} ${modeClass}`}
+          >
             <Select
               options={[
                 { value: 10, label: "10" },
