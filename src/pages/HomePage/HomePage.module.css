@@ -284,7 +284,7 @@
   align-items: center;
   width: 90%;
   column-gap: 1.5rem;
-  height: 100%; /* REVISAR */
+
   /* min-height: 100vh; */
 }
 
