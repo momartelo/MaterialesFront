@@ -95,6 +95,7 @@
   align-items: center;
   justify-content: space-between;
   width: 90%;
+  margin-top: 0.5rem;
 }
 
 /*! container Title */
@@ -192,7 +193,7 @@
 }
 
 .iconXMedium:hover {
-  content: url(/img/xNegro.png);
+  content: url(/img/xAzul.png);
 }
 
 .iconLinkedinMedium:hover {
@@ -226,4 +227,14 @@
 
 .iconLinkedinSmall:hover {
   content: url(/img/linkedin.png);
+}
+
+.dayMode {
+  background-color: #f5f5f5;
+  color: #1e1e1e;
+}
+
+.nightMode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }

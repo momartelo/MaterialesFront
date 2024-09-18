@@ -172,14 +172,20 @@ ul {
 }
 
 .liHomeNavbar.nightMode {
-  background-color: #999;
+  background-color: #1e1e1e;
   border-radius: 5px;
-  color: #fff;
+  color: #e0e0e0;
 }
 
 .liHomeNavbar:hover {
   color: #007bff;
   background-color: var(--background-hover-color);
+  border-radius: 5px;
+}
+
+.liHomeNavbar.nightMode:hover {
+  color: #93c7ff;
+  background-color: #1e1e1e;
   border-radius: 5px;
 }
 
@@ -255,8 +261,8 @@ ul {
 }
 
 .liTitleMenu.nightMode {
-  background-color: #f5f5f5;
-  color: #111;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 .menuRow {
@@ -303,7 +309,7 @@ ul {
 
 .menuDropdown.nightMode,
 .menuDropdown2.nightMode {
-  background-color: #f5f5f5;
+  background-color: #1e1e1e;
 }
 
 .linkLogo > p {
@@ -318,12 +324,12 @@ ul {
 }
 
 .productLinkNav.nightMode {
-  background-color: #f5f5f5;
+  background-color: #1e1e1e;
 }
 
 .productLinkNav.nightMode > a {
-  background-color: #f5f5f5;
-  color: #111;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
   font-weight: 400;
 }
 
@@ -346,8 +352,8 @@ ul {
 }
 
 .navTitle.nightMode {
-  background-color: #f5f5f5;
-  color: #111;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 .navTitle > p {
@@ -360,13 +366,13 @@ ul {
 }
 
 .navItemTodo.nightMode {
-  background-color: #f5f5f5;
-  color: #111;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 .navItemTodo.nightMode > a {
-  color: black;
-  background-color: #f5f5f5;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
   transition: color var(--transition-speed);
 }
 
@@ -394,6 +400,11 @@ ul {
   font-size: 14px;
   color: black;
   transition: color var(--transition-speed);
+}
+
+.navItemTodoMat.nightMode > a {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 .navItemTodoMat > a:hover {
@@ -626,6 +637,10 @@ ul {
   color: black;
   /* transition: color var(--transition-speed),
     background-color var(--transition-speed); */
+}
+
+.liHomeNavbar.tablet.nightMode {
+  color: #f5f5f5;
 }
 
 .liHomeNavbar.tablet:hover {
@@ -873,13 +888,13 @@ ul {
 }
 
 .nightMode {
-  background-color: black;
-  color: #fff;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 .nightMode > a {
-  background-color: black;
-  color: #fff;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 .nightModeliHomeNavbar {

@@ -6,3 +6,12 @@
   padding-top: 20px;
   width: 100%;
 }
+.dayMode {
+  background-color: #f5f5f5;
+  color: #1e1e1e;
+}
+
+.nightMode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}

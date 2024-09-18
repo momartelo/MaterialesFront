@@ -29,6 +29,10 @@ function HomePage() {
   const containerClass = getContainerClass();
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
+  console.log(window.innerWidth);
+  console.log(window.innerHeight);
+  console.log(window.devicePixelRatio);
+
   return (
     <>
       <Navbar />

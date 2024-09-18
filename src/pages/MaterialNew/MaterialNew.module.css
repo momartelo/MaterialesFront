@@ -4,8 +4,9 @@
   align-items: center;
   background-color: #f5f5f5;
   height: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   width: 100%;
+  padding-bottom: 1rem;
 }
 
 .containerTitle {
@@ -13,12 +14,17 @@
   flex-direction: row;
   align-items: center;
   column-gap: 1rem;
+  margin: 1rem 0;
 }
 
 .containerTitle > h2 {
-  margin-top: 2rem;
-  font-weight: 800;
+  font-weight: 200;
   font-size: 2rem;
+  margin: 0;
+}
+
+.containerTitle > h2::first-letter {
+  font-weight: 600;
 }
 
 .containerTitle > img {
@@ -89,8 +95,8 @@ form {
 .containerButtons {
   display: flex;
   flex-direction: row;
-  width: 75%;
-  column-gap: 1rem;
+  width: 60%;
+  column-gap: 2rem;
 }
 
 .buttonMaterialNew {
@@ -148,4 +154,76 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Mobile Landscape */
+
+.containerTitle.mobileLandscape {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 1rem 0.5rem 0.5rem 0.5rem;
+  row-gap: 0.5rem;
+}
+
+.inputGroup.mobileLandscape {
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.containerButtons.mobileLandscape {
+  width: 85%;
+  max-width: 400px;
+}
+
+/* .containerTitle.mobileLandscape > h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+} */
+
+/* Mobile */
+
+.inputGroup.mobile {
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+
+.buttonNew.mobile {
+  padding: 0.5rem;
+}
+
+.containerSelect.mobile > select {
+  padding: 5px;
+  font-size: 0.85rem;
+}
+
+.containerSelect.mobile {
+  column-gap: 0.75rem;
+}
+
+.containerTitle.mobile {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 1rem 0.5rem 0.5rem 0.5rem;
+  row-gap: 0.5rem;
+}
+
+/* .containerTitle.mobile > h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+} */
+
+.form {
+  padding: 0;
+}
+
+.containerButtons.mobile {
+  width: 85%;
 }

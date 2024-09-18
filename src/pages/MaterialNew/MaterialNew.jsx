@@ -11,6 +11,9 @@ import { ClipLoader } from "react-spinners";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
+import { useResponsive } from "../../providers/ResponsiveContext";
+import { useTheme } from "../../providers/ThemeProvider";
+import Footer from "../../components/Footer/Footer";
 
 const MaterialNew = () => {
   const nameId = useId();
@@ -46,6 +49,38 @@ const MaterialNew = () => {
   const { categories, errorCat } = useCategoriesWithoutAuth();
   const { subcategories, errorSub } = useSubcategoriesWithoutAuth();
   const { units, errorUnits } = useUnitsWithoutAuth();
+
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  console.log({
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  });
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const containerClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   if (errorCat || errorSub || errorUnits) {
     return <div>Error al cargar datos</div>;
@@ -168,21 +203,31 @@ const MaterialNew = () => {
     <>
       <Navbar />
       <div className={styles.containerMaterialNew}>
-        <div className={styles.containerTitle}>
+        <div
+          className={`${styles.containerTitle} ${containerClass} ${modeClass}`}
+        >
           <img src="/img/papel.png" alt="" />
           <h2>Crear un nuevo material</h2>
         </div>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
+        <form
+          className={`${styles.form} ${containerClass} ${modeClass}`}
+          onSubmit={handleSubmit}
+        >
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={nameId}>Nombre:</label>
             <input
               type="text"
               id={nameId}
               value={name}
               onChange={(e) => setName(e.target.value)}
+              title="Introduce el nombre del material"
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={priceId}>Precio:</label>
             <input
               type="number"
@@ -191,7 +236,9 @@ const MaterialNew = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={currencyId}>Moneda:</label>
             <select
               id={currencyId}
@@ -204,7 +251,9 @@ const MaterialNew = () => {
               <option value="ARS">ARS</option>
             </select>
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={sourceId}>Fuente:</label>
             <input
               type="text"
@@ -213,9 +262,13 @@ const MaterialNew = () => {
               onChange={(e) => setSource(e.target.value)}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={unitId}>Unidad:</label>
-            <div className={styles.containerSelect}>
+            <div
+              className={`${styles.containerSelect} ${containerClass} ${modeClass}`}
+            >
               <select
                 id={unitId}
                 value={unitIdState}
@@ -228,7 +281,10 @@ const MaterialNew = () => {
                   </option>
                 ))}
               </select>
-              <Link className={styles.buttonNew} onClick={handleUnitNewClick}>
+              <Link
+                className={`${styles.buttonNew} ${containerClass} ${modeClass}`}
+                onClick={handleUnitNewClick}
+              >
                 Nueva
               </Link>
               <UnitNewModal
@@ -238,9 +294,13 @@ const MaterialNew = () => {
               />
             </div>
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={categoryId}>Categoria:</label>
-            <div className={styles.containerSelect}>
+            <div
+              className={`${styles.containerSelect} ${containerClass} ${modeClass}`}
+            >
               <select
                 id={categoryId}
                 value={categoryIdState}
@@ -254,7 +314,7 @@ const MaterialNew = () => {
                 ))}
               </select>
               <Link
-                className={styles.buttonNew}
+                className={`${styles.buttonNew} ${containerClass} ${modeClass}`}
                 onClick={handleCategoryNewClick}
               >
                 Nueva
@@ -266,9 +326,13 @@ const MaterialNew = () => {
               />
             </div>
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={subcategoryId}>Subcategoria:</label>
-            <div className={styles.containerSelect}>
+            <div
+              className={`${styles.containerSelect} ${containerClass} ${modeClass}`}
+            >
               <select
                 id={subcategoryId}
                 value={subcategoryIdState}
@@ -282,7 +346,7 @@ const MaterialNew = () => {
                 ))}
               </select>
               <Link
-                className={styles.buttonNew}
+                className={`${styles.buttonNew} ${containerClass} ${modeClass}`}
                 onClick={handleSubcategoryNewClick}
               >
                 Nueva
@@ -294,7 +358,9 @@ const MaterialNew = () => {
               />
             </div>
           </div>
-          <div className={styles.containerButtons}>
+          <div
+            className={`${styles.containerButtons} ${containerClass} ${modeClass}`}
+          >
             <button
               className={styles.buttonMaterialNew}
               type="submit"
@@ -313,6 +379,7 @@ const MaterialNew = () => {
           )}
         </form>
       </div>
+      <Footer />
     </>
   );
 };

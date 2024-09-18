@@ -1,15 +1,37 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Subcategory.module.css";
-import { FaSearch } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import SubcategoryItem from "../SubcategoryItem/SubcategoryItem";
 import SubcategoryNewModal from "../SubcategoryNewModal/SubcategoryNewModal";
-import { fetchSubcategories } from "../../functions/getSubcategory";
-import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 import { useSubcategories } from "../../hooks/useSubcategories";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const Subcategory = ({ subcategories, categories }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const subcategoryClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [filterSubcategories, setFilterSubcategories] = useState(subcategories);
@@ -49,11 +71,15 @@ const Subcategory = ({ subcategories, categories }) => {
   };
 
   return (
-    <div className={styles.containerSubcategory}>
+    <div
+      className={`${styles.containerSubcategory} ${subcategoryClass} ${modeClass}`}
+    >
       {auth ? (
-        <div className={styles.wrapperSubcategory}>
+        <div
+          className={`${styles.wrapperSubcategory} ${subcategoryClass} ${modeClass}`}
+        >
           <Link
-            className={styles.btnSuccess}
+            className={`${styles.btnSuccess} ${subcategoryClass} ${modeClass}`}
             onClick={handleSubcategoryNewClick}
           >
             Nueva Subcategoria
@@ -63,7 +89,9 @@ const Subcategory = ({ subcategories, categories }) => {
             onHide={handleCloseModal}
             onSubcategoryCreated={useSubcategories}
           />
-          <div className={styles.searchContainer}>
+          <div
+            className={`${styles.searchContainer} ${subcategoryClass} ${modeClass}`}
+          >
             <input
               type="search"
               className={styles.formControl}
@@ -73,12 +101,13 @@ const Subcategory = ({ subcategories, categories }) => {
             />
             <div className={styles.containerIcon}>
               <img src="/img/lupaAzulRellena.png" alt="" />
-              {/* <FaSearch className={styles.searchIcon} /> */}
             </div>
           </div>
         </div>
       ) : (
-        <div className={styles.wrapperSubcategory}>
+        <div
+          className={`${styles.wrapperSubcategory} ${subcategoryClass} ${modeClass}`}
+        >
           <input
             type="search"
             className={styles.formControl}
@@ -88,7 +117,6 @@ const Subcategory = ({ subcategories, categories }) => {
           />
           <div className={styles.containerIcon}>
             <img src="/img/lupaAzulRellena.png" alt="" />
-            {/* <FaSearch className={styles.searchIcon} /> */}
           </div>
         </div>
       )}

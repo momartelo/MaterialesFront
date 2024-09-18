@@ -1,29 +1,42 @@
 import styles from "./Unit.module.css";
 import { AuthContext } from "../../providers/AuthProvider";
-import { fetchUnits } from "../../functions/getUnit";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UnitItem from "../UnitItem/UnitItem";
 import UnitNewModal from "../UnitNewModal/UnitNewModal";
 import { useUnits } from "../../hooks/useUnits";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const Unit = ({ units }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const unitClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [filterUnits, setFilterUnits] = useState(units);
   const { auth } = useContext(AuthContext);
   const [showUnitNewModal, setShowUnitNewModal] = useState(false);
-
-  // const loadUnits = () => {
-  //   fetchUnits(auth.token)
-  //     .then((data) => {
-  //       setFilterUnits(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const { units: unitsData, loading: loadingUnits } =
-  // useCategoriesWithoutAuth();
 
   useEffect(() => {
     let filtered = units.filter((unit) => {
@@ -46,10 +59,13 @@ const Unit = ({ units }) => {
   };
   console.log(filterUnits);
   return (
-    <div className={styles.containerUnit}>
+    <div className={`${styles.containerUnit} ${unitClass} ${modeClass}`}>
       {auth ? (
-        <div className={styles.wrapperUnit}>
-          <Link className={styles.btnSuccess} onClick={handleUnitNewClick}>
+        <div className={`${styles.wrapperUnit} ${unitClass} ${modeClass}`}>
+          <Link
+            className={`${styles.btnSuccess} ${unitClass} ${modeClass}`}
+            onClick={handleUnitNewClick}
+          >
             Nueva Unidad
           </Link>
           <UnitNewModal
@@ -57,7 +73,9 @@ const Unit = ({ units }) => {
             onHide={handleCloseModal}
             onUnitCreated={useUnits}
           />
-          <div className={styles.searchContainer}>
+          <div
+            className={`${styles.searchContainer} ${unitClass} ${modeClass}`}
+          >
             <input
               type="search"
               className={styles.formControl}
@@ -71,7 +89,7 @@ const Unit = ({ units }) => {
           </div>
         </div>
       ) : (
-        <div className={styles.wrapperUnit}>
+        <div className={`${styles.wrapperUnit} ${unitClass} ${modeClass}`}>
           <input
             type="search"
             className={styles.formControl}

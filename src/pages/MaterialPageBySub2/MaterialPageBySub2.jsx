@@ -5,10 +5,9 @@ import { API_URL } from "../../utils/config";
 import { AuthContext } from "../../providers/AuthProvider";
 import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
-import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
-import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
+import Footer from "../../components/Footer/Footer";
 
 function MaterialPageBySub2() {
   const { categoryId, subcategoryId } = useParams();
@@ -20,18 +19,6 @@ function MaterialPageBySub2() {
   const { auth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-
-  // const getCategories = useCallback(() => {
-  //   fetchCategoriesWithoutAuth()
-  //     .then((data) => setCategories(data))
-  //     .catch((err) => console.error(err));
-  // }, []);
-
-  // const getSubcategories = useCallback(() => {
-  //   fetchSubcategoriesWithoutAuth()
-  //     .then((data) => setSubcategories(data))
-  //     .catch((err) => console.error(err));
-  // }, []);
 
   const { categories: categoriesData, loading: loadingCategories } =
     useCategoriesWithoutAuth();
@@ -85,14 +72,6 @@ function MaterialPageBySub2() {
     }, 1000);
   }, [categoryId, subcategoryId]);
 
-  // useEffect(() => {
-  //   getCategories();
-  // }, [getCategories]);
-
-  // useEffect(() => {
-  //   getSubcategories();
-  // }, [getSubcategories]);
-
   useEffect(() => {
     if (categories.length > 0) {
       console.log(categories);
@@ -129,62 +108,46 @@ function MaterialPageBySub2() {
   };
 
   return (
-    <div className={styles.containerBySub}>
+    <>
       <Navbar />
-      <h2>Materiales</h2>
-      {category ? (
-        <div className={styles.containerCategoryTitle}>
-          <div className={styles.containerCategoryText}>
-            <img src="/img/flecha-correcta.png" alt="" />
-            <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
-          </div>
-          <div className={styles.containerSubcategoryText}>
-            <img src="/img/puntos-de-menu.png" alt="" />
-            <h5>Subcategoria:&nbsp; </h5>{" "}
-            {subcategory ? (
-              <h5>{subcategory.subcategory}</h5>
-            ) : (
-              "Cargando subcategoria..."
-            )}
-          </div>
-        </div>
-      ) : (
-        <h3>Cargando categoria....</h3>
-      )}
-      <main className={styles.sectionBySub}>
-        {isLoading ? (
-          <div className={styles.loading}>
-            <p>Cargando materiales...</p>
+      <div className={styles.containerBySub}>
+        <h2>Materiales</h2>
+        {category ? (
+          <div className={styles.containerCategoryTitle}>
+            <div className={styles.containerCategoryText}>
+              <img src="/img/flecha-correcta.png" alt="" />
+              <h3>Categoria:&nbsp;</h3> <h3>{category.category}</h3>
+            </div>
+            <div className={styles.containerSubcategoryText}>
+              <img src="/img/puntos-de-menu.png" alt="" />
+              <h5>Subcategoria:&nbsp; </h5>{" "}
+              {subcategory ? (
+                <h5>{subcategory.subcategory}</h5>
+              ) : (
+                "Cargando subcategoria..."
+              )}
+            </div>
           </div>
         ) : (
-          <Material
-            getMaterial={getMaterialsFiltered}
-            materials={materialsFitered}
-            onMaterialDelete={handleMaterialDeleted}
-          />
+          <h3>Cargando categoria....</h3>
         )}
-      </main>
-    </div>
+        <main className={styles.sectionBySub}>
+          {isLoading ? (
+            <div className={styles.loading}>
+              <p>Cargando materiales...</p>
+            </div>
+          ) : (
+            <Material
+              getMaterial={getMaterialsFiltered}
+              materials={materialsFitered}
+              onMaterialDelete={handleMaterialDeleted}
+            />
+          )}
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 }
 
 export default MaterialPageBySub2;
-
-// return (
-//     <div className={styles.container}>
-//       <Navbar3 />
-//       <h2>Materiales</h2>
-//       {category ? (
-//         <h3>Categoria: {category.category}</h3>
-//       ) : (
-//         <h3>Cargando categoria....</h3>
-//       )}
-//       <main className={styles.section}>
-//         <Material
-//           getMaterial={getMaterialsFiltered}
-//           materials={materialsFitered}
-//         />
-//       </main>
-//     </div>
-//   );
-// }

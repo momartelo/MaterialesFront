@@ -20,15 +20,6 @@ function MaterialPage2() {
     isMobileLandscape,
   } = useResponsive();
 
-  console.log({
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  });
-
   const getContainerClass = () => {
     if (isDesktopFullHD) return styles.fullHD;
     if (isDesktopHD) return styles.hd;

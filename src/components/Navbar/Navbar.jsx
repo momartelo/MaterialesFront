@@ -149,7 +149,7 @@ const Navbar = () => {
                       >
                         <span>Materiales</span>
                         {isNightMode ? (
-                          <img src="/img/angulo-hacia-abajo.png" alt="" />
+                          <img src="/img/desplazarse-hacia-abajo.png" alt="" />
                         ) : (
                           <img src="/img/AnguloAbajo.png" alt="" />
                         )}
@@ -230,7 +230,9 @@ const Navbar = () => {
                                   </div>
                                 ))}
                             </div>
-                            <div className={styles.navItemTodoMat}>
+                            <div
+                              className={`${styles.navItemTodoMat} ${styles.nightMode}`}
+                            >
                               <Link to={`/material`}>Todos los materiales</Link>
                             </div>
                           </div>
@@ -245,7 +247,10 @@ const Navbar = () => {
                         >
                           <span>Editar</span>
                           {isNightMode ? (
-                            <img src="/img/angulo-hacia-abajo.png" alt="" />
+                            <img
+                              src="/img/desplazarse-hacia-abajo.png"
+                              alt=""
+                            />
                           ) : (
                             <img src="/img/AnguloAbajo.png" alt="" />
                           )}

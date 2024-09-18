@@ -1,12 +1,12 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import { AuthContext } from "../../providers/AuthProvider";
 import styles from "./SubcategoryPage.module.css";
-import { fetchSubcategoriesWithoutAuth } from "../../functions/getSubcategory.js";
 import Subcategory from "../../components/Subcategory/Subcategory.jsx";
 import { FadeLoader } from "react-spinners"; // Importa el loader
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth.js";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth.js";
+import Footer from "../../components/Footer/Footer.jsx";
 
 function SubcategoryPage() {
   const [subcategories, setSubcategories] = useState([]);
@@ -44,46 +44,29 @@ function SubcategoryPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // const getSubcategory = useCallback(() => {
-  //   setLoading(true);
-  //   fetchSubcategoriesWithoutAuth()
-  //     .then((data) => {
-  //       setSubcategories(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   getSubcategory();
-
-  //   const timer = setTimeout(() => {
-  //     setMinLoadingTimeElapsed(true);
-  //   }, MIN_LOADING_TIME);
-
-  //   return () => clearTimeout(timer);
-  // }, [getSubcategory]);
-
   return (
-    <div className={styles.containerSubcategoryPage}>
+    <>
       <Navbar />
-      <div className={styles.containerTitle}>
-        <img src="/img/categoria.png" alt="" />
-        <h2>Subcategorias</h2>
+      <div className={styles.containerSubcategoryPage}>
+        <div className={styles.containerTitle}>
+          <img src="/img/categoria.png" alt="" />
+          <h2>Subcategorias</h2>
+        </div>
+        <main className={styles.main}>
+          {loading || !minLoadingTimeElapsed ? (
+            <div className={styles.loaderContainer}>
+              <FadeLoader color="#007bff" loading={true} size={100} />
+            </div>
+          ) : (
+            <Subcategory
+              subcategories={subcategories}
+              categories={categories}
+            />
+          )}
+        </main>
       </div>
-      <main className={styles.main}>
-        {loading || !minLoadingTimeElapsed ? (
-          <div className={styles.loaderContainer}>
-            <FadeLoader color="#007bff" loading={true} size={100} />
-          </div>
-        ) : (
-          <Subcategory subcategories={subcategories} categories={categories} />
-        )}
-      </main>
-    </div>
+      <Footer />
+    </>
   );
 }
 

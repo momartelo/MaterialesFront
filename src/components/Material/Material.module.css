@@ -31,6 +31,7 @@
 .addMaterialButton:hover {
   background-color: #198754;
   color: #fff;
+  border: none;
 }
 
 .searchContainer {
@@ -108,7 +109,7 @@
   max-width: 1320px;
   /* border: 1px solid #999; */
   border-radius: 10px;
-  margin: 5px;
+  margin: 20px 5px 5px 5px;
   column-gap: 1rem;
   row-gap: 1rem;
 }

@@ -5,6 +5,7 @@ import styles from "./Footer.module.css";
 
 const Footer = () => {
   const { isNightMode } = useTheme();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
   const {
     isDesktopFullHD,
     isDesktopHD,
@@ -80,51 +81,101 @@ const Footer = () => {
   };
 
   return (
-    <div className={styles.containerFooter}>
+    <div className={`${styles.containerFooter} ${modeClass}`}>
       <div className={styles.containerSocialIcons}>
         <div className={getLineClass()}></div>
         <div className={getSocialIconsClass()}>
-          <Link to={"https://www.facebook.com/ossemgp"} target="_blank">
-            <img
-              className={getIconFacebookClass()}
-              src="/img/facebook.png"
-              alt="Facebook"
-            />
-          </Link>
-          <Link to={"https://www.instagram.com/ossemgp/?hl=es"} target="_blank">
-            <img
-              className={getIconInstagramClass()}
-              src="/img/instagramNegro.png"
-              alt="Instagram"
-            />
-          </Link>
-          <Link
-            to={"https://www.youtube.com/channel/UCCEEL9h3O0NzjjIHKs8IRTw"}
-            target="_blank"
-          >
-            <img
-              className={getIconYoutubeClass()}
-              src="/img/youtube.png"
-              alt="YouTube"
-            />
-          </Link>
-          <Link to={"https://x.com/prensaosse"} target="_blank">
-            <img
-              className={getIconXClass()}
-              src="/img/xTransparente.png"
-              alt="X"
-            />
-          </Link>
-          <Link
-            to={"https://www.linkedin.com/company/ossemgp/"}
-            target="_blank"
-          >
-            <img
-              className={getIconLinkedinClass()}
-              src="/img/linkedinNegro.png"
-              alt="LinkedIn"
-            />
-          </Link>
+          {isNightMode ? (
+            <>
+              <Link to={"https://www.facebook.com/ossemgp"} target="_blank">
+                <img
+                  className={getIconFacebookClass()}
+                  src="/img/facebookAzul.png"
+                  alt="Facebook"
+                />
+              </Link>
+              <Link
+                to={"https://www.instagram.com/ossemgp/?hl=es"}
+                target="_blank"
+              >
+                <img
+                  className={getIconInstagramClass()}
+                  src="/img/instagram.png"
+                  alt="Instagram"
+                />
+              </Link>
+              <Link
+                to={"https://www.youtube.com/channel/UCCEEL9h3O0NzjjIHKs8IRTw"}
+                target="_blank"
+              >
+                <img
+                  className={getIconYoutubeClass()}
+                  src="/img/youtubeColor.png"
+                  alt="YouTube"
+                />
+              </Link>
+              <Link to={"https://x.com/prensaosse"} target="_blank">
+                <img className={getIconXClass()} src="/img/xAzul.png" alt="X" />
+              </Link>
+              <Link
+                to={"https://www.linkedin.com/company/ossemgp/"}
+                target="_blank"
+              >
+                <img
+                  className={getIconLinkedinClass()}
+                  src="/img/linkedin.png"
+                  alt="LinkedIn"
+                />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to={"https://www.facebook.com/ossemgp"} target="_blank">
+                <img
+                  className={getIconFacebookClass()}
+                  src="/img/facebook.png"
+                  alt="Facebook"
+                />
+              </Link>
+              <Link
+                to={"https://www.instagram.com/ossemgp/?hl=es"}
+                target="_blank"
+              >
+                <img
+                  className={getIconInstagramClass()}
+                  src="/img/instagramNegro.png"
+                  alt="Instagram"
+                />
+              </Link>
+              <Link
+                to={"https://www.youtube.com/channel/UCCEEL9h3O0NzjjIHKs8IRTw"}
+                target="_blank"
+              >
+                <img
+                  className={getIconYoutubeClass()}
+                  src="/img/youtube.png"
+                  alt="YouTube"
+                />
+              </Link>
+              <Link to={"https://x.com/prensaosse"} target="_blank">
+                <img
+                  className={getIconXClass()}
+                  src="/img/xTransparente.png"
+                  alt="X"
+                />
+              </Link>
+              <Link
+                to={"https://www.linkedin.com/company/ossemgp/"}
+                target="_blank"
+              >
+                <img
+                  className={getIconLinkedinClass()}
+                  src="/img/linkedinNegro.png"
+                  alt="LinkedIn"
+                />
+              </Link>
+            </>
+          )}
         </div>
         <div className={getLineClass()}></div>
       </div>

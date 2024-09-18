@@ -4,8 +4,33 @@ import styles from "./Category.module.css";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import { AuthContext } from "../../providers/AuthProvider";
 import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const Category = ({ categories }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const categoryClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const [search, setSearch] = useState("");
   const [filterCategories, setFilterCategories] = useState(categories);
   const [showCategoryNewModal, setShowCategoryNewModal] = useState(false);
@@ -33,17 +58,26 @@ const Category = ({ categories }) => {
   };
 
   return (
-    <div className={styles.containerCategory}>
+    <div
+      className={`${styles.containerCategory} ${categoryClass} ${modeClass}`}
+    >
       {auth ? (
-        <div className={styles.wrapperCategory}>
-          <Link className={styles.btnSuccess} onClick={handleCategoryNewClick}>
+        <div
+          className={`${styles.wrapperCategory} ${categoryClass} ${modeClass}`}
+        >
+          <Link
+            className={`${styles.btnSuccess} ${categoryClass} ${modeClass}`}
+            onClick={handleCategoryNewClick}
+          >
             Nueva Categoria
           </Link>
           <CategoryNewModal
             show={showCategoryNewModal}
             onHide={handleCloseModal}
           />
-          <div className={styles.searchContainer}>
+          <div
+            className={`${styles.searchContainer} ${categoryClass} ${modeClass}`}
+          >
             <input
               type="search"
               className={styles.formControl}
