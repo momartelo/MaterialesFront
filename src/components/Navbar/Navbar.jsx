@@ -154,9 +154,7 @@ const Navbar = () => {
                           <img src="/img/AnguloAbajo.png" alt="" />
                         )}
                       </Link>
-                      <div
-                        className={`${styles.menuDropdown} ${styles.nightMode}`}
-                      >
+                      <div className={`${styles.menuDropdown} ${modeClass}`}>
                         {loadingCategories || loadingSubcategories ? (
                           <div className={styles.noCategories}>
                             <img
@@ -190,7 +188,7 @@ const Navbar = () => {
                                   >
                                     <ul className={styles.ulDropdown}>
                                       <li
-                                        className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                        className={`${styles.productLinkNav} ${styles.navTitle} ${modeClass}`}
                                       >
                                         <p>{category.category}</p>
                                       </li>
@@ -210,7 +208,7 @@ const Navbar = () => {
                                           .map((subcategory) => (
                                             <li
                                               key={subcategory._id}
-                                              className={`${styles.productLinkNav} ${styles.nightMode}`}
+                                              className={`${styles.productLinkNav} ${modeClass}`}
                                             >
                                               <Link
                                                 to={`/material/${category._id}/${subcategory._id}`}
@@ -220,7 +218,7 @@ const Navbar = () => {
                                             </li>
                                           ))}
                                       <li
-                                        className={`${styles.navItemTodo} ${styles.nightMode}`}
+                                        className={`${styles.navItemTodo} ${modeClass}`}
                                       >
                                         <Link to={`/material/${category._id}`}>
                                           Ver todos
@@ -231,7 +229,7 @@ const Navbar = () => {
                                 ))}
                             </div>
                             <div
-                              className={`${styles.navItemTodoMat} ${styles.nightMode}`}
+                              className={`${styles.navItemTodoMat} ${modeClass}`}
                             >
                               <Link to={`/material`}>Todos los materiales</Link>
                             </div>
@@ -255,9 +253,7 @@ const Navbar = () => {
                             <img src="/img/AnguloAbajo.png" alt="" />
                           )}
                         </Link>
-                        <div
-                          className={`${styles.menuDropdown2} ${styles.nightMode}`}
-                        >
+                        <div className={`${styles.menuDropdown2} ${modeClass}`}>
                           <div className={styles.menuRow}>
                             <div
                               className={`${styles.menuColumns} ${styles.flex}`}
@@ -265,12 +261,12 @@ const Navbar = () => {
                               <div className={styles.menuColumn}>
                                 <ul className={styles.ulDropdown2}>
                                   <li
-                                    className={`${styles.liTitleMenu} ${styles.nightMode}`}
+                                    className={`${styles.liTitleMenu} ${modeClass}`}
                                   >
                                     <span>Listar y Editar</span>
                                   </li>
                                   <li
-                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${modeClass}`}
                                   >
                                     <Link
                                       className={styles.linkLogo}
@@ -280,7 +276,7 @@ const Navbar = () => {
                                     </Link>
                                   </li>
                                   <li
-                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${modeClass}`}
                                   >
                                     <Link
                                       className={styles.linkLogo}
@@ -290,7 +286,7 @@ const Navbar = () => {
                                     </Link>
                                   </li>
                                   <li
-                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${modeClass}`}
                                   >
                                     <Link
                                       className={styles.linkLogo}
@@ -300,7 +296,7 @@ const Navbar = () => {
                                     </Link>
                                   </li>
                                   <li
-                                    className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                    className={`${styles.productLinkNav} ${styles.navTitle} ${modeClass}`}
                                   >
                                     <Link
                                       className={styles.linkLogo}

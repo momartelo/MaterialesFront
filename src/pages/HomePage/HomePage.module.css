@@ -73,12 +73,14 @@
 }
 
 .containerCarousel.containerFullHD {
-  width: 50%;
+  width: 45%;
 }
 
 .texts.containerFullHD {
   width: 70%;
-  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  /* margin-top: 2.5rem; */
   padding: 0;
 }
 .texts.containerFullHD > h1 {
