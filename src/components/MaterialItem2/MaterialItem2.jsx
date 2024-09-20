@@ -97,9 +97,12 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
       <section
         className={`${styles.sectionMaterialItem} ${materialClass} ${modeClass}`}
       >
-        {/* <p>Material:</p> */}
-        <img src={material.image} alt="" />
-        <h2>{material.name}</h2>
+        <div
+          className={`${styles.imageAndTitleItem} ${materialClass} ${modeClass}`}
+        >
+          <img src={material.image} alt="" />
+          <h2>{material.name}</h2>
+        </div>
         {loadingCategories && loadingUnits ? (
           <p>Cargando categorías y unidades...</p>
         ) : (
@@ -120,7 +123,9 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
         )}
       </section>
       {auth ? (
-        <div className={styles.containerIcons}>
+        <div
+          className={`${styles.containerIcons} ${materialClass} ${modeClass}`}
+        >
           <Link
             className={styles.containerIconEdit}
             to={`/material/update/${material._id}`}

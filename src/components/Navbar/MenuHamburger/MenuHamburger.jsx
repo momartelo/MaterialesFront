@@ -58,15 +58,14 @@ const HamburgerMenu = () => {
         className={`${styles.menu} ${modeClass} ${isOpen ? styles.open : ""}`}
       >
         <ul>
-          <li className={styles.menuDropdownTitles}>
-            <a
-              className={`${styles.textTitleMenu} ${modeClass}`}
-              href="#home"
-              onClick={toggleSubMenuMateriales}
-            >
+          <li
+            className={`${styles.menuDropdownTitles} ${modeClass}`}
+            onClick={toggleSubMenuMateriales}
+          >
+            <a className={`${styles.textTitleMenu} ${modeClass}`} href="#home">
               Materiales
             </a>
-            {isSubMenuMaterialesOpen ? (
+            {/* {isSubMenuMaterialesOpen ? (
               <img
                 src="/img/arriba-cheuron.png"
                 alt=""
@@ -78,10 +77,21 @@ const HamburgerMenu = () => {
                 alt=""
                 onClick={toggleSubMenuMateriales}
               />
+            )} */}
+            {isSubMenuMaterialesOpen ? (
+              isNightMode ? (
+                <img src="/img/arriba-cheuron-Azul.png" alt="" /> // Imagen para el modo nocturno
+              ) : (
+                <img src="/img/arriba-cheuron.png" alt="" /> // Imagen para el modo diurno
+              )
+            ) : isNightMode ? (
+              <img src="/img/flecha-hacia-abajo-Azul.png" alt="" /> // Imagen para el modo nocturno
+            ) : (
+              <img src="/img/abajo-cheuron.png" alt="" /> // Imagen para el modo diurno
             )}
 
             {isSubMenuMaterialesOpen && (
-              <div className={`${styles.menuDropdown} ${styles.nightMode}`}>
+              <div className={`${styles.menuDropdown} ${modeClass}`}>
                 {loadingCategories || loadingSubcategories ? (
                   <div className={styles.noCategories}>
                     <img src="/img/Skateboarding.gif" alt="Cargando..." />
@@ -102,7 +112,7 @@ const HamburgerMenu = () => {
                           <div key={category._id} className={styles.menuColumn}>
                             <ul className={styles.ulDropdown}>
                               <li
-                                className={`${styles.productLinkNav} ${styles.navTitle} ${styles.nightMode}`}
+                                className={`${styles.productLinkNav} ${styles.navTitle} ${modeClass}`}
                               >
                                 {/* <p>-&nbsp; {category.category}</p> */}
                                 <Link
@@ -125,7 +135,7 @@ const HamburgerMenu = () => {
                                   .map((subcategory) => (
                                     <li
                                       key={subcategory._id}
-                                      className={`${styles.productLinkNav} ${styles.nightMode}`}
+                                      className={`${styles.productLinkNav} ${modeClass}`}
                                     >
                                       <Link
                                         className={styles.subcategoryName}
@@ -137,7 +147,7 @@ const HamburgerMenu = () => {
                                     </li>
                                   ))}
                               <li
-                                className={`${styles.navItemTodo} ${styles.nightMode}`}
+                                className={`${styles.navItemTodo} ${modeClass}`}
                               >
                                 {/* <Link
                                   to={`/material/${category._id}`}
@@ -150,7 +160,7 @@ const HamburgerMenu = () => {
                           </div>
                         ))}
                     </div>
-                    <div className={styles.navItemTodoMat}>
+                    <div className={`${styles.navItemTodoMat} ${modeClass}`}>
                       <Link to={`/material`} onClick={toggleMenu}>
                         Todos los materiales
                       </Link>
@@ -160,7 +170,10 @@ const HamburgerMenu = () => {
               </div>
             )}
           </li>
-          <li className={styles.menuDropdownTitles} onClick={toggleSubMenuEdit}>
+          <li
+            className={`${styles.menuDropdownTitles} ${modeClass}`}
+            onClick={toggleSubMenuEdit}
+          >
             <a className={`${styles.textTitleMenu} ${modeClass}`} href="#home">
               Listar y Editar
             </a>
@@ -181,7 +194,7 @@ const HamburgerMenu = () => {
               <img src="/img/abajo-cheuron.png" alt="" /> // Imagen para el modo diurno
             )}
             {isSubMenuEditOpen && (
-              <ul className={styles.subMenu}>
+              <ul className={`${styles.subMenu} ${modeClass}`}>
                 <li>
                   <a href="/material">Materiales</a>
                 </li>
@@ -197,7 +210,7 @@ const HamburgerMenu = () => {
               </ul>
             )}
           </li>
-          <li className={styles.menuDropdownTitles}>
+          <li className={`${styles.menuDropdownTitles} ${modeClass}`}>
             <a
               className={`${styles.textTitleMenu} ${modeClass}`}
               href="/contact"

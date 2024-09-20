@@ -75,8 +75,16 @@
   font-size: 0.9rem;
 }
 
+.subMenu.nightMode a {
+  color: #e0e0e0; /* Cambia el color para diferenciar del menú principal */
+}
+
 .subMenu:hover {
   background-color: rgb(241, 241, 241);
+}
+
+.subMenu.nightMode:hover {
+  background-color: #1e1e1e;
 }
 
 .subMenu a:hover {
@@ -92,6 +100,10 @@
 
 .menuDropdownTitles:hover {
   background-color: rgb(241, 241, 241);
+}
+
+.menuDropdownTitles.nightMode:hover {
+  background-color: #1e1e1e;
 }
 
 .menuDropdownTitles > a:hover {
@@ -129,6 +141,10 @@
   padding-top: 0.2rem;
   font-size: 0.8rem;
   color: #333;
+}
+
+.productLinkNav.nightMode > a {
+  color: #e0e0e0;
 }
 
 .productLinkNav > a:hover {
@@ -173,6 +189,10 @@
   padding-top: 0.8rem;
   padding-bottom: 0.5rem;
   color: #333;
+}
+
+.navItemTodoMat.nightMode > a {
+  color: #e0e0e0;
 }
 
 .navItemTodoMat > a:hover {
