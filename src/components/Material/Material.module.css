@@ -158,6 +158,11 @@
   list-style: none;
 }
 
+.pagination.nightMode > li > button {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
 .paginationControls {
   margin-bottom: 1rem;
 }

@@ -7,6 +7,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Select from "react-select";
 import { useTheme } from "../../providers/ThemeProvider";
 import { useResponsive } from "../../providers/ResponsiveContext";
+import { BorderStyle } from "@mui/icons-material";
 
 const Material = ({ materials, getMaterial, categories }) => {
   const { isNightMode } = useTheme();
@@ -103,7 +104,7 @@ const Material = ({ materials, getMaterial, categories }) => {
     const pageNumbers = Math.ceil(filterMaterials.length / materialsPerPage);
 
     return (
-      <ul className={styles.pagination}>
+      <ul className={`${styles.pagination} ${materialClass} ${modeClass}`}>
         <li>
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             Prev
@@ -144,7 +145,7 @@ const Material = ({ materials, getMaterial, categories }) => {
       // width: "200px", // Ancho fijo para el control
       height: "40px",
       borderRadius: "5px",
-      borderColor: "none",
+      borderColor: "red",
       // boxShadow: state.isFocused ? "0 0 0 1px blue" : "none",
       // "&:hover": {
       //   borderColor: "blue",
@@ -196,7 +197,7 @@ const Material = ({ materials, getMaterial, categories }) => {
       // width: "80px", // Ancho fijo para el control
       height: "40px",
       borderRadius: "5px",
-      borderColor: "none",
+      borderColor: "orange",
       // boxShadow: state.isFocused ? "0 0 0 1px blue" : "none",
       // "&:hover": {
       //   borderColor: "blue",
