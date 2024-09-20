@@ -6,8 +6,32 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import UpdateSubcategoryModal from "../UpdateSubcategoryModal/UpdateSubcategoryModal";
 import DeleteSubcategoryModal from "../DeleteSubcategoryModal/DeleteSubcategoryModal";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const SubcategoryItem = ({ subcategory, categories }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const materialClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
   const modalId = useId();
   const { auth } = useContext(AuthContext);
   // const [categories, setCategories] = useState([]);
@@ -54,7 +78,7 @@ const SubcategoryItem = ({ subcategory, categories }) => {
   }, [subcategory.category]);
 
   return (
-    <div className={styles.item} /*onClick={onClick}*/>
+    <div className={`${styles.item} ${materialClass} ${modeClass}`}>
       <section className={styles.sectionSubcategoryItem}>
         <h2>{subcategory.subcategory}</h2>
         <p>{categoryName || "Cargando categoria..."}</p>
