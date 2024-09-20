@@ -13,7 +13,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: auto;
-  padding-bottom: 0.5rem;
+  /* padding-bottom: 0.5rem; */
 }
 
 .containerSocialIcons {
@@ -87,6 +87,7 @@
   align-items: center;
   justify-content: space-between;
   width: 90%;
+  padding-bottom: 0.5rem;
 }
 
 .containerTitlesMobile {
@@ -96,6 +97,7 @@
   justify-content: space-between;
   width: 90%;
   margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 /*! container Title */
