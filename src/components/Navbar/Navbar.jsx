@@ -418,7 +418,7 @@ const Navbar = () => {
                 >
                   <p>Dolar:</p> <p>${rates.valorDolarVenta}</p>
                   <p>Actualizado: {rates.fechaDolar}</p>
-                  <button
+                  {/* <button
                     className={styles.buttonRefresh}
                     onClick={() => {
                       setIsRefreshing(true);
@@ -430,7 +430,7 @@ const Navbar = () => {
                       className={isRefreshing ? styles.loadingIcon : ""}
                       style={{ fontSize: "18px" }}
                     />
-                  </button>
+                  </button> */}
                 </div>
                 <div
                   className={`${styles.separataExchange} ${responsiveClass} ${modeClass}`}
@@ -440,7 +440,7 @@ const Navbar = () => {
                 >
                   <p>Euro:</p> <p>${rates.valorEuroVenta} </p>
                   <p>Actualizado: {rates.fechaEuro}</p>
-                  <button
+                  {/* <button
                     className={styles.buttonRefresh}
                     onClick={() => {
                       setIsRefreshing(true);
@@ -452,7 +452,7 @@ const Navbar = () => {
                       className={isRefreshing ? styles.loadingIcon : ""}
                       style={{ fontSize: "18px" }}
                     />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
