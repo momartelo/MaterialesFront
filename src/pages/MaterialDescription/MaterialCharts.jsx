@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -26,81 +26,90 @@ ChartJS.register(
 );
 
 const MaterialCharts = ({ historialPrecio }) => {
-  const dataSourceGraphics = historialPrecio?.map((historia, index) => ({
-    key: index,
-    fecha: new Date(historia.fecha).toLocaleDateString(),
-    precioDolares: historia.precioEnDolares,
-    precioPesos: historia.precioEnPesos,
-  }));
+  const labels = historialPrecio?.map((historia) =>
+    new Date(historia.fecha).toLocaleDateString()
+  );
+  const preciosDolares = historialPrecio?.map(
+    (historia) => historia.precioEnDolares
+  );
+  const preciosPesos = historialPrecio?.map(
+    (historia) => historia.precioEnPesos
+  );
+
+  const commonDatasetConfig = {
+    fill: false,
+    tension: 0.1,
+    pointRadius: 4,
+  };
 
   const chartDataDollars = {
-    labels: dataSourceGraphics.map((historia) => historia.fecha),
+    labels,
     datasets: [
       {
+        ...commonDatasetConfig,
         label: "Precio en USD",
-        data: dataSourceGraphics.map((historia) => historia.precioDolares),
-        fill: false,
+        data: preciosDolares,
         borderColor: "rgba(75, 192, 192, 1)",
-        tension: 0.1,
-        pointRadius: 4,
       },
     ],
   };
 
   const chartDataPesos = {
-    labels: dataSourceGraphics.map((historia) => historia.fecha),
+    labels,
     datasets: [
       {
+        ...commonDatasetConfig,
         label: "Precio en ARS",
-        data: dataSourceGraphics.map((historia) => historia.precioPesos),
-        fill: false,
+        data: preciosPesos,
         borderColor: "rgba(54, 162, 235, 1)",
-        tension: 0.1,
-        pointRadius: 4,
       },
     ],
   };
 
-  const chartOptions = {
-    scales: {
-      x: {
-        type: "time",
-        time: {
-          parser: "dd/MM/yyyy",
-          unit: "day",
-          tooltipFormat: "dd/MM/yyyy",
+  const chartOptions = useMemo(
+    () => ({
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            parser: "dd/MM/yyyy",
+            unit: "day",
+            tooltipFormat: "dd/MM/yyyy",
+          },
+          title: {
+            display: true,
+            text: "Fecha",
+          },
         },
-        title: {
-          display: true,
-          text: "Fecha",
-        },
-      },
-      y: {
-        beginAtZero: false,
-        title: {
-          display: true,
-          text: "Precio",
-        },
-        ticks: {
-          callback: function (value) {
-            return value.toLocaleString("es-AR");
+        y: {
+          beginAtZero: false,
+          title: {
+            display: true,
+            text: "Precio",
+          },
+          ticks: {
+            callback: function (value) {
+              return value.toLocaleString("es-AR");
+            },
           },
         },
       },
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            const value = parseFloat(tooltipItem.raw)
-              .toFixed(2)
-              .toLocaleString("es-AR");
-            return `${tooltipItem.dataset.label}: ${value}`;
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              const value = tooltipItem.raw.toLocaleString("es-AR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              });
+              return `${tooltipItem.dataset.label}: ${value}`;
+            },
           },
         },
       },
-    },
-  };
+    }),
+    []
+  );
 
   return (
     <div className={styles.containerGraphics}>

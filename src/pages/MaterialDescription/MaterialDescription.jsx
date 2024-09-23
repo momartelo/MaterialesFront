@@ -10,8 +10,34 @@ import { useMaterialsWithoutAuth } from "../../hooks/useMaterialsWithoutAuth";
 import MaterialDetails from "./MaterialDetails";
 import HistorialPricesTable from "./HistorialPricesTable";
 import MaterialCharts from "./MaterialCharts";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
+import Footer from "../../components/Footer/Footer";
 
 const MaterialDescription = () => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const containerClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const modalId = useId();
   const { materialId } = useParams();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -54,7 +80,9 @@ const MaterialDescription = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.containerMaterialDescription}>
+      <div
+        className={`${styles.containerMaterialDescription} ${containerClass} ${modeClass}`}
+      >
         <div className={styles.containerMaterialFull}>
           <MaterialDetails
             material={material}
@@ -78,6 +106,7 @@ const MaterialDescription = () => {
           <MaterialCharts historialPrecio={material.historialPrecio} />
         </div>
       </div>
+      <Footer />
     </>
   );
 };
