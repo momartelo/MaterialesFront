@@ -174,7 +174,7 @@
 .materialImageAndPrice {
   display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding: 0.5rem;
   align-items: center;
 }
 .hr {
@@ -190,6 +190,7 @@
 .tableData th {
   background-color: #2a96ee !important;
   color: #fff !important;
+  text-align: center !important;
 }
 
 .tableData.nightMode td {
@@ -300,4 +301,266 @@
 
 .itemActiveBg.nightMode {
   background-color: #1e1e1e;
+}
+
+/* Tablet */
+
+.containerGraphicDollar.tablet > p,
+.containerGraphicPesos.tablet > p {
+  width: 30%;
+  text-align: center;
+  font-weight: 600;
+}
+
+.containerGraphicDollar.tablet {
+  width: 85%;
+  border-bottom: 1px rgb(218, 218, 218) solid;
+}
+.containerGraphicPesos.tablet {
+  width: 85%;
+}
+
+.containerGraphics.tablet {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  row-gap: 1rem;
+}
+
+/* Mobile Landscape */
+
+.materialDetails.mobileLandscape > h1 {
+  font-size: 1.5rem;
+}
+
+.containerCategory.mobileLandscape > p:first-child {
+  font-weight: 200;
+  font-size: clamp(0.9rem, 3vw, 1.25rem);
+}
+
+.containerCategory.mobileLandscape > p:nth-child(3) {
+  font-weight: 200;
+  font-size: clamp(0.8rem, 3vw, 1.15rem);
+}
+
+.containerCategory.mobileLandscape > p:nth-child(2) {
+  font-weight: 600;
+  font-size: clamp(0.9rem, 3vw, 1.25rem);
+}
+
+.containerCategory.mobileLandscape > p:last-child {
+  font-weight: 600;
+  font-size: clamp(0.8rem, 3vw, 1.15rem);
+}
+
+.priceMaterialItem.mobileLandscape > p {
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+.priceMaterialItem.mobileLandscape > span {
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+.tableData.mobileLandscape th {
+  font-size: 0.8rem;
+  padding: 0.8rem !important;
+  text-align: center;
+}
+
+.tableData.mobileLandscape {
+  min-height: 0px;
+  padding: 0.2rem 0;
+  width: 80%;
+}
+
+.tableData.mobileLandscape td {
+  font-size: 0.8rem;
+  padding: 0.8rem !important;
+  text-align: center;
+}
+
+/* Mobile */
+
+.containerMaterialDescription.mobile,
+.containerMaterialDescription.mobileLandscape,
+.containerMaterialDescription.tablet {
+  row-gap: 0.5rem;
+}
+
+.containerMaterialFull.mobile,
+.containerMaterialFull.mobileLandscape {
+  flex-direction: column;
+  align-items: center;
+}
+
+.materialWrapper.mobile,
+.materialWrapper.mobileLandscape {
+  width: 95%;
+}
+
+.materialDetails.mobile > h1 {
+  font-size: 1.5rem;
+}
+
+.containerCategory.mobile > p:first-child {
+  font-weight: 200;
+  font-size: 0.9rem;
+}
+
+.containerCategory.mobile > p:nth-child(3) {
+  font-weight: 200;
+  font-size: 0.8rem;
+}
+
+.containerCategory.mobile > p:nth-child(2) {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.containerCategory.mobile > p:last-child {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.priceMaterialItem.mobile > p {
+  font-size: 0.8rem;
+}
+
+.priceMaterialItem.mobile > span {
+  font-size: 0.8rem;
+}
+
+.hr.mobile,
+.hr.mobileLandscape {
+  margin: 5px 0;
+}
+
+.containerButtons.mobile,
+.containerButtons.mobileLandscape {
+  padding: 0.5rem 0;
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+.buttonEdit.mobile,
+.buttonEdit.mobileLandscape,
+.buttonEdit.tablet {
+  height: 40px;
+  background-color: #007bff;
+  color: #f5f5f5;
+  padding: 0.5rem;
+  max-width: 120px;
+}
+
+.buttonEdit.mobile:hover,
+.buttonEdit.mobileLandscape:hover,
+.buttonEdit.tablet:hover {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+.buttonBack.mobile,
+.buttonBack.mobileLandscape,
+.buttonBack.tablet {
+  height: 40px;
+  background-color: #28a745;
+  color: #f5f5f5;
+  padding: 0.5rem;
+  max-width: 120px;
+}
+
+.buttonBack.mobile:hover,
+.buttonBack.mobileLandscape:hover,
+.buttonBack.tablet:hover {
+  background-color: #218838;
+  border: none;
+  font-weight: 600;
+}
+
+.buttonEraseDescription.mobile,
+.buttonEraseDescription.mobileLandscape,
+.buttonEraseDescription.tablet {
+  font-size: 24px;
+  color: white;
+  height: 40px;
+  background-color: #dc3545;
+  max-width: 60px;
+}
+
+.buttonEraseDescription.mobile:hover,
+.buttonEraseDescription.mobileLandscape:hover,
+.buttonEraseDescription.tablet:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+.containerHistorialPrices.mobile,
+.containerHistorialPrices.mobileLandscape {
+  width: 95%;
+  padding-top: 0.7rem;
+}
+
+.tableData.mobile th {
+  font-size: 0.8rem;
+  padding: 0.6rem !important;
+  text-align: center;
+}
+
+.tableData.mobile {
+  min-height: 0px;
+  padding: 0.2rem 0;
+  width: 80%;
+}
+
+.tableData.mobile td {
+  font-size: 0.8rem;
+  padding: 0.6rem !important;
+  text-align: center;
+}
+
+.containerGraphics.mobile,
+.containerGraphics.mobileLandscape {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  row-gap: 0.5rem;
+}
+
+.containerGraphicDollar.mobile,
+.containerGraphicDollar.mobileLandscape {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 95%;
+  border-bottom: 1px rgb(218, 218, 218) solid;
+}
+
+.containerGraphicDollar.mobile > canvas,
+.containerGraphicDollar.mobileLandscape > canvas {
+  height: max-content !important;
+}
+
+.containerGraphicDollar.mobile > p,
+.containerGraphicDollar.mobileLandscape > p {
+  font-weight: 600;
+}
+
+.containerGraphicPesos.mobile,
+.containerGraphicPesos.mobileLandscape {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 95%;
+}
+
+.containerGraphicPesos.mobile > canvas,
+.containerGraphicPesos.mobileLandscape > canvas {
+  height: max-content !important;
+}
+
+.containerGraphicPesos.mobile > p,
+.containerGraphicPesos.mobileLandscape > p {
+  font-weight: 600;
 }

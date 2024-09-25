@@ -13,6 +13,8 @@ import {
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 import styles from "./MaterialDescription.module.css";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 ChartJS.register(
   Title,
@@ -26,6 +28,29 @@ ChartJS.register(
 );
 
 const MaterialCharts = ({ historialPrecio }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const containerClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const labels = historialPrecio?.map((historia) =>
     new Date(historia.fecha).toLocaleDateString()
   );
@@ -112,15 +137,23 @@ const MaterialCharts = ({ historialPrecio }) => {
   );
 
   return (
-    <div className={styles.containerGraphics}>
-      <div className={styles.containerGraphicDollar}>
+    <div
+      className={`${styles.containerGraphics} ${containerClass} ${modeClass}`}
+    >
+      <div
+        className={`${styles.containerGraphicDollar} ${containerClass} ${modeClass}`}
+      >
+        <p>Evolucion del precio en Dolares</p>
         <Line
           className={styles.graphicDollar}
           data={chartDataDollars}
           options={chartOptions}
         />
       </div>
-      <div className={styles.containerGraphicPesos}>
+      <div
+        className={`${styles.containerGraphicPesos} ${containerClass} ${modeClass}`}
+      >
+        <p>Evolucion del precio en Pesos</p>
         <Line
           className={styles.graphicPesos}
           data={chartDataPesos}

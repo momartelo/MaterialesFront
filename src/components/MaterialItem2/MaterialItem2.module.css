@@ -339,7 +339,7 @@
 
 .priceMaterialItem.mobile > span:nth-child(1),
 .priceMaterialItem.mobile > span:nth-child(3) {
-  font-size: clamp(0.8rem, 4vw, 1.1rem);
+  font-size: clamp(0.8rem, 4vw, 1rem);
   font-weight: 300;
 }
 

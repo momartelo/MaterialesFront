@@ -83,7 +83,9 @@ const MaterialDescription = () => {
       <div
         className={`${styles.containerMaterialDescription} ${containerClass} ${modeClass}`}
       >
-        <div className={styles.containerMaterialFull}>
+        <div
+          className={`${styles.containerMaterialFull} ${containerClass} ${modeClass}`}
+        >
           <MaterialDetails
             material={material}
             category={categories.find((cat) => cat._id === material.category)}
@@ -98,11 +100,15 @@ const MaterialDescription = () => {
             showDeleteModal={showDeleteModal}
             handleCloseModal={handleCloseModal}
           />
-          <div className={styles.containerHistorialPrices}>
+          <div
+            className={`${styles.containerHistorialPrices} ${containerClass} ${modeClass}`}
+          >
             <HistorialPricesTable historialPrecio={material.historialPrecio} />
           </div>
         </div>
-        <div className={styles.containerGraphics}>
+        <div
+          className={`${styles.containerGraphics} ${containerClass} ${modeClass}`}
+        >
           <MaterialCharts historialPrecio={material.historialPrecio} />
         </div>
       </div>
