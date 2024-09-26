@@ -695,7 +695,7 @@ ul {
 }
 
 .logoAnchorMenuHamburger.mobileLandscape {
-  margin-left: 2rem;
+  margin-left: 1rem;
   align-items: center;
   width: 45%;
   display: block;
@@ -706,7 +706,7 @@ ul {
 }
 
 .linkLogoMenuHamburger.mobileLandscape > img {
-  width: 100%;
+  width: 80%;
   border-radius: 5px;
 }
 
@@ -717,7 +717,7 @@ ul {
 .navbarHamburger.mobileLandscape {
   display: flex;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
 }
 
 .containerIconsNav.mobileLandscape {
