@@ -160,7 +160,7 @@ const ContactPage = () => {
         <div
           className={`${styles.containerTitle} ${containerClass} ${modeClass}`}
         >
-          <img src="../../../public/img/formulario-de-contacto.png" alt="" />
+          <img src="/img/formulario-de-contacto.png" alt="" />
           <h1>Formulario de Contacto</h1>
         </div>
         {/* <div
