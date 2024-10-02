@@ -191,9 +191,11 @@
 
 .containerTextsForm.mobile,
 .containerTextsForm.mobileLandscape {
+  border: none;
   width: 90%;
   order: 1;
   padding: 0;
+  padding-bottom: 1rem;
   text-align: center;
   border-bottom: 1px #d1d1d1 solid;
 }
