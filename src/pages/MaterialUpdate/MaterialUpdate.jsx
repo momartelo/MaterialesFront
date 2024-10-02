@@ -1,10 +1,13 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import UpdateHistoryPricesModal from "../../components/UpdateHistoryPricesModal/UpdateHistoryPricesModal";
 import PriceEditModal from "../../components/UpdateHistoryPricesModal/UpdateHistoryPricesModal";
 import { getCovertExchangePair } from "../../functions/fetchs";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
+import { useTheme } from "../../providers/ThemeProvider";
 import { API_URL } from "../../utils/config";
 import styles from "./MaterialUpdate.module.css";
 // import UpdateHistoryPricesModal from "../../components/UpdateHistoryPricesModal/UpdateHistoryPricesModal";
@@ -14,6 +17,29 @@ const MaterialUpdate = () => {
   const { materialId } = useParams();
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
+
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const containerClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [material, setMaterial] = useState(null);
   const [image, setImage] = useState("");
@@ -343,12 +369,20 @@ const MaterialUpdate = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.containerMaterialUpdate}>
-        <div className={styles.containerWrapper}>
-          <div className={styles.containerImage}>
+      <div
+        className={` ${styles.containerMaterialUpdate} ${containerClass} ${modeClass}`}
+      >
+        <div
+          className={` ${styles.containerWrapper} ${containerClass} ${modeClass}`}
+        >
+          <div
+            className={` ${styles.containerImage} ${containerClass} ${modeClass}`}
+          >
             <img src={material.image} alt="" />
           </div>
-          <div className={styles.containerData}>
+          <div
+            className={` ${styles.containerData} ${containerClass} ${modeClass}`}
+          >
             <div className={styles.containerTitleUpdate}>
               <img src="/img/editar-documento.png" alt="" />
               <h2>Editar</h2> <h2>Material:</h2>
@@ -366,8 +400,13 @@ const MaterialUpdate = () => {
           onSave={handleSaveEditedPrice}
         />
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
+        <form
+          onSubmit={handleSubmit}
+          className={`${styles.form} ${containerClass} ${modeClass}`}
+        >
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="image">Imagen:</label>
             <input
               type="text"
@@ -376,7 +415,9 @@ const MaterialUpdate = () => {
               onChange={(e) => setImage(e.target.value)}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="name">Nombre:</label>
             <input
               type="text"
@@ -385,7 +426,9 @@ const MaterialUpdate = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="price">Precio:</label>
             <input
               type="number"
@@ -394,7 +437,9 @@ const MaterialUpdate = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="currency">Moneda:</label>
             <select
               id="currency"
@@ -407,7 +452,9 @@ const MaterialUpdate = () => {
               <option value="ARS">ARS</option>
             </select>
           </div>
-          <div className={styles.historyToggleContainer}>
+          <div
+            className={`${styles.historyToggleContainer} ${containerClass} ${modeClass}`}
+          >
             <button
               type="button"
               className={styles.buttonToggleHistory}
@@ -415,7 +462,9 @@ const MaterialUpdate = () => {
             >
               {!showHistory ? (
                 <div className={styles.spanOpenContainer}>
-                  <span className={styles.showHistoryText}>
+                  <span
+                    className={`${styles.showHistoryText} ${containerClass} ${modeClass}`}
+                  >
                     Mostrar Historial de Precios
                   </span>
                 </div>
@@ -428,11 +477,16 @@ const MaterialUpdate = () => {
           </div>
 
           {showHistory && (
-            <div className={styles.historySection}>
+            <div
+              className={`${styles.historySection} ${containerClass} ${modeClass}`}
+            >
               <h3>Historial de Precios</h3>
               <ul className={styles.ulHistoryPrices}>
                 {historyPrices.map((priceEntry, index) => (
-                  <li key={index} className={styles.liHistoryContainer}>
+                  <li
+                    key={index}
+                    className={` ${styles.liHistoryContainer} ${containerClass} ${modeClass}`}
+                  >
                     <img src="/img/delantero.png" alt="" />
                     <span className={styles.dateLiHistoryPrice}>
                       {new Date(priceEntry.fecha).toLocaleDateString("es-ES", {
@@ -449,7 +503,7 @@ const MaterialUpdate = () => {
                       {/* Para otras monedas, mostrar solo el precio */}
                     </span>
                     <button
-                      className={styles.buttonEditHistoryPrice}
+                      className={` ${styles.buttonEditHistoryPrice} ${containerClass} ${modeClass}`}
                       onClick={(e) => {
                         e.preventDefault(); // Previene el comportamiento por defecto
                         handleEditPrice(index); // Llama a la función de edición
@@ -470,7 +524,9 @@ const MaterialUpdate = () => {
             >
               Editar Historial de Precios
             </button> */}
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="source">Fuente:</label>
             <input
               type="text"
@@ -479,7 +535,9 @@ const MaterialUpdate = () => {
               onChange={(e) => setSource(e.target.value)}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="unit">Unidad:</label>
             <div className={styles.containerSelect}>
               <select id="unit" value={unitIdState} onChange={handleUnitChange}>
@@ -495,7 +553,9 @@ const MaterialUpdate = () => {
               </Link>
             </div>
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="category">Categoría:</label>
             <div className={styles.containerSelect}>
               <select
@@ -515,7 +575,9 @@ const MaterialUpdate = () => {
               </Link>
             </div>
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor="subcategory">Subcategoría:</label>
             <div className={styles.containerSelect}>
               <select
@@ -535,13 +597,18 @@ const MaterialUpdate = () => {
               </Link>
             </div>
           </div>
-          <div className={styles.containerButtons}>
-            <button className={styles.buttonMaterialUpdate} type="submit">
+          <div
+            className={`${styles.containerButtons} ${containerClass} ${modeClass}`}
+          >
+            <button
+              className={`${styles.buttonMaterialUpdate} ${containerClass} ${modeClass}`}
+              type="submit"
+            >
               Actualizar
             </button>
             <button
               type="button"
-              className={styles.buttonBack}
+              className={`${styles.buttonBack} ${containerClass} ${modeClass}`}
               onClick={handleBack}
             >
               Volver
@@ -557,6 +624,7 @@ const MaterialUpdate = () => {
           material={material}
         /> */}
       </div>
+      <Footer />
     </>
   );
 };

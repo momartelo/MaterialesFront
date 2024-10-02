@@ -49,7 +49,7 @@
   height: 40px;
 }
 
-.containerTitleUpdate >h2 {
+.containerTitleUpdate > h2 {
   font-weight: 200;
   font-size: 2rem;
   margin: 0;
@@ -61,7 +61,7 @@
 
 } */
 
-.containerTitleUpdate >span {
+.containerTitleUpdate > span {
   font-weight: 200;
   font-size: 2rem;
 }
@@ -213,7 +213,7 @@ form {
   cursor: pointer; /* Cambia el cursor al pasar el mouse */
 }
 
-.spanOpenContainer{
+.spanOpenContainer {
   width: 100%;
   height: 2.5rem;
   display: flex;
@@ -224,7 +224,7 @@ form {
 .showHistoryText {
   width: 70%;
   height: 100%;
-  background-color:#2ac97a;
+  background-color: #2ac97a;
   color: white;
   display: flex;
   justify-content: center;
@@ -233,15 +233,15 @@ form {
 }
 
 .showHistoryText:hover {
- background-color: #198754;
+  background-color: #198754;
 }
 
-.spanCloseContainer{
+.spanCloseContainer {
   width: 100%;
   height: 2rem;
   display: flex;
   justify-content: flex-end;
-  padding: 0 2rem 0 0 ;
+  padding: 0 2rem 0 0;
   align-items: center;
 }
 
@@ -260,7 +260,7 @@ form {
   background-color: #dc3545;
 }
 
-.historySection{
+.historySection {
   width: 75%;
   padding: 0.5rem 2rem;
   display: flex;
@@ -268,18 +268,17 @@ form {
   align-items: center;
 }
 
-.historySection > h3{
-font-weight: 600;
+.historySection > h3 {
+  font-weight: 600;
 }
 
-.ulHistoryPrices{
+.ulHistoryPrices {
   list-style: none;
   width: 100%;
   padding: 0 0.5rem;
-
 }
 
-.liHistoryContainer{
+.liHistoryContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -287,19 +286,255 @@ font-weight: 600;
   margin: 0.5rem 0;
 }
 
-.liHistoryContainer>img{
+.liHistoryContainer > img {
   width: 2rem;
 }
 
 .buttonEditHistoryPrice {
   margin-left: auto;
-  background-color:#2ac97a;
+  background-color: #2ac97a;
   color: white;
   border: none;
   border-radius: 8px;
 }
 
 .buttonEditHistoryPrice:hover {
-  background-color:#198754;
+  background-color: #198754;
   border: none;
+}
+
+.dayMode {
+  background-color: #f5f5f5;
+  color: #1e1e1e;
+}
+
+.nightMode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* Mobile Landscape */
+
+.inputGroup.mobileLandscape {
+  width: 80%;
+  padding: 0.5rem 0.5rem;
+}
+
+.historyToggleContainer.mobileLandscape {
+  width: 80%;
+  max-width: 350px;
+}
+
+.liHistoryContainer.mobileLandscape > img {
+  width: 2rem;
+}
+
+.historySection.mobileLandscape {
+  width: 80%;
+  padding: 0.5rem 0.5rem;
+}
+
+.buttonEditHistoryPrice.mobileLandscape,
+.buttonEditHistoryPrice.tablet,
+.buttonEditHistoryPrice.tabletHD,
+.buttonEditHistoryPrice.hd,
+.buttonEditHistoryPrice.fullHD {
+  background-color: #2ac97a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.buttonEditHistoryPrice.mobileLandscape:hover,
+.buttonEditHistoryPrice.tablet:hover,
+.buttonEditHistoryPrice.tabletHD:hover,
+.buttonEditHistoryPrice.hd:hover,
+.buttonEditHistoryPrice.fullHD:hover {
+  background-color: #198754;
+  border: none;
+}
+
+.containerButtons.mobileLandscape,
+.containerButtons.tablet,
+.containerButtons.tabletHD,
+.containerButtons.hd,
+.containerButtons.fullHD {
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+.buttonMaterialUpdate.mobileLandscape,
+.buttonMaterialUpdate.tablet,
+.buttonMaterialUpdate.tabletHD,
+.buttonMaterialUpdate.hd,
+.buttonMaterialUpdate.fullHD {
+  width: 65%;
+  max-width: 200px;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: #0d6efd;
+  cursor: pointer;
+  color: #f5f5f5;
+  outline: none;
+  margin-left: 1rem;
+  font-weight: 400;
+}
+
+.buttonMaterialUpdate.mobileLandscape:hover,
+.buttonMaterialUpdate.tablet:hover,
+.buttonMaterialUpdate.tabletHD:hover,
+.buttonMaterialUpdate.hd:hover,
+.buttonMaterialUpdate.fullHD:hover {
+  background-color: #105bd5;
+  border: none;
+  font-weight: 600;
+}
+
+.buttonBack.mobileLandscape,
+.buttonBack.tablet,
+.buttonBack.tabletHD,
+.buttonBack.hd,
+.buttonBack.fullHD {
+  padding: 10px;
+  width: 35%;
+  max-width: 100px;
+  margin: 20px 0;
+  background-color: #ff3a41;
+  color: #f5f5f5;
+  border-radius: 5px;
+  font-weight: 400;
+  margin-right: 1rem;
+}
+
+.buttonBack.mobileLandscape:hover,
+.buttonBack.tablet:hover,
+.buttonBack.tabletHD:hover,
+.buttonBack.hd:hover,
+.buttonBack.fullHD:hover {
+  background-color: #dc3545;
+  border: none;
+  font-weight: 600;
+}
+
+/* Mobile */
+
+.containerWrapper.mobile,
+.containerWrapper.mobileLandscape {
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerImage.mobile > img,
+.containerImage.mobileLandscape > img {
+  width: 150px;
+  height: 150px;
+}
+
+.form.mobile,
+.form.mobileLandscape {
+  padding: 0.5rem 0;
+}
+
+.inputGroup.mobile {
+  width: 90%;
+  padding: 0.5rem 0.5rem;
+}
+
+.inputGroup.mobile > label,
+.inputGroup.mobileLandscape > label {
+  padding-left: 0.5rem;
+}
+
+.historyToggleContainer.mobile {
+  width: 90%;
+}
+
+.showHistoryText.mobile,
+.showHistoryText.mobileLandscape,
+.showHistoryText.tablet,
+.showHistoryText.tabletHD,
+.showHistoryText.hd,
+.showHistoryText.fullHD {
+  width: 80%;
+  background-color: #2ac97a;
+  color: white;
+}
+
+.historySection.mobile {
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+}
+
+.liHistoryContainer.mobile,
+.liHistoryContainer.mobileLandscape {
+  column-gap: 0.5rem;
+}
+
+.liHistoryContainer.mobile > img {
+  width: 1.5rem;
+}
+
+.liHistoryContainer.mobile > span,
+.liHistoryContainer.mobileLandscape > span {
+  font-size: 0.9rem;
+}
+
+.liHistoryContainer.mobile > span:nth-child(2),
+.liHistoryContainer.mobileLandscape > span:nth-child(2) {
+  margin-left: auto;
+}
+
+.buttonEditHistoryPrice.mobile {
+  background-color: #2ac97a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.buttonEditHistoryPrice.mobile:hover {
+  background-color: #198754;
+  border: none;
+}
+
+.containerButtons.mobile {
+  justify-content: center;
+}
+
+.buttonMaterialUpdate.mobile {
+  width: 65%;
+  max-width: 200px;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: #0d6efd;
+  cursor: pointer;
+  color: #f5f5f5;
+  outline: none;
+  margin-left: 1rem;
+  font-weight: 400;
+}
+
+.buttonMaterialUpdate.mobile:hover {
+  background-color: #105bd5;
+  border: none;
+  font-weight: 600;
+}
+
+.buttonBack.mobile {
+  padding: 10px;
+  width: 35%;
+  max-width: 100px;
+  margin: 20px 0;
+  background-color: #ff3a41;
+  color: #f5f5f5;
+  border-radius: 5px;
+  font-weight: 400;
+  margin-right: 1rem;
+}
+
+.buttonBack.mobile:hover {
+  background-color: #dc3545;
+  border: none;
+  font-weight: 600;
 }

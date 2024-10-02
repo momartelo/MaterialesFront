@@ -1,27 +1,106 @@
 /* UpdateHistoryPricesModal.module.css */
 .modal {
-    position: fixed; /* Necesario para que se superponga */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ocupa todo el ancho de la pantalla */
-    height: 100%; /* Ocupa toda la altura de la pantalla */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
-    display: flex; /* Flexbox para centrar contenido */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    z-index: 1000; /* Asegúrate de que el modal esté por encima de otros elementos */
-  }
-  
-  .modalContent {
-    background: white; /* Fondo blanco para el contenido del modal */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+  position: fixed; /* Necesario para que se superponga */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa todo el ancho de la pantalla */
+  height: 100%; /* Ocupa toda la altura de la pantalla */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex; /* Flexbox para centrar contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  z-index: 1000; /* Asegúrate de que el modal esté por encima de otros elementos */
+}
 
+.modalContent {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.form {
+  row-gap: 0.5rem;
+}
 
+.formPrice,
+.formCurrency,
+.formDate {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.formButtons {
+  display: flex;
+  margin-top: 1rem;
+  column-gap: 1rem;
+  width: 100%;
+}
+
+.formPrice > label,
+.formCurrency > label,
+.formDate > label {
+  padding-left: 0.5rem;
+}
+
+.formPrice > input,
+.formCurrency > select,
+.formDate > input {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+}
+
+.formPrice > input:focus,
+.formCurrency > select:focus,
+.formDate > input:focus {
+  outline: none;
+  border: 2px #0d6efd solid;
+}
+
+.formCurrency > select > option {
+  text-align: center;
+  border: none;
+}
+
+.buttonSubmit {
+  background-color: #0d6efd;
+  width: 60%;
+  color: #f5f5f5;
+  font-weight: 400;
+  height: 40px;
+  border-radius: 8px;
+  line-height: normal;
+  padding: 0;
+}
+
+.buttonSubmit:hover {
+  background-color: #105bd5;
+  border: none;
+  font-weight: 600;
+}
+
+.buttonBack {
+  background-color: #ff3a41;
+  width: 40%;
+  color: #f5f5f5;
+  font-weight: 400;
+  border: #ff3a41;
+  height: 40px;
+  border-radius: 8px;
+  line-height: normal;
+  padding: 0;
+}
+
+.buttonBack:hover {
+  background-color: #dc3545;
+  border: none;
+  font-weight: 600;
+}
 
 /* *{
     font-family: "Inter";
