@@ -5,16 +5,40 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
+import { useResponsive } from "../../providers/ResponsiveContext";
+import { useTheme } from "../../providers/ThemeProvider";
 
 const DeleteSubcategoryModal = ({
   show,
   subcategoryId,
-  // getSubcategory,
   onHide,
   subcategory,
 }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
+
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const materialClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const handleClose = () => {
     onHide();
@@ -57,10 +81,16 @@ const DeleteSubcategoryModal = ({
         <p>¡Esta acción no se puede deshacer!!!</p>
       </Modal.Body>
       <Modal.Footer>
-        <button className={styles.buttonDelete} onClick={handleDelete}>
+        <button
+          className={`${styles.buttonDelete} ${materialClass} ${modeClass}`}
+          onClick={handleDelete}
+        >
           Eliminar
         </button>
-        <button className={styles.buttonBack} onClick={handleClose}>
+        <button
+          className={`${styles.buttonBack} ${materialClass} ${modeClass}`}
+          onClick={handleClose}
+        >
           Cancelar
         </button>
       </Modal.Footer>

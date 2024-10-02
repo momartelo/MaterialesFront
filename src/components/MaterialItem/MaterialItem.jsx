@@ -6,8 +6,32 @@ import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import { fetchCategories } from "../../functions/getCategory";
 import { AuthContext } from "../../providers/AuthProvider";
 import { fetchUnits } from "../../functions/getUnit";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const MaterialItem = ({ material, getMaterial, onClick }) => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const materialClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
   const modalId = useId();
   const [categories, setCategories] = useState([]);
   const [units, setUnits] = useState([]);
@@ -38,13 +62,6 @@ const MaterialItem = ({ material, getMaterial, onClick }) => {
     fetchCategories(auth.token)
       .then((data) => setCategories(data))
       .catch((err) => console.log(err));
-    // try {
-    //   const res = await fetch(`${API_URL}/category`);
-    //   const data = await res.json();
-    //   setCategories(data);
-    // } catch (err) {
-    //   console.error("Error al obtener las categorías:", err);
-    // } finally {
     setLoadingCategories(false);
     // }
   }, [auth.token]);
@@ -58,13 +75,6 @@ const MaterialItem = ({ material, getMaterial, onClick }) => {
     fetchUnits(auth.token)
       .then((data) => setUnits(data))
       .catch((err) => console.log(err));
-    // try {
-    //   const res = await fetch(`${API_URL}/unit`);
-    //   const data = await res.json();
-    //   setUnits(data);
-    // } catch (err) {
-    //   console.error("Error al obtener las unidades:", err);
-    // } finally {
     setLoadingUnits(false);
     // }
   }, [auth.token]);
@@ -83,19 +93,17 @@ const MaterialItem = ({ material, getMaterial, onClick }) => {
   };
 
   return (
-    <div className={styles.item} onClick={onClick}>
+    <div
+      className={`${styles.item} ${materialClass} ${modeClass}`}
+      onClick={onClick}
+    >
       <section className={styles.sectionMaterialItem}>
-        {/* <p>Material:</p> */}
         <img src={material.image} alt="" />
         <h2>{material.name}</h2>
         {loadingCategories ? (
           <p>Cargando categorías...</p>
         ) : (
           <div className={styles.catPrice}>
-            {/* <div className={styles.infoCat}>
-              <p>Categoria</p>
-              <p>{getCategoryName(material.category)}</p>
-            </div> */}
             <div className={styles.priceMaterialItem}>
               <span>{material.moneda}: </span>
               <span>{material.precio}</span>

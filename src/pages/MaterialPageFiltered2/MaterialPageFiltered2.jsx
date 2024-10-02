@@ -106,7 +106,9 @@ function MaterialPageFiltered2() {
       {/* <div
         className={`${styles.containerMaterialPageFiltered} ${materialClass} ${modeClass}`}
       > */}
-      <div className={styles.containerFiltered}>
+      <div
+        className={`${styles.containerFiltered} ${materialClass} ${modeClass}`}
+      >
         <h2>Materiales</h2>
         {category ? (
           <div className={styles.containerCategoryText}>

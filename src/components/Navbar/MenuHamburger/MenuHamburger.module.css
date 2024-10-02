@@ -34,6 +34,7 @@
 
 .menu.nightMode {
   background-color: #1e1e1e;
+  border: 1px #fff solid;
 }
 
 .menu.open {

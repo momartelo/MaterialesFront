@@ -1,78 +1,88 @@
-*{
-    font-family: "Inter";
+* {
+  font-family: "Inter";
 }
 
-.modalHeader{
-    background-color: #f5f5f5;
+.modalHeader {
+  background-color: #f5f5f5;
 }
 
-.modalTitle{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 1rem;
+.modalTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 1rem;
 }
 
-.modalTitle > img{
-    height: 2rem;
+.modalTitle > img {
+  height: 2rem;
 }
 
-.modalTitle > p{
-    color: #111;
-    margin: 0;
+.modalTitle > p {
+  color: #111;
+  margin: 0;
 }
 
 .containerModalBody > p:nth-child(2) {
-    font-weight: 600;
-    color: #dc3545;
-    font-size: 1.1rem;
+  font-weight: 600;
+  color: #dc3545;
+  font-size: 1.1rem;
 }
 
-.modalHeader > button{
-    font-size: 0.75rem;
+.modalHeader > button {
+  font-size: 0.75rem;
 }
 
-.modalHeader > button:hover{
-    background-color: red;
+.modalHeader > button:hover {
+  background-color: red;
 }
 
-.containerModalBody{
-    background-color: white;
-    border-radius: 5px;
+.containerModalBody {
+  background-color: white;
+  border-radius: 5px;
 }
 
 .containerModalBody > p {
-    text-align: center;
+  text-align: center;
 }
 
 .buttonBack {
-    /* width: 10rem; */
-    padding: 0.6rem;
-    border-radius: 8px;
-    background-color: #2ac97a;
-    cursor: pointer;
-    color: white;
-    outline: none;
-    text-align: center;
-    font-weight: 400;
-  }
-  
-  .buttonBack:hover {
-    background-color: #198754;
-    color: white;
-    font-weight: 600;
-  }
-  
-  .buttonDelete{
-    width: 25%;
-    border-radius: 8px;
-    background-color: #ff3a41;
-    color: #f5f5f5;
-    font-weight: 400;
-  }
-  
-  .buttonDelete:hover{
-    background-color: #dc3545;
-    border: none;
-    font-weight: 600;
-  }
+  /* width: 10rem; */
+  padding: 0.6rem;
+  border-radius: 8px;
+  background-color: #2ac97a;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  text-align: center;
+  font-weight: 400;
+}
+
+.buttonBack:hover {
+  background-color: #198754;
+  color: white;
+  font-weight: 600;
+}
+
+.buttonDelete {
+  width: 25%;
+  border-radius: 8px;
+  background-color: #ff3a41;
+  color: #f5f5f5;
+  font-weight: 400;
+}
+
+.buttonDelete:hover {
+  background-color: #dc3545;
+  border: none;
+  font-weight: 600;
+}
+
+/* Mobile */
+
+.buttonDelete {
+  width: 45%;
+}
+
+.buttonBack {
+  width: 30%;
+}

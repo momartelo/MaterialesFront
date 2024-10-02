@@ -104,13 +104,15 @@ const Category = ({ categories }) => {
           </div>
         </div>
       )}
-      <div className={styles.containerItem}>
+      <div className={`${styles.containerItem} ${categoryClass} ${modeClass}`}>
         {filterCategories.length > 0 ? (
           filterCategories.map((category) => (
             <CategoryItem key={category._id} category={category} />
           ))
         ) : (
-          <div className={styles.containerNoShow}>
+          <div
+            className={`${styles.containerNoShow} ${categoryClass} ${modeClass}`}
+          >
             <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>
             <p>&nbsp;Categorias</p>

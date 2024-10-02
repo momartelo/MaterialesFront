@@ -54,11 +54,15 @@ const CategoryItem = ({ category }) => {
 
   return (
     <div className={`${styles.item} ${materialClass} ${modeClass}`}>
-      <section className={styles.sectionCategoryItem}>
+      <section
+        className={` ${styles.sectionCategoryItem} ${materialClass} ${modeClass}`}
+      >
         <h2>{category.category}</h2>
       </section>
       {auth ? (
-        <div className={styles.containerIcons}>
+        <div
+          className={`${styles.containerIcons} ${materialClass} ${modeClass}`}
+        >
           <Link
             className={styles.containerIconEdit}
             onClick={handleUpdateClick}

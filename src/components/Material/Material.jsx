@@ -340,7 +340,9 @@ const Material = ({ materials, getMaterial, categories }) => {
         </div>
       ) : (
         <>
-          <div className={styles.containerItem}>
+          <div
+            className={`${styles.containerItem} ${materialClass} ${modeClass}`}
+          >
             {filterMaterials.length > 0 ? (
               filterMaterials
                 .slice(
@@ -360,7 +362,9 @@ const Material = ({ materials, getMaterial, categories }) => {
                   />
                 ))
             ) : (
-              <div className={styles.containerNoShow}>
+              <div
+                className={`${styles.containerNoShow} ${materialClass} ${modeClass}`}
+              >
                 <img src="/img/archivo.png" alt="" />
                 <p>¡No hay </p>
                 <p>&nbsp;Materiales</p>

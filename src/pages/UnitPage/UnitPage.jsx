@@ -6,8 +6,33 @@ import Unit from "../../components/Unit/Unit";
 import { FadeLoader } from "react-spinners"; // Importa el loader
 import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
 import Footer from "../../components/Footer/Footer";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const UnitPage = () => {
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const unitClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const [units, setUnits] = useState([]);
   const { auth } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -35,7 +60,7 @@ const UnitPage = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.containerUnitPage}>
+      <div className={`${styles.containerUnitPage} ${unitClass} ${modeClass}`}>
         <div className={styles.containerTitle}>
           <img src="/img/categoria.png" alt="" />
           <h2>Unidades</h2>

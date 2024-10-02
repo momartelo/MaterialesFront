@@ -64,3 +64,8 @@
   display: flex;
   flex-direction: row;
 }
+
+.containerFiltered.mobile > h2 {
+  font-size: 2rem;
+  padding: 0.5rem 0;
+}

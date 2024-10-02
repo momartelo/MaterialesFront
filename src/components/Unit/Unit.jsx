@@ -102,11 +102,13 @@ const Unit = ({ units }) => {
           </div>
         </div>
       )}
-      <div className={styles.containerItem}>
+      <div className={`${styles.containerItem} ${unitClass} ${modeClass}`}>
         {filterUnits.length > 0 ? (
           filterUnits.map((unit) => <UnitItem key={unit._id} unit={unit} />)
         ) : (
-          <div className={styles.containerNoShow}>
+          <div
+            className={`${styles.containerNoShow} ${unitClass} ${modeClass}`}
+          >
             <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>
             <p>&nbsp;Unidades</p>

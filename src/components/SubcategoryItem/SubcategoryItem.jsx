@@ -34,11 +34,7 @@ const SubcategoryItem = ({ subcategory, categories }) => {
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
   const modalId = useId();
   const { auth } = useContext(AuthContext);
-  // const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState("");
-  // const [ units, setUnits ] = useState([]);
-  // const [loadingCategories, setLoadingCategories] = useState(true);
-  // const [ loadingUnits, setLoadingUnits ] = useState(true);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -59,10 +55,6 @@ const SubcategoryItem = ({ subcategory, categories }) => {
   };
 
   useEffect(() => {
-    // const fetchCategories = async () => {
-    // try {
-    // const categoriesData = await fetchCategoriesWithoutAuth();
-    // setCategories(categoriesData);
     const category = categories.find(
       (cat) => cat._id === subcategory.category._id
     );
@@ -70,21 +62,20 @@ const SubcategoryItem = ({ subcategory, categories }) => {
       setCategoryName(category.category);
       console.log(category);
     }
-    // } catch (error) {
-    //   console.error("Error fetching categories:", error);
-    // }
-    //};
-    // fetchCategories();
   }, [subcategory.category]);
 
   return (
     <div className={`${styles.item} ${materialClass} ${modeClass}`}>
-      <section className={styles.sectionSubcategoryItem}>
+      <section
+        className={`${styles.sectionSubcategoryItem} ${materialClass} ${modeClass}`}
+      >
         <h2>{subcategory.subcategory}</h2>
         <p>{categoryName || "Cargando categoria..."}</p>
       </section>
       {auth ? (
-        <div className={styles.containerIcons}>
+        <div
+          className={`${styles.containerIcons} ${materialClass} ${modeClass}`}
+        >
           <Link
             className={styles.containerIconEdit}
             onClick={handleUpdateClick}

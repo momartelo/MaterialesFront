@@ -3,12 +3,11 @@ import React, { useContext, useEffect, useId, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
-import { fetchSubcategories } from "../../functions/getSubcategory";
 import { API_URL } from "../../utils/config";
-import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
-import { fetchCategories } from "../../functions/getCategory";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
+import { useTheme } from "../../providers/ThemeProvider";
+import { useResponsive } from "../../providers/ResponsiveContext";
 
 const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
   const categoryId = useId();
@@ -28,6 +27,29 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
+  const { isNightMode } = useTheme();
+  const {
+    isDesktopHD,
+    isDesktopFullHD,
+    isTabletHD,
+    isTablet,
+    isMobile,
+    isMobileLandscape,
+  } = useResponsive();
+
+  const getContainerClass = () => {
+    if (isDesktopFullHD) return styles.fullHD;
+    if (isDesktopHD) return styles.hd;
+    if (isTabletHD) return styles.tabletHD;
+    if (isTablet) return styles.tablet;
+    if (isMobileLandscape) return styles.mobileLandscape;
+    if (isMobile) return styles.mobile;
+    return "";
+  };
+
+  const containerClass = getContainerClass();
+  const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const { categories: categoriesData, loading: loadingCategories } =
     useCategoriesWithoutAuth();
   const { subcategories: subcategoriesData, loading: loadingSubcategories } =
@@ -44,18 +66,6 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
       setSubcategories(subcategoriesData);
     }
   }, [loadingSubcategories, subcategoriesData]);
-
-  // useEffect(() => {
-  //   fetch(`${API_URL}/category/`)
-  //     .then((res) => res.json())
-  //     .then((data) => setCategories(data))
-  //     .catch((err) => console.error(err));
-
-  //   fetch(`${API_URL}/subcategory/`)
-  //     .then((res) => res.json())
-  //     .then((data) => setSubcategories(data))
-  //     .catch((err) => console.error(err));
-  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -139,13 +149,17 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
         <Modal.Title className={styles.modalTitle}>
           <img src="/img/nuevo-documento.png" alt="" />
           <div className={styles.modalTitleP}>
-            <p>Crear una nueva</p>&nbsp;<p>Subcategoria</p>
+            <p>
+              Crear una nueva <span>subcategoria</span>
+            </p>
           </div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles.containerModalBody}>
         <form onSubmit={handleSubmit} className={styles.formSubcategory}>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={subcategoryId}>Subcategoria:</label>
             <div className={styles.containerInput}>
               <input
@@ -156,7 +170,9 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
               />
             </div>
           </div>
-          <div className={styles.inputGroup}>
+          <div
+            className={`${styles.inputGroup} ${containerClass} ${modeClass}`}
+          >
             <label htmlFor={categoryId}>Categoria:</label>
             <div className={styles.containerSelect}>
               <select

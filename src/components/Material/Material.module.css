@@ -280,6 +280,10 @@
 
 /* Estilos Mobile */
 
+.containerItem.mobile {
+  flex-direction: column;
+}
+
 .containerVarSearch.mobile {
   width: 80%;
   display: grid;
@@ -313,4 +317,9 @@
   grid-column: 1 / -1;
   grid-row: 2;
   justify-content: center;
+}
+
+.containerNoShow.mobile {
+  flex-direction: column;
+  padding: 50px 0;
 }

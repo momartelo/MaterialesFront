@@ -312,6 +312,13 @@
   z-index: 5;
   justify-content: space-between;
   border: 1px #ddd solid;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.item.mobile:hover {
+  border: 1px solid white;
+  transition: box-shadow 0.3s;
+  box-shadow: none;
 }
 
 .sectionMaterialItem.mobileLandscape,
@@ -386,4 +393,5 @@
 .containerIcons.mobile {
   flex-direction: column;
   margin-left: auto;
+  row-gap: 0.5rem;
 }

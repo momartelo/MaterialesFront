@@ -197,6 +197,11 @@ font-size: 1.5rem;
 
 /* Mobile  */
 
+.containerItem.mobile {
+  flex-direction: column;
+  margin: 1.5rem 0;
+}
+
 .wrapperCategory.mobile {
   flex-direction: column;
   justify-content: center;
@@ -214,4 +219,9 @@ font-size: 1.5rem;
   margin: 0;
   padding: 0;
   order: 1;
+}
+
+.containerNoShow.mobile {
+  flex-direction: column;
+  padding: 50px 0;
 }

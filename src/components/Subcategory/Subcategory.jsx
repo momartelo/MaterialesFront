@@ -120,7 +120,9 @@ const Subcategory = ({ subcategories, categories }) => {
           </div>
         </div>
       )}
-      <div className={styles.containerItem}>
+      <div
+        className={`${styles.containerItem} ${subcategoryClass} ${modeClass}`}
+      >
         {filterSubcategories.length > 0 ? (
           filterSubcategories.map((subcategory) => (
             <SubcategoryItem
@@ -130,7 +132,9 @@ const Subcategory = ({ subcategories, categories }) => {
             />
           ))
         ) : (
-          <div className={styles.containerNoShow}>
+          <div
+            className={`${styles.containerNoShow} ${subcategoryClass} ${modeClass}`}
+          >
             <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>
             <p>&nbsp;Subcategorias</p>
