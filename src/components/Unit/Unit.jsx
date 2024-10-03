@@ -5,31 +5,10 @@ import { Link } from "react-router-dom";
 import UnitItem from "../UnitItem/UnitItem";
 import UnitNewModal from "../UnitNewModal/UnitNewModal";
 import { useUnits } from "../../hooks/useUnits";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const Unit = ({ units }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const unitClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [search, setSearch] = useState("");
@@ -59,11 +38,11 @@ const Unit = ({ units }) => {
   };
   console.log(filterUnits);
   return (
-    <div className={`${styles.containerUnit} ${unitClass} ${modeClass}`}>
+    <div className={`${styles.containerUnit} ${containerClass} ${modeClass}`}>
       {auth ? (
-        <div className={`${styles.wrapperUnit} ${unitClass} ${modeClass}`}>
+        <div className={`${styles.wrapperUnit} ${containerClass} ${modeClass}`}>
           <Link
-            className={`${styles.btnSuccess} ${unitClass} ${modeClass}`}
+            className={`${styles.btnSuccess} ${containerClass} ${modeClass}`}
             onClick={handleUnitNewClick}
           >
             Nueva Unidad
@@ -74,7 +53,7 @@ const Unit = ({ units }) => {
             onUnitCreated={useUnits}
           />
           <div
-            className={`${styles.searchContainer} ${unitClass} ${modeClass}`}
+            className={`${styles.searchContainer} ${containerClass} ${modeClass}`}
           >
             <input
               type="search"
@@ -89,7 +68,7 @@ const Unit = ({ units }) => {
           </div>
         </div>
       ) : (
-        <div className={`${styles.wrapperUnit} ${unitClass} ${modeClass}`}>
+        <div className={`${styles.wrapperUnit} ${containerClass} ${modeClass}`}>
           <input
             type="search"
             className={styles.formControl}
@@ -102,12 +81,12 @@ const Unit = ({ units }) => {
           </div>
         </div>
       )}
-      <div className={`${styles.containerItem} ${unitClass} ${modeClass}`}>
+      <div className={`${styles.containerItem} ${containerClass} ${modeClass}`}>
         {filterUnits.length > 0 ? (
           filterUnits.map((unit) => <UnitItem key={unit._id} unit={unit} />)
         ) : (
           <div
-            className={`${styles.containerNoShow} ${unitClass} ${modeClass}`}
+            className={`${styles.containerNoShow} ${containerClass} ${modeClass}`}
           >
             <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>

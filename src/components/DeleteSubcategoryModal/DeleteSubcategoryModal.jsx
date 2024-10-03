@@ -1,12 +1,10 @@
 import styles from "./DeleteSubcategoryModal.module.css";
 import { API_URL } from "../../utils/config";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
-import { useResponsive } from "../../providers/ResponsiveContext";
-import { useTheme } from "../../providers/ThemeProvider";
+import useAppContext from "../../hooks/useAppContext";
 
 const DeleteSubcategoryModal = ({
   show,
@@ -17,27 +15,7 @@ const DeleteSubcategoryModal = ({
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const materialClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const handleClose = () => {
@@ -82,13 +60,13 @@ const DeleteSubcategoryModal = ({
       </Modal.Body>
       <Modal.Footer>
         <button
-          className={`${styles.buttonDelete} ${materialClass} ${modeClass}`}
+          className={`${styles.buttonDelete} ${containerClass} ${modeClass}`}
           onClick={handleDelete}
         >
           Eliminar
         </button>
         <button
-          className={`${styles.buttonBack} ${materialClass} ${modeClass}`}
+          className={`${styles.buttonBack} ${containerClass} ${modeClass}`}
           onClick={handleClose}
         >
           Cancelar

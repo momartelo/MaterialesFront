@@ -1,7 +1,6 @@
 import styles from "./UnitNewModal.module.css";
 import Modal from "react-bootstrap/Modal";
 import { AuthContext } from "../../providers/AuthProvider";
-import { fetchUnits } from "../../functions/getUnit";
 import { API_URL } from "../../utils/config";
 import { useContext, useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,18 +8,11 @@ import { useNavigate } from "react-router-dom";
 const UnitNewModal = ({ show, onUnitCreated, onHide }) => {
   const unitId = useId();
   const [unit, setUnit] = useState("");
-  // const [units, setUnits] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
-
-  // useEffect(() => {
-  //   fetchUnits(auth.token)
-  //     .then((data) => setUnits(data))
-  //     .catch((err) => console.error(err));
-  // }, [auth]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -97,9 +89,6 @@ const UnitNewModal = ({ show, onUnitCreated, onHide }) => {
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
               />
-              {/* <Link className={styles.buttonList} to="/category">
-                Listar
-                </Link> */}
             </div>
           </div>
           <div className={styles.containerButtons}>

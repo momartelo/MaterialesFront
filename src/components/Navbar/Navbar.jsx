@@ -2,44 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useTheme } from "../../providers/ThemeProvider";
-
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import styles from "./Navbar.module.css";
 import { fetchRates } from "../../functions/fetchRates";
-import { useResponsive } from "../../providers/ResponsiveContext";
 import MenuHamburger from "./MenuHamburger/MenuHamburger";
+import useAppContext from "../../hooks/useAppContext";
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { isNightMode, toggleTheme } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
 
-  const getResponsiveClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const responsiveClass = getResponsiveClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [rates, setRates] = useState({
@@ -112,30 +90,30 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`${styles.containerNav} ${responsiveClass} ${modeClass}`}>
+    <div className={`${styles.containerNav} ${containerClass} ${modeClass}`}>
       <div className={styles.wrapperNav}>
         <div className={styles.fluidNav}>
           <div className={`${styles.generalNav} ${styles.flex}`}>
             <div
-              className={`${styles.logoAnchor} ${styles.flex}  ${responsiveClass} ${modeClass}`}
+              className={`${styles.logoAnchor} ${styles.flex}  ${containerClass} ${modeClass}`}
             >
               <Link className={styles.linkLogo} to="/">
                 <img src="/img/osse.jpg" alt="" />
               </Link>
             </div>
             <div
-              className={`${styles.containerNavbarCentral} ${responsiveClass} ${modeClass}`}
+              className={`${styles.containerNavbarCentral} ${containerClass} ${modeClass}`}
             >
               <div className={styles.wrappernavbarCentral}>
                 <nav
-                  className={`${styles.navbarCentral} ${responsiveClass} ${modeClass}`}
+                  className={`${styles.navbarCentral} ${containerClass} ${modeClass}`}
                 >
                   <ul
-                    className={`${styles.ulNavbarCentral} ${responsiveClass} ${modeClass} ${styles.flex}`}
+                    className={`${styles.ulNavbarCentral} ${containerClass} ${modeClass} ${styles.flex}`}
                   >
                     <li className={styles.navItem}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${containerClass} ${modeClass}`}
                         to="/"
                       >
                         <span>Home</span>
@@ -144,7 +122,7 @@ const Navbar = () => {
 
                     <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${containerClass} ${modeClass}`}
                         to="#"
                       >
                         <span>Materiales</span>
@@ -240,7 +218,7 @@ const Navbar = () => {
                     {auth && auth.user ? (
                       <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                         <Link
-                          className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
+                          className={`${styles.liHomeNavbar} ${styles.flex} ${containerClass} ${modeClass}`}
                           to="#"
                         >
                           <span>Editar</span>
@@ -316,7 +294,7 @@ const Navbar = () => {
                     )}
                     <li className={`${styles.navItem} ${styles.hasDropdown}`}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${containerClass} ${modeClass}`}
                         to="#"
                       >
                         <span>Indices</span>
@@ -386,7 +364,7 @@ const Navbar = () => {
                     </li>
                     <li className={styles.navItem}>
                       <Link
-                        className={`${styles.liHomeNavbar} ${styles.flex} ${responsiveClass} ${modeClass}`}
+                        className={`${styles.liHomeNavbar} ${styles.flex} ${containerClass} ${modeClass}`}
                         to="/contact"
                       >
                         <span>Contacto</span>
@@ -395,15 +373,15 @@ const Navbar = () => {
                   </ul>
                 </nav>
                 <nav
-                  className={`${styles.navbarHamburger} ${responsiveClass} ${modeClass}`}
+                  className={`${styles.navbarHamburger} ${containerClass} ${modeClass}`}
                 >
                   <MenuHamburger />
                 </nav>
                 <div
-                  className={`${styles.logoAnchorMenuHamburger}  ${responsiveClass} ${modeClass} ${styles.flex} `}
+                  className={`${styles.logoAnchorMenuHamburger}  ${containerClass} ${modeClass} ${styles.flex} `}
                 >
                   <Link
-                    className={`${styles.linkLogoMenuHamburger} ${responsiveClass} ${modeClass}`}
+                    className={`${styles.linkLogoMenuHamburger} ${containerClass} ${modeClass}`}
                     to="/"
                   >
                     <img src="/img/osse.jpg" alt="" />
@@ -412,13 +390,13 @@ const Navbar = () => {
               </div>
             </div>
             <div
-              className={`${styles.containerIconsNav} ${styles.flex} ${responsiveClass} ${modeClass}`}
+              className={`${styles.containerIconsNav} ${styles.flex} ${containerClass} ${modeClass}`}
             >
               <div
-                className={`${styles.containerSwitchLog} ${responsiveClass} ${modeClass}`}
+                className={`${styles.containerSwitchLog} ${containerClass} ${modeClass}`}
               >
                 <div
-                  className={`${styles.switchDayNight} ${responsiveClass} ${modeClass}`}
+                  className={`${styles.switchDayNight} ${containerClass} ${modeClass}`}
                 >
                   <FormControlLabel
                     className={styles.toggleTheme}
@@ -459,10 +437,10 @@ const Navbar = () => {
                 </div>
                 {auth && auth.user ? (
                   <div
-                    className={`${styles.loggedUserContainer} ${responsiveClass} ${modeClass}`}
+                    className={`${styles.loggedUserContainer} ${containerClass} ${modeClass}`}
                   >
                     <div
-                      className={`${styles.loggedUserInfo} ${responsiveClass} ${modeClass}`}
+                      className={`${styles.loggedUserInfo} ${containerClass} ${modeClass}`}
                     >
                       <img
                         src={getAvatarImageUrl(auth.user?.genero)}
@@ -481,10 +459,10 @@ const Navbar = () => {
                 )}
               </div>
               <div
-                className={`${styles.containerExchange} ${responsiveClass} ${modeClass}`}
+                className={`${styles.containerExchange} ${containerClass} ${modeClass}`}
               >
                 <div
-                  className={`${styles.containerValorDolar} ${responsiveClass} ${modeClass}`}
+                  className={`${styles.containerValorDolar} ${containerClass} ${modeClass}`}
                 >
                   <p>Dolar:</p> <p>${rates.valorDolarVenta}</p>
                   <p>Actualizado: {rates.fechaDolar}</p>
@@ -503,10 +481,10 @@ const Navbar = () => {
                   </button> */}
                 </div>
                 <div
-                  className={`${styles.separataExchange} ${responsiveClass} ${modeClass}`}
+                  className={`${styles.separataExchange} ${containerClass} ${modeClass}`}
                 ></div>
                 <div
-                  className={`${styles.containerValorEuro} ${responsiveClass} ${modeClass}`}
+                  className={`${styles.containerValorEuro} ${containerClass} ${modeClass}`}
                 >
                   <p>Euro:</p> <p>${rates.valorEuroVenta} </p>
                   <p>Actualizado: {rates.fechaEuro}</p>

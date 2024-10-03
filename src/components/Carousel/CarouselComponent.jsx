@@ -2,32 +2,11 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import useAppContext from "../../hooks/useAppContext";
 import styles from "./CarouselComponent.module.css";
-import { useResponsive } from "../../providers/ResponsiveContext";
-import { useTheme } from "../../providers/ThemeProvider";
 
 const CarouselComponent = () => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobileLandscape,
-    isMobile,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.FullHD;
-    if (isDesktopHD) return styles.HD;
-    if (isTabletHD) return styles.TabletHD;
-    if (isTablet) return styles.Tablet;
-    if (isMobileLandscape) return styles.MobileLandscape;
-    if (isMobile) return styles.Mobile;
-    return "";
-  };
-
-  const containerClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   return (

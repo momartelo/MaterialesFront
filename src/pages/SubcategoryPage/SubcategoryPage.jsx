@@ -7,31 +7,10 @@ import { FadeLoader } from "react-spinners"; // Importa el loader
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth.js";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth.js";
 import Footer from "../../components/Footer/Footer.jsx";
-import { useTheme } from "../../providers/ThemeProvider.jsx";
-import { useResponsive } from "../../providers/ResponsiveContext.jsx";
+import useAppContext from "../../hooks/useAppContext.js";
 
 function SubcategoryPage() {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const subcategoryClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [subcategories, setSubcategories] = useState([]);
@@ -73,7 +52,7 @@ function SubcategoryPage() {
     <>
       <Navbar />
       <div
-        className={`${styles.containerSubcategoryPage} ${subcategoryClass} ${modeClass}`}
+        className={`${styles.containerSubcategoryPage} ${containerClass} ${modeClass}`}
       >
         <div className={styles.containerTitle}>
           <img src="/img/categoria.png" alt="" />

@@ -6,31 +6,10 @@ import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
-import { useResponsive } from "../../providers/ResponsiveContext";
-import { useTheme } from "../../providers/ThemeProvider";
+import useAppContext from "../../hooks/useAppContext";
 
 const MaterialItem2 = ({ material, getMaterial, onClick }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const materialClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const modalId = useId();
@@ -82,14 +61,14 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
 
   return (
     <div
-      className={`${styles.item} ${materialClass} ${modeClass}`}
+      className={`${styles.item} ${containerClass} ${modeClass}`}
       onClick={handleClick}
     >
       <section
-        className={`${styles.sectionMaterialItem} ${materialClass} ${modeClass}`}
+        className={`${styles.sectionMaterialItem} ${containerClass} ${modeClass}`}
       >
         <div
-          className={`${styles.imageAndTitleItem} ${materialClass} ${modeClass}`}
+          className={`${styles.imageAndTitleItem} ${containerClass} ${modeClass}`}
         >
           <img src={material.image} alt="" />
           <h2>{material.name}</h2>
@@ -97,16 +76,16 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
         {loadingCategories && loadingUnits ? (
           <p>Cargando categorías y unidades...</p>
         ) : (
-          <div className={`${styles.catPrice} ${materialClass} ${modeClass}`}>
+          <div className={`${styles.catPrice} ${containerClass} ${modeClass}`}>
             <div
-              className={`${styles.priceMaterialItem} ${materialClass} ${modeClass}`}
+              className={`${styles.priceMaterialItem} ${containerClass} ${modeClass}`}
             >
               <span>{formatDollars(material.precioEnDolares)}</span>
               <span>-</span>
               <span>{formatPesos(material.precioEnPesos)}</span>
             </div>
             <p>{getUnitName(material.unit)}</p>
-            <div className={`${styles.infoCat} ${materialClass} ${modeClass}`}>
+            <div className={`${styles.infoCat} ${containerClass} ${modeClass}`}>
               <p>Categoria:&nbsp;</p>
               <p>{getCategoryName(material.category)}</p>
             </div>
@@ -115,7 +94,7 @@ const MaterialItem2 = ({ material, getMaterial, onClick }) => {
       </section>
       {auth ? (
         <div
-          className={`${styles.containerIcons} ${materialClass} ${modeClass}`}
+          className={`${styles.containerIcons} ${containerClass} ${modeClass}`}
         >
           <Link
             className={styles.containerIconEdit}

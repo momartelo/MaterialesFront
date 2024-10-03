@@ -3,35 +3,14 @@ import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
 import { useContext, useEffect, useId, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { fetchCategoriesWithoutAuth } from "../../functions/getCategory";
 import UpdateSubcategoryModal from "../UpdateSubcategoryModal/UpdateSubcategoryModal";
 import DeleteSubcategoryModal from "../DeleteSubcategoryModal/DeleteSubcategoryModal";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const SubcategoryItem = ({ subcategory, categories }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const materialClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+
   const modalId = useId();
   const { auth } = useContext(AuthContext);
   const [categoryName, setCategoryName] = useState("");
@@ -65,16 +44,16 @@ const SubcategoryItem = ({ subcategory, categories }) => {
   }, [subcategory.category]);
 
   return (
-    <div className={`${styles.item} ${materialClass} ${modeClass}`}>
+    <div className={`${styles.item} ${containerClass} ${modeClass}`}>
       <section
-        className={`${styles.sectionSubcategoryItem} ${materialClass} ${modeClass}`}
+        className={`${styles.sectionSubcategoryItem} ${containerClass} ${modeClass}`}
       >
         <h2>{subcategory.subcategory}</h2>
         <p>{categoryName || "Cargando categoria..."}</p>
       </section>
       {auth ? (
         <div
-          className={`${styles.containerIcons} ${materialClass} ${modeClass}`}
+          className={`${styles.containerIcons} ${containerClass} ${modeClass}`}
         >
           <Link
             className={styles.containerIconEdit}
@@ -107,20 +86,6 @@ const SubcategoryItem = ({ subcategory, categories }) => {
             subcategoryId={subcategory._id}
             subcategory={subcategory.subcategory}
           />
-          {/* <Link
-            style={{ fontSize: "30px", color: "green" }}
-            onClick={handleUpdateClick}
-          >
-            <HiOutlinePencilAlt />
-          </Link> */}
-          {/* <Link
-            style={{ fontSize: "30px", color: "red" }}
-            onClick={handleDeleteClick}
-          >
-            <HiOutlineTrash />
-          </Link> */}
-          {/* <UpdateCategoryModal show={showUpdateModal} onHide={handleCloseModal} getCategory={async () => { await getCategory();}} modalId={modalId} categoryId={category._id} category={category.category} />
-                <DeleteCategoryModal show={showDeleteModal} onHide={handleCloseModal} getCategory={async () => { await getCategory();}} modalId={modalId} categoryId={category._id} category={category.category} /> */}
         </div>
       ) : (
         <div className={styles.containerIcons}></div>

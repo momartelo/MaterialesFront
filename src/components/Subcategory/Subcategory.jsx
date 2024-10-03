@@ -5,31 +5,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 import SubcategoryItem from "../SubcategoryItem/SubcategoryItem";
 import SubcategoryNewModal from "../SubcategoryNewModal/SubcategoryNewModal";
 import { useSubcategories } from "../../hooks/useSubcategories";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const Subcategory = ({ subcategories, categories }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const subcategoryClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [search, setSearch] = useState("");
@@ -72,14 +51,14 @@ const Subcategory = ({ subcategories, categories }) => {
 
   return (
     <div
-      className={`${styles.containerSubcategory} ${subcategoryClass} ${modeClass}`}
+      className={`${styles.containerSubcategory} ${containerClass} ${modeClass}`}
     >
       {auth ? (
         <div
-          className={`${styles.wrapperSubcategory} ${subcategoryClass} ${modeClass}`}
+          className={`${styles.wrapperSubcategory} ${containerClass} ${modeClass}`}
         >
           <Link
-            className={`${styles.btnSuccess} ${subcategoryClass} ${modeClass}`}
+            className={`${styles.btnSuccess} ${containerClass} ${modeClass}`}
             onClick={handleSubcategoryNewClick}
           >
             Nueva Subcategoria
@@ -90,7 +69,7 @@ const Subcategory = ({ subcategories, categories }) => {
             onSubcategoryCreated={useSubcategories}
           />
           <div
-            className={`${styles.searchContainer} ${subcategoryClass} ${modeClass}`}
+            className={`${styles.searchContainer} ${containerClass} ${modeClass}`}
           >
             <input
               type="search"
@@ -106,7 +85,7 @@ const Subcategory = ({ subcategories, categories }) => {
         </div>
       ) : (
         <div
-          className={`${styles.wrapperSubcategory} ${subcategoryClass} ${modeClass}`}
+          className={`${styles.wrapperSubcategory} ${containerClass} ${modeClass}`}
         >
           <input
             type="search"
@@ -120,9 +99,7 @@ const Subcategory = ({ subcategories, categories }) => {
           </div>
         </div>
       )}
-      <div
-        className={`${styles.containerItem} ${subcategoryClass} ${modeClass}`}
-      >
+      <div className={`${styles.containerItem} ${containerClass} ${modeClass}`}>
         {filterSubcategories.length > 0 ? (
           filterSubcategories.map((subcategory) => (
             <SubcategoryItem
@@ -133,7 +110,7 @@ const Subcategory = ({ subcategories, categories }) => {
           ))
         ) : (
           <div
-            className={`${styles.containerNoShow} ${subcategoryClass} ${modeClass}`}
+            className={`${styles.containerNoShow} ${containerClass} ${modeClass}`}
           >
             <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>

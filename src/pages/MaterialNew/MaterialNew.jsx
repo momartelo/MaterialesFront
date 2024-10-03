@@ -11,9 +11,8 @@ import { ClipLoader } from "react-spinners";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
 import { useUnitsWithoutAuth } from "../../hooks/useUnitsWithoutAuth";
-import { useResponsive } from "../../providers/ResponsiveContext";
-import { useTheme } from "../../providers/ThemeProvider";
 import Footer from "../../components/Footer/Footer";
+import useAppContext from "../../hooks/useAppContext";
 
 const MaterialNew = () => {
   const nameId = useId();
@@ -50,38 +49,8 @@ const MaterialNew = () => {
   const { subcategories, errorSub } = useSubcategoriesWithoutAuth();
   const { units, errorUnits } = useUnitsWithoutAuth();
 
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  console.log({
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  });
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const containerClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
-
   if (errorCat || errorSub || errorUnits) {
     return <div>Error al cargar datos</div>;
   }

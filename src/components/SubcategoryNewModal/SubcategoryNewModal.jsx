@@ -6,8 +6,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { API_URL } from "../../utils/config";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useSubcategoriesWithoutAuth } from "../../hooks/useSubcategoriesWithoutAuth";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
   const categoryId = useId();
@@ -27,27 +26,7 @@ const SubcategoryNewModal = ({ show, onSubcategoryCreated, onHide }) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const containerClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const { categories: categoriesData, loading: loadingCategories } =

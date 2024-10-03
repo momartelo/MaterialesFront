@@ -5,32 +5,11 @@ import { AuthContext } from "../../providers/AuthProvider";
 import styles from "./CategoryPage2.module.css";
 import { FadeLoader } from "react-spinners"; // Importa el loader
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth.js";
-import { useTheme } from "../../providers/ThemeProvider.jsx";
-import { useResponsive } from "../../providers/ResponsiveContext.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
+import useAppContext from "../../hooks/useAppContext.js";
 
 function CategoryPage2() {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const categoryClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const { categories, loading, minLoadingTimeElapsed, error } =
@@ -45,7 +24,7 @@ function CategoryPage2() {
     <>
       <Navbar />
       <div
-        className={`${styles.containerCategoryPage} ${categoryClass} ${modeClass}`}
+        className={`${styles.containerCategoryPage} ${containerClass} ${modeClass}`}
       >
         <div className={styles.containerTitle}>
           <img src="/img/categoria.png" alt="" />

@@ -59,21 +59,6 @@ const UpdateMaterialModal = ({
     setCategoryName(material.category || "");
     setSubcategoryName(material.subcategory || "");
 
-    // fetch(`${API_URL}/unit/`)
-    //   .then((res) => res.json())
-    //   .then((data) => setUnits(data))
-    //   .catch((err) => console.error(err));
-
-    // fetch(`${API_URL}/category/`)
-    //   .then((res) => res.json())
-    //   .then((data) => setCategories(data))
-    //   .catch((err) => console.error(err));
-
-    // fetch(`${API_URL}/subcategory/`)
-    //   .then((res) => res.json())
-    //   .then((data) => setSubcategories(data))
-    //   .catch((err) => console.error(err));
-
     if (!loadingCategories && categoriesData) {
       setCategories(categoriesData);
     }

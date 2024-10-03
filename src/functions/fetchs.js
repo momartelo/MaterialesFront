@@ -169,10 +169,20 @@ export const getExchangesRates = async () => {
 
   try {
     const response = await axios.get(api_URL);
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
     throw new Error("Error al obtener las cotizaciones");
+  }
+};
+
+export const getInflationData = async () => {
+  const api_URL = `https://api.argentinadatos.com/v1/finanzas/indices/inflacion`;
+  try {
+    const response = await axios.get(api_URL);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error al obtener las datos");
   }
 };

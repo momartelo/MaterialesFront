@@ -6,31 +6,10 @@ import { FadeLoader } from "react-spinners"; // Importa el loader
 import Footer from "../../components/Footer/Footer";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import { useMaterialsWithoutAuth } from "../../hooks/useMaterialsWithoutAuth";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 function MaterialPage2() {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const materialClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [materials, setMaterials] = useState([]);
@@ -66,7 +45,7 @@ function MaterialPage2() {
     <>
       <Navbar />
       <div
-        className={`${styles.containerMaterialPage} ${materialClass} ${modeClass}`}
+        className={`${styles.containerMaterialPage} ${containerClass} ${modeClass}`}
       >
         <div className={styles.containerTitle}>
           <img src="/img/categoria.png" alt="" />

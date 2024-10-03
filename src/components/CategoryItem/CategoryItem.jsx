@@ -5,31 +5,10 @@ import { useContext, useId, useState } from "react";
 import DeleteCategoryModal from "../DeleteCategoryModal/DeleteCategoryModal";
 import { AuthContext } from "../../providers/AuthProvider";
 import UpdateCategoryModal from "../UpdateCategoryModal/UpdateCategoryModal";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const CategoryItem = ({ category }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const materialClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const modalId = useId();
@@ -53,15 +32,15 @@ const CategoryItem = ({ category }) => {
   };
 
   return (
-    <div className={`${styles.item} ${materialClass} ${modeClass}`}>
+    <div className={`${styles.item} ${containerClass} ${modeClass}`}>
       <section
-        className={` ${styles.sectionCategoryItem} ${materialClass} ${modeClass}`}
+        className={` ${styles.sectionCategoryItem} ${containerClass} ${modeClass}`}
       >
         <h2>{category.category}</h2>
       </section>
       {auth ? (
         <div
-          className={`${styles.containerIcons} ${materialClass} ${modeClass}`}
+          className={`${styles.containerIcons} ${containerClass} ${modeClass}`}
         >
           <Link
             className={styles.containerIconEdit}

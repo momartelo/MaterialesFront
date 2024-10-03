@@ -13,8 +13,6 @@ function MaterialPageFiltered() {
   const [materialsFitered, setMaterialsFiltered] = useState([]);
   const { auth } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  // console.log("hola");
-  // console.log(categoryId);
 
   const getCategories = useCallback(() => {
     fetch(`${API_URL}/category`)
@@ -22,16 +20,11 @@ function MaterialPageFiltered() {
       .then((data) => setCategories(data))
       .catch((err) => console.error(err));
   }, []);
-  // console.log("categorias");
-  // console.log(categories);
 
   const getCategoryName = useCallback(() => {
     const foundCategory = categories.find((cat) => cat._id === categoryId);
     setCategory(foundCategory);
   }, [categories, categoryId]);
-
-  // console.log("categoria");
-  // console.log(category);
 
   const getMaterialFiltered = useCallback(() => {
     setIsLoading(true);

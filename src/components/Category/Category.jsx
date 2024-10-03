@@ -4,31 +4,10 @@ import styles from "./Category.module.css";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import { AuthContext } from "../../providers/AuthProvider";
 import CategoryNewModal from "../CategoryNewModal/CategoryNewModal";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const Category = ({ categories }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const categoryClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const [search, setSearch] = useState("");
@@ -59,14 +38,14 @@ const Category = ({ categories }) => {
 
   return (
     <div
-      className={`${styles.containerCategory} ${categoryClass} ${modeClass}`}
+      className={`${styles.containerCategory} ${containerClass} ${modeClass}`}
     >
       {auth ? (
         <div
-          className={`${styles.wrapperCategory} ${categoryClass} ${modeClass}`}
+          className={`${styles.wrapperCategory} ${containerClass} ${modeClass}`}
         >
           <Link
-            className={`${styles.btnSuccess} ${categoryClass} ${modeClass}`}
+            className={`${styles.btnSuccess} ${containerClass} ${modeClass}`}
             onClick={handleCategoryNewClick}
           >
             Nueva Categoria
@@ -76,7 +55,7 @@ const Category = ({ categories }) => {
             onHide={handleCloseModal}
           />
           <div
-            className={`${styles.searchContainer} ${categoryClass} ${modeClass}`}
+            className={`${styles.searchContainer} ${containerClass} ${modeClass}`}
           >
             <input
               type="search"
@@ -104,14 +83,14 @@ const Category = ({ categories }) => {
           </div>
         </div>
       )}
-      <div className={`${styles.containerItem} ${categoryClass} ${modeClass}`}>
+      <div className={`${styles.containerItem} ${containerClass} ${modeClass}`}>
         {filterCategories.length > 0 ? (
           filterCategories.map((category) => (
             <CategoryItem key={category._id} category={category} />
           ))
         ) : (
           <div
-            className={`${styles.containerNoShow} ${categoryClass} ${modeClass}`}
+            className={`${styles.containerNoShow} ${containerClass} ${modeClass}`}
           >
             <img src="/img/archivo.png" alt="" />
             <p>¡No hay </p>

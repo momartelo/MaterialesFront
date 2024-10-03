@@ -1,48 +1,22 @@
 import CarouselComponent from "../../components/Carousel/CarouselComponent";
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./HomePage.module.css";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
 import Footer from "../../components/Footer/Footer";
+import useAppContext from "../../hooks/useAppContext";
 
-function HomePage() {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.containerFullHD;
-    if (isDesktopHD) return styles.containerHD;
-    if (isTabletHD) return styles.containerTabletHD;
-    if (isTablet) return styles.containerTablet;
-    if (isMobileLandscape) return styles.containerMobileLandscape;
-    if (isMobile) return styles.containerMobile;
-    return "";
-  };
-
-  const containerClass = getContainerClass();
+const HomePage = () => {
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
-
-  console.log(window.innerWidth);
-  console.log(window.innerHeight);
-  console.log(window.devicePixelRatio);
 
   return (
     <>
       <Navbar />
-      <div className={`${containerClass} ${modeClass}`}>
+      <div className={`${styles.containerHome} ${containerClass} ${modeClass}`}>
         <div className={`${styles.containerCarousel} ${containerClass} `}>
           <CarouselComponent />
         </div>
         <div className={`${styles.texts} ${containerClass} ${modeClass}`}>
           <h1>Sistema de Materiales</h1>
-
           <p>
             En este sistema tendremos una base de datos de materiales de obras
             donde se puedan ver precios, agregar materiales, actualizar, ver
@@ -56,5 +30,5 @@ function HomePage() {
       <Footer />
     </>
   );
-}
+};
 export default HomePage;

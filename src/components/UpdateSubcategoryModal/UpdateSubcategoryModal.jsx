@@ -70,10 +70,6 @@ const UpdateSubcategoryModal = ({
       <Modal.Body className={styles.containerModalBody}>
         <div className={styles.modalBody}>
           <div className={styles.modalBodyTitle}>
-            {/* <img
-                    src="../../../public/img/actualizarRellenoCuadrado.png"
-                    alt=""
-                /> */}
             <h2>Editar Subcategoria</h2>
           </div>
           <form ref={formRef} onSubmit={handleSubmit}>

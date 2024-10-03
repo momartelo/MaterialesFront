@@ -11,8 +11,6 @@ function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const { avatar, email, username, password } = e.target.elements;
-
     const formData = new FormData(e.target);
 
     const avatar = formData.get("avatar");

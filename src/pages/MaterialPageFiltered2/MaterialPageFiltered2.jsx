@@ -7,8 +7,7 @@ import Material from "../../components/Material/Material";
 import Navbar from "../../components/Navbar/Navbar";
 import { useCategoriesWithoutAuth } from "../../hooks/useCategoriesWithoutAuth";
 import Footer from "../../components/Footer/Footer";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 function MaterialPageFiltered2() {
   const { categoryId } = useParams();
@@ -19,36 +18,7 @@ function MaterialPageFiltered2() {
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  console.log({
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  });
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const materialClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
   const { categories: categoriesData, loading: loadingCategories } =
@@ -93,21 +63,11 @@ function MaterialPageFiltered2() {
     }
   }, [categories, getCategoryName, getMaterialFiltered, categoryId]);
 
-  // const handleMaterialDeleted = () => {
-  //   // Actualizar la lista de materiales filtrados después de eliminar
-  //   getMaterialFiltered();
-  //   // Actualizar la categoría después de la eliminación
-  //   getCategoryName();
-  // };
-
   return (
     <>
       <Navbar />
-      {/* <div
-        className={`${styles.containerMaterialPageFiltered} ${materialClass} ${modeClass}`}
-      > */}
       <div
-        className={`${styles.containerFiltered} ${materialClass} ${modeClass}`}
+        className={`${styles.containerFiltered} ${containerClass} ${modeClass}`}
       >
         <h2>Materiales</h2>
         {category ? (
@@ -132,7 +92,6 @@ function MaterialPageFiltered2() {
           )}
         </main>
       </div>
-      {/* </div> */}
       <Footer />
     </>
   );

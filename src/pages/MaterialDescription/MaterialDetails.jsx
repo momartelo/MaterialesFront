@@ -4,8 +4,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import { formatDollars, formatPesos } from "../../functions/formatCurrency";
 import styles from "./MaterialDescription.module.css";
 import DeleteMaterialModal from "../../components/DeleteMaterialModal/DeleteMaterialModal";
-import { useTheme } from "../../providers/ThemeProvider";
-import { useResponsive } from "../../providers/ResponsiveContext";
+import useAppContext from "../../hooks/useAppContext";
 
 const MaterialDetails = ({
   material,
@@ -19,29 +18,8 @@ const MaterialDetails = ({
   showDeleteModal,
   handleCloseModal,
 }) => {
-  const { isNightMode } = useTheme();
-  const {
-    isDesktopHD,
-    isDesktopFullHD,
-    isTabletHD,
-    isTablet,
-    isMobile,
-    isMobileLandscape,
-  } = useResponsive();
-
-  const getContainerClass = () => {
-    if (isDesktopFullHD) return styles.fullHD;
-    if (isDesktopHD) return styles.hd;
-    if (isTabletHD) return styles.tabletHD;
-    if (isTablet) return styles.tablet;
-    if (isMobileLandscape) return styles.mobileLandscape;
-    if (isMobile) return styles.mobile;
-    return "";
-  };
-
-  const containerClass = getContainerClass();
+  const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
-
   return (
     <div className={`${styles.materialWrapper} ${containerClass} ${modeClass}`}>
       <div

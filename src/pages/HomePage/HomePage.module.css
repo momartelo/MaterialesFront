@@ -63,45 +63,47 @@
 
 /* Estilos para FULL HD */
 
-.containerFullHD {
+.containerHome.fullHD {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f5f5f5;
   height: 100%;
   /* min-height: 100vh; */
+  row-gap: 2rem;
 }
 
-.containerCarousel.containerFullHD {
+.containerCarousel.fullHD {
   width: 45%;
 }
 
-.texts.containerFullHD {
-  width: 70%;
+.texts.fullHD {
+  width: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   /* margin-top: 2.5rem; */
   padding: 0;
 }
-.texts.containerFullHD > h1 {
+.texts.fullHD > h1 {
   padding: 0;
-  margin: 0 0 0 1rem;
   font-weight: 600;
-  width: 100%;
+  width: 70%;
   border-bottom: 1px #999 solid;
   border-top: 1px #999 solid;
 }
 
-.texts.containerFullHD > p {
+.texts.fullHD > p {
   max-width: 70%;
   font-family: "Inter";
-  padding: 1.5rem 0;
+  padding: 1rem 0.5rem;
   text-align: justify;
 }
 
 /* Estilos para HD */
 
-.containerHD {
+.containerHome.hd {
   display: flex;
   flex-direction: row;
   background-color: #f5f5f5;
@@ -112,11 +114,11 @@
   /* min-height: 100vh; */
 }
 
-.containerCarousel {
+.containerCarousel.hd {
   width: 55%;
 }
 
-.texts.containerHD {
+.texts.hd {
   width: 45%;
   display: flex;
   flex-direction: column;
@@ -125,7 +127,7 @@
   justify-content: flex-start;
 }
 
-.texts.containerHD > p {
+.texts.hd > p {
   max-width: 70%;
   font-family: "Inter";
   padding: 0.75rem 0;
@@ -133,7 +135,7 @@
   font-size: 0.8rem;
 }
 
-.texts.containerHD > h1 {
+.texts.hd > h1 {
   width: 100%;
   text-align: start;
   margin-top: 15px;
@@ -145,7 +147,7 @@
 
 /* Estilos para Tablet HD */
 
-.containerTabletHD {
+.containerHome.tabletHD {
   display: flex;
   flex-direction: row;
   background-color: #f5f5f5;
@@ -156,7 +158,11 @@
   /* min-height: 100vh; */
 }
 
-.texts.containerTabletHD {
+.containerCarousel.tabletHD {
+  width: 55%;
+}
+
+.texts.tabletHD {
   width: 45%;
   display: flex;
   flex-direction: column;
@@ -165,7 +171,7 @@
   padding-top: 2rem;
 }
 
-.texts.containerTabletHD > p {
+.texts.tabletHD > p {
   max-width: 70%;
   font-family: var(--body-font);
   padding: 0.75rem 0;
@@ -173,7 +179,7 @@
   font-size: 0.8rem;
 }
 
-.texts.containerTabletHD > h1 {
+.texts.tabletHD > h1 {
   width: 100%;
   text-align: center;
   margin-top: 15px;
@@ -185,7 +191,7 @@
 
 /* Estilos para Tablet */
 
-.containerTablet {
+.containerHome.tablet {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
@@ -196,19 +202,19 @@
   /* min-height: 100vh; */
 }
 
-.containerCarousel.containerTablet {
-  width: 90%;
+.containerCarousel.tablet {
+  width: 55%;
 }
 
-.texts.containerTablet {
-  width: 90%;
+.texts.tablet {
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 2rem;
 }
 
-.texts.containerTablet > p {
+.texts.tablet > p {
   max-width: 80%;
   font-family: var(--body-font);
   padding: 0.75rem 0;
@@ -216,7 +222,7 @@
   font-size: 0.85rem;
 }
 
-.texts.containerTablet > h1 {
+.texts.tablet > h1 {
   width: 100%;
   text-align: start;
   margin-top: 15px;
@@ -228,26 +234,25 @@
 
 /* Estilos para Mobile Landscape */
 
-.containerMobileLandscape {
+.containerHome.mobileLandscape {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
   align-items: center;
-  justify-content: center;
   height: 100%;
   width: 90%;
   column-gap: 1.5rem;
   /* min-height: 100vh; */
 }
 
-.containerCarousel.containerMobileLandscape {
+.containerCarousel.mobileLandscape {
   justify-content: flex-start;
-  width: 80%;
+  width: 60%;
   height: auto;
 }
 
-.texts.containerMobileLandscape {
-  width: 100%;
+.texts.mobileLandscape {
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -255,15 +260,15 @@
   justify-content: flex-start;
 }
 
-.texts.containerMobileLandscape > p {
-  max-width: 80%;
+.texts.mobileLandscape > p {
+  max-width: 90%;
   font-family: var(--body-font);
   padding: 0.75rem 0;
   text-align: justify;
   font-size: 0.7rem;
 }
 
-.texts.containerMobileLandscape > h1 {
+.texts.mobileLandscape > h1 {
   width: 100%;
   text-align: start;
   margin-top: 15px;
@@ -275,7 +280,7 @@
 
 /* Estilos para Mobile */
 
-.containerMobile {
+.containerHome.mobile {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
@@ -288,12 +293,12 @@
   /* min-height: 100vh; */
 }
 
-.containerCarousel.containerMobile {
+.containerCarousel.mobile {
   width: 80%;
 }
 
-.texts.containerMobile {
-  width: 100%;
+.texts.mobile {
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,8 +307,8 @@
   box-sizing: border-box;
 }
 
-.texts.containerMobile > p {
-  max-width: 80%;
+.texts.mobile > p {
+  max-width: 95%;
   font-family: "Inter";
   padding: 0.75rem 0;
   text-align: justify;
@@ -311,7 +316,7 @@
   margin: 0;
 }
 
-.texts.containerMobile > h1 {
+.texts.mobile > h1 {
   width: 100%;
   text-align: start;
   margin-top: 15px;
