@@ -14,6 +14,7 @@ const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubMenuMaterialesOpen, setIsSubMenuMaterialesOpen] = useState(false);
   const [isSubMenuEditOpen, setIsSubMenuEditOpen] = useState(false);
+  const [isSubMenuIndiceOpen, setIsSubMenuIndiceOpen] = useState(false);
 
   const { categories, loading: loadingCategories } = useCategoriesWithoutAuth();
   const { subcategories, loading: loadingSubcategories } =
@@ -27,15 +28,25 @@ const HamburgerMenu = () => {
 
   const toggleSubMenuMateriales = () => {
     setIsSubMenuMaterialesOpen(!isSubMenuMaterialesOpen);
-    if (isSubMenuEditOpen) {
+    if (isSubMenuEditOpen || isSubMenuIndiceOpen) {
       setIsSubMenuEditOpen(false);
+      setIsSubMenuIndiceOpen(false);
     }
   };
 
   const toggleSubMenuEdit = () => {
     setIsSubMenuEditOpen(!isSubMenuEditOpen);
-    if (isSubMenuMaterialesOpen) {
+    if (isSubMenuMaterialesOpen || isSubMenuIndiceOpen) {
       setIsSubMenuMaterialesOpen(false);
+      setIsSubMenuIndiceOpen(false);
+    }
+  };
+
+  const toggleSubMenuIndice = () => {
+    setIsSubMenuIndiceOpen(!isSubMenuIndiceOpen);
+    if (isSubMenuMaterialesOpen || isSubMenuEditOpen) {
+      setIsSubMenuMaterialesOpen(false);
+      setIsSubMenuEditOpen(false);
     }
   };
 
@@ -180,6 +191,41 @@ const HamburgerMenu = () => {
                 </li>
                 <li>
                   <a href="/unit">Unidades</a>
+                </li>
+              </ul>
+            )}
+          </li>
+          <li
+            className={`${styles.menuDropdownTitles} ${modeClass}`}
+            onClick={toggleSubMenuIndice}
+          >
+            <a className={`${styles.textTitleMenu} ${modeClass}`} href="#home">
+              Indices
+            </a>
+            {isSubMenuIndiceOpen ? (
+              isNightMode ? (
+                <img src="/img/arriba-cheuron-Azul.png" alt="" /> // Imagen para el modo nocturno
+              ) : (
+                <img src="/img/arriba-cheuron.png" alt="" /> // Imagen para el modo diurno
+              )
+            ) : isNightMode ? (
+              <img src="/img/flecha-hacia-abajo-Azul.png" alt="" /> // Imagen para el modo nocturno
+            ) : (
+              <img src="/img/abajo-cheuron.png" alt="" /> // Imagen para el modo diurno
+            )}
+            {isSubMenuIndiceOpen && (
+              <ul className={`${styles.subMenu} ${modeClass}`}>
+                <li>
+                  <a href="/inflacionM">Inflacion Mensual</a>
+                </li>
+                <li>
+                  <a href="/inflacionI">Inflacion Interanual</a>
+                </li>
+                <li>
+                  <a href="/indiceCAC">Indice de la Construccion</a>
+                </li>
+                <li>
+                  <a href="/indiceUVA">Indice UVA</a>
                 </li>
               </ul>
             )}

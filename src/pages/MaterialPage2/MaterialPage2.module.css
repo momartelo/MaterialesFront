@@ -16,7 +16,7 @@
   flex-direction: row;
   align-items: center;
   column-gap: 1rem;
-  margin: 20px 0;
+  margin: 1rem 0;
 }
 
 .containerTitle > img {
