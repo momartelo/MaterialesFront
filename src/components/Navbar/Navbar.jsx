@@ -321,7 +321,7 @@ const Navbar = () => {
                                 >
                                   <Link
                                     className={styles.linkLogo}
-                                    to="/inflacionM"
+                                    to="/inflationM"
                                   >
                                     <p>- Inflacion Mensual</p>
                                   </Link>
@@ -331,7 +331,7 @@ const Navbar = () => {
                                 >
                                   <Link
                                     className={styles.linkLogo}
-                                    to="/inflacionI"
+                                    to="/inflationI"
                                   >
                                     <p>- Inflacion Interanual</p>
                                   </Link>

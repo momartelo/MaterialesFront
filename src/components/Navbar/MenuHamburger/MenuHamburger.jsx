@@ -216,10 +216,10 @@ const HamburgerMenu = () => {
             {isSubMenuIndiceOpen && (
               <ul className={`${styles.subMenu} ${modeClass}`}>
                 <li>
-                  <a href="/inflacionM">Inflacion Mensual</a>
+                  <a href="/inflationM">Inflacion Mensual</a>
                 </li>
                 <li>
-                  <a href="/inflacionI">Inflacion Interanual</a>
+                  <a href="/inflationI">Inflacion Interanual</a>
                 </li>
                 <li>
                   <a href="/indiceCAC">Indice de la Construccion</a>

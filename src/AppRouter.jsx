@@ -14,6 +14,7 @@ import MaterialUpdate from "./pages/MaterialUpdate/MaterialUpdate";
 import SubcategoryPage from "./pages/SubcategoryPage/SubcategoryPage";
 import UnitPage from "./pages/UnitPage/UnitPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
+import InflationMPage from "./pages/InflationMPage/InflationMPage";
 
 function AppRouter() {
   return (
@@ -43,6 +44,7 @@ function AppRouter() {
         element={<MaterialDescription />}
       />
       <Route path="/contact" element={<ContactPage />}></Route>
+      <Route path="/inflationM" element={<InflationMPage />}></Route>
     </Routes>
   );
 }
