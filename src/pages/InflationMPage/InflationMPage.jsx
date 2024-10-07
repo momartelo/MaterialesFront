@@ -8,6 +8,7 @@ import useAppContext from "../../hooks/useAppContext";
 import styles from "./InflationMPage.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import { format } from "date-fns";
 
 const InflationMPage = () => {
   const { isNightMode, containerClass } = useAppContext(styles);
@@ -65,24 +66,79 @@ const InflationMPage = () => {
         className={`${styles.containerInflationM} ${containerClass} ${modeClass}`}
       >
         <div
+          className={`${styles.containerTitle} ${containerClass} ${modeClass}`}
+        >
+          <h1>Inflacion Mensual</h1>
+        </div>
+        <div
           className={`${styles.containerDatesSearch} ${containerClass} ${modeClass}`}
         >
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <div>
-              <DatePicker
-                label="Fecha Inicial"
-                value={startDate}
-                onChange={handleStartDateChange} // Usa la función optimizada
-                renderInput={(params) => <TextField {...params} />}
-              />
-              <DatePicker
-                label="Fecha Final"
-                value={endDate}
-                onChange={handleEndDateChange} // Usa la función optimizada
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </div>
-          </LocalizationProvider>
+          {" "}
+          <div>
+            <p>
+              Seleccione un rango de fechas si quiere ver los datos de ese lapso
+            </p>
+          </div>
+          <div>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <div
+                className={`${styles.containerDatePickers} ${containerClass} ${modeClass}`}
+              >
+                <DatePicker
+                  label="Fecha Inicial"
+                  value={startDate}
+                  onChange={handleStartDateChange} // Usa la función optimizada
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "#198754",
+                            borderWidth: "2px", // Ajusta el grosor aquí // Cambia a tu color deseado
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#198754",
+                            borderWidth: "1px", // Ajusta el grosor aquí // Cambia el color al pasar el mouse
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#0d6efd",
+                            borderWidth: "2px", // Ajusta el grosor aquí // Cambia el color cuando está enfocado
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                />
+                <DatePicker
+                  label="Fecha Final"
+                  value={endDate}
+                  onChange={handleEndDateChange} // Usa la función optimizada
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "#198754",
+                            borderWidth: "2px", // Ajusta el grosor aquí // Cambia a tu color deseado
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#198754",
+                            borderWidth: "1px", // Ajusta el grosor aquí // Cambia el color al pasar el mouse
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#0d6efd",
+                            borderWidth: "2px", // Ajusta el grosor aquí // Cambia el color cuando está enfocado
+                          },
+                        },
+                      }}
+                    />
+                  )}
+                />
+              </div>
+            </LocalizationProvider>
+          </div>
         </div>
         {isLoading ? (
           <div
@@ -98,11 +154,20 @@ const InflationMPage = () => {
           <div
             className={`${styles.containerData} ${containerClass} ${modeClass}`}
           >
-            {filteredData.map((data, index) => (
-              <div key={`${data.fecha}-${index}`}>
-                Fecha: {data.fecha}, Valor: {data.valor}
-              </div>
-            ))}
+            {filteredData.map((data, index) => {
+              const formattedDate = format(new Date(data.fecha), "dd/MM/yyyy"); // Formatea la fecha
+
+              return (
+                <div
+                  key={`${data.fecha}-${index}`}
+                  className={`${styles.containerDataInflation} ${containerClass} ${modeClass}`}
+                >
+                  <span>{formattedDate}</span>{" "}
+                  {/* Muestra la fecha formateada */}
+                  <span>Índice: {data.valor}%</span>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
