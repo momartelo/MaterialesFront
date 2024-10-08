@@ -12,10 +12,12 @@ import styles from "./Navbar.module.css";
 import { fetchRates } from "../../functions/fetchRates";
 import MenuHamburger from "./MenuHamburger/MenuHamburger";
 import useAppContext from "../../hooks/useAppContext";
+import { useTheme } from "../../providers/ThemeProvider";
 
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { toggleTheme } = useTheme();
 
   const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;

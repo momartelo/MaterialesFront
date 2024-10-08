@@ -8,17 +8,62 @@ import useAppContext from "../../hooks/useAppContext";
 import styles from "./InflationMPage.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import { Table } from "antd";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import { format } from "date-fns";
+import { useResponsive } from "../../providers/ResponsiveContext";
+
+const getCurrentYearStartEnd = () => {
+  const currentYear = new Date().getFullYear();
+  const startOfYear = new Date(currentYear, 0, 1); // 1 de enero
+  const endOfYear = new Date(currentYear, 11, 31); // 31 de diciembre
+  return { startOfYear, endOfYear };
+};
 
 const InflationMPage = () => {
   const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
 
+  const { isMobile, isTablet, isDesktopHD, isDesktopFullHD } = useResponsive();
+
+  const pageSize = isMobile
+    ? 2
+    : isTablet
+    ? 4
+    : isDesktopHD
+    ? 4
+    : isDesktopFullHD
+    ? 8
+    : 4;
+
+  const chartHeight = isMobile
+    ? 300
+    : isTablet
+    ? 400
+    : isDesktopHD
+    ? 400
+    : isDesktopFullHD
+    ? 500
+    : 400;
+
+  console.log(pageSize);
+
   const [isLoading, setIsLoading] = useState(true);
   const [inflacion, setInflacion] = useState([]);
   const [errorI, setErrorI] = useState(null);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  // Usa las fechas iniciales por defecto
+  const { startOfYear, endOfYear } = useMemo(getCurrentYearStartEnd, []);
+  const [startDate, setStartDate] = useState(startOfYear); // Fecha inicial por defecto
+  const [endDate, setEndDate] = useState(endOfYear); // Fecha final por defecto
 
   const handleStartDateChange = useCallback((newValue) => {
     setStartDate(newValue);
@@ -59,6 +104,31 @@ const InflationMPage = () => {
     [inflacion, startDate, endDate]
   );
 
+  const columns = [
+    {
+      title: "Fecha",
+      dataIndex: "fecha",
+      key: "fecha",
+      render: (text) => format(new Date(text), "dd/MM/yyyy"),
+      align: "center",
+    },
+    {
+      title: "Indice",
+      dataIndex: "valor",
+      key: "valor",
+      render: (text) => `${text}%`,
+      align: "center",
+    },
+  ];
+
+  const dataSourceTable = filteredData.map((data, index) => ({
+    key: index,
+    fecha: data.fecha,
+    valor: data.valor,
+  }));
+
+  console.log(dataSourceTable);
+
   return (
     <>
       <Navbar />
@@ -76,7 +146,8 @@ const InflationMPage = () => {
           {" "}
           <div>
             <p>
-              Seleccione un rango de fechas si quiere ver los datos de ese lapso
+              Seleccione un rango de fechas distinto si quiere ver los datos
+              anteriores de este lapso
             </p>
           </div>
           <div>
@@ -94,11 +165,11 @@ const InflationMPage = () => {
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           "& fieldset": {
-                            borderColor: "#198754",
+                            borderColor: "#2a96ee",
                             borderWidth: "2px", // Ajusta el grosor aquí // Cambia a tu color deseado
                           },
                           "&:hover fieldset": {
-                            borderColor: "#198754",
+                            borderColor: "#2a96ee",
                             borderWidth: "1px", // Ajusta el grosor aquí // Cambia el color al pasar el mouse
                           },
                           "&.Mui-focused fieldset": {
@@ -120,11 +191,11 @@ const InflationMPage = () => {
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           "& fieldset": {
-                            borderColor: "#198754",
+                            borderColor: "#2a96ee",
                             borderWidth: "2px", // Ajusta el grosor aquí // Cambia a tu color deseado
                           },
                           "&:hover fieldset": {
-                            borderColor: "#198754",
+                            borderColor: "#2a96ee",
                             borderWidth: "1px", // Ajusta el grosor aquí // Cambia el color al pasar el mouse
                           },
                           "&.Mui-focused fieldset": {
@@ -142,32 +213,80 @@ const InflationMPage = () => {
         </div>
         {isLoading ? (
           <div
-            className={`${styles.containerNoData} ${containerClass} ${modeClass}`}
+            className={`${styles.containerChargingData} ${containerClass} ${modeClass}`}
           >
             <p>Cargando datos...</p>
           </div>
         ) : errorI ? (
-          <p>Error al cargar los datos: {errorI}</p>
+          <div
+            className={`${styles.containerNoData} ${containerClass} ${modeClass}`}
+          >
+            <p>Error al cargar los datos: {errorI}</p>
+          </div>
         ) : filteredData.length === 0 ? (
           <p>No hay Datos en el rango seleccionado</p>
         ) : (
           <div
-            className={`${styles.containerData} ${containerClass} ${modeClass}`}
+            className={`${styles.containerDataAndGraphic} ${containerClass} ${modeClass}`}
           >
-            {filteredData.map((data, index) => {
-              const formattedDate = format(new Date(data.fecha), "dd/MM/yyyy"); // Formatea la fecha
-
-              return (
-                <div
-                  key={`${data.fecha}-${index}`}
-                  className={`${styles.containerDataInflation} ${containerClass} ${modeClass}`}
+            <div
+              className={`${styles.containerDataTable} ${containerClass} ${modeClass}`}
+            >
+              <Table
+                dataSource={dataSourceTable}
+                columns={columns}
+                pagination={{
+                  pageSize: pageSize,
+                  showSizeChanger: false, // Oculta el desplegable para seleccionar el tamaño de la página
+                  showQuickJumper: false, // Opcional: oculta el salto rápido a páginas
+                  showLessItems: true, // Muestra menos botones de paginación
+                }}
+                className={`${styles.tableData} ${containerClass} ${modeClass}`}
+              />
+            </div>
+            <div
+              className={`${styles.containerGraphic} ${containerClass} ${modeClass}`}
+            >
+              <ResponsiveContainer width="100%" height={chartHeight}>
+                <LineChart
+                  data={filteredData}
+                  margin={{ top: 10, right: 30, left: 20, bottom: 25 }}
                 >
-                  <span>{formattedDate}</span>{" "}
-                  {/* Muestra la fecha formateada */}
-                  <span>Índice: {data.valor}%</span>
-                </div>
-              );
-            })}
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="fecha"
+                    tickFormatter={(date) =>
+                      format(new Date(date), "dd/MM/yyyy")
+                    }
+                    label={{
+                      value: "Fecha",
+                      position: "insideBottom",
+                      offset: -15,
+                    }}
+                    tick={{ fontSize: 12 }} // Cambia el tamaño del texto en el eje X
+                  />
+                  <YAxis
+                    label={{
+                      value: "Índice",
+                      angle: -90,
+                      position: "insideLeft",
+                      offset: 0,
+                    }} // Título del eje Y
+                    domain={[0, "dataMax + 10"]}
+                    tick={{ fontSize: 12 }} // Cambia el tamaño del texto en el eje Y
+                    tickCount={6}
+                  />
+                  <Tooltip formatter={(value) => [`${value}%`, "Índice"]} />
+
+                  <Line
+                    type="monotone"
+                    dataKey="valor"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         )}
       </div>
@@ -177,3 +296,22 @@ const InflationMPage = () => {
 };
 
 export default InflationMPage;
+
+// <div
+//   className={`${styles.containerData} ${containerClass} ${modeClass}`}
+// >
+//   {filteredData.map((data, index) => {
+//     const formattedDate = format(new Date(data.fecha), "dd/MM/yyyy"); // Formatea la fecha
+
+//     return (
+//       <div
+//         key={`${data.fecha}-${index}`}
+//         className={`${styles.containerDataInflation} ${containerClass} ${modeClass}`}
+//       >
+//         <span>{formattedDate}</span>{" "}
+//         {/* Muestra la fecha formateada */}
+//         <span>Índice: {data.valor}%</span>
+//       </div>
+//     );
+//   })}
+// </div>
