@@ -83,6 +83,13 @@ const MaterialCharts = ({ historialPrecio }) => {
           title: {
             display: true,
             text: "Fecha",
+            color: isNightMode ? "#999" : "#999",
+          },
+          grid: {
+            color: isNightMode ? "#ddd" : "#ddd", // Color de la línea de la cuadrícula del eje X
+          },
+          ticks: {
+            color: isNightMode ? "#999" : "#999", // Color del texto de las marcas (ticks) del eje X
           },
         },
         y: {
@@ -90,11 +97,16 @@ const MaterialCharts = ({ historialPrecio }) => {
           title: {
             display: true,
             text: "Precio",
+            color: isNightMode ? "#999" : "#1e1e1e",
+          },
+          grid: {
+            color: isNightMode ? "#ddd" : "#f5f5f5", // Color de la línea de la cuadrícula del eje X
           },
           ticks: {
             callback: function (value) {
               return value.toLocaleString("es-AR");
             },
+            color: isNightMode ? "#999" : "#999", // Color del texto de las marcas (ticks) del eje X
           },
         },
       },

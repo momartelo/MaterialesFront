@@ -652,3 +652,14 @@
 .containerGraphicPesos.mobileLandscape > p {
   font-weight: 600;
 }
+
+.tableData.nightMode li {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border: 1px #e0e0e0 solid;
+}
+
+.tableData.nightMode li button span {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}

@@ -608,6 +608,12 @@ ul {
   display: none;
 }
 
+/* Estilos TabletHD */
+
+.ulNavbarCentral.tabletHD .navItem:nth-child(1) {
+  display: none;
+}
+
 /* Estilos Tablet */
 
 .logoAnchor.tablet {

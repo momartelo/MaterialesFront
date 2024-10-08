@@ -32,30 +32,45 @@ const getCurrentYearStartEnd = () => {
 const InflationMPage = () => {
   const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
+  console.log(containerClass);
+  const {
+    isMobile,
+    isMobileLandscape,
+    isTablet,
+    isTabletHD,
+    isDesktopHD,
+    isDesktopFullHD,
+  } = useResponsive();
 
-  const { isMobile, isTablet, isDesktopHD, isDesktopFullHD } = useResponsive();
+  const colorAxis = isNightMode ? "#e0e0e0" : "rgb(128, 128, 128)";
 
   const pageSize = isMobile
-    ? 2
+    ? 3
+    : isMobileLandscape
+    ? 3
     : isTablet
-    ? 4
+    ? 3
+    : isTabletHD
+    ? 3
     : isDesktopHD
-    ? 4
+    ? 3
     : isDesktopFullHD
     ? 8
     : 4;
 
   const chartHeight = isMobile
-    ? 300
+    ? 280
+    : isMobileLandscape
+    ? 280
     : isTablet
-    ? 400
+    ? 280
+    : isTabletHD
+    ? 280
     : isDesktopHD
-    ? 400
+    ? 280
     : isDesktopFullHD
     ? 500
     : 400;
-
-  console.log(pageSize);
 
   const [isLoading, setIsLoading] = useState(true);
   const [inflacion, setInflacion] = useState([]);
@@ -127,8 +142,6 @@ const InflationMPage = () => {
     valor: data.valor,
   }));
 
-  console.log(dataSourceTable);
-
   return (
     <>
       <Navbar />
@@ -158,6 +171,7 @@ const InflationMPage = () => {
                 <DatePicker
                   label="Fecha Inicial"
                   value={startDate}
+                  className={` ${styles.smallDatepicker} ${containerClass} ${modeClass}`}
                   onChange={handleStartDateChange} // Usa la función optimizada
                   renderInput={(params) => (
                     <TextField
@@ -184,6 +198,7 @@ const InflationMPage = () => {
                 <DatePicker
                   label="Fecha Final"
                   value={endDate}
+                  className={` ${styles.smallDatepicker} ${containerClass} ${modeClass}`}
                   onChange={handleEndDateChange} // Usa la función optimizada
                   renderInput={(params) => (
                     <TextField
@@ -262,8 +277,10 @@ const InflationMPage = () => {
                       value: "Fecha",
                       position: "insideBottom",
                       offset: -15,
+                      fill: colorAxis,
                     }}
-                    tick={{ fontSize: 12 }} // Cambia el tamaño del texto en el eje X
+                    tick={{ fontSize: 12, fill: colorAxis }} // Cambia el tamaño del texto en el eje X
+                    stroke={colorAxis}
                   />
                   <YAxis
                     label={{
@@ -271,10 +288,12 @@ const InflationMPage = () => {
                       angle: -90,
                       position: "insideLeft",
                       offset: 0,
+                      fill: colorAxis,
                     }} // Título del eje Y
                     domain={[0, "dataMax + 10"]}
-                    tick={{ fontSize: 12 }} // Cambia el tamaño del texto en el eje Y
+                    tick={{ fontSize: 12, fill: colorAxis }} // Cambia el tamaño del texto en el eje Y
                     tickCount={6}
+                    stroke={colorAxis}
                   />
                   <Tooltip formatter={(value) => [`${value}%`, "Índice"]} />
 
@@ -296,22 +315,3 @@ const InflationMPage = () => {
 };
 
 export default InflationMPage;
-
-// <div
-//   className={`${styles.containerData} ${containerClass} ${modeClass}`}
-// >
-//   {filteredData.map((data, index) => {
-//     const formattedDate = format(new Date(data.fecha), "dd/MM/yyyy"); // Formatea la fecha
-
-//     return (
-//       <div
-//         key={`${data.fecha}-${index}`}
-//         className={`${styles.containerDataInflation} ${containerClass} ${modeClass}`}
-//       >
-//         <span>{formattedDate}</span>{" "}
-//         {/* Muestra la fecha formateada */}
-//         <span>Índice: {data.valor}%</span>
-//       </div>
-//     );
-//   })}
-// </div>
