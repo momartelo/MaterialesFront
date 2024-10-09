@@ -287,7 +287,7 @@ const InflationMPage = () => {
                       value: "Índice",
                       angle: -90,
                       position: "insideLeft",
-                      offset: 0,
+                      offset: 15,
                       fill: colorAxis,
                     }} // Título del eje Y
                     domain={[0, "dataMax + 10"]}
