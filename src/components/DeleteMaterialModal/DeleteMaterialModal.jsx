@@ -5,14 +5,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import styles from "./DeleteMaterialModal.module.css";
+import { fetchMaterialsWithoutAuth } from "../../functions/getMaterial";
 
-const DeleteMaterialModal = ({
-  show,
-  materialId,
-  getMaterial,
-  onHide,
-  nombre,
-}) => {
+const DeleteMaterialModal = ({ show, materialId, onHide, nombre }) => {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
@@ -32,9 +27,13 @@ const DeleteMaterialModal = ({
         return;
       }
       handleClose();
-      await getMaterial();
 
-      navigate("/material");
+      if (location.pathname === "/material") {
+        navigate(0); // Recargar la página si ya estás en /material
+      } else {
+        navigate("/material"); // Redirigir a /material si estás en otra página
+      }
+
       console.log("saliendo del handledelete"); // Asegúrate de esperar esta llamada para obtener datos frescos
     } catch (error) {
       console.error("Error al eliminar el material:", error);
