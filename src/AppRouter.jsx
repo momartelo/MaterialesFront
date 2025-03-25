@@ -15,6 +15,8 @@ import SubcategoryPage from "./pages/SubcategoryPage/SubcategoryPage";
 import UnitPage from "./pages/UnitPage/UnitPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import InflationMPage from "./pages/InflationMPage/InflationMPage";
+import InflationIPage from "./pages/InflationIPage/InflationIPage";
+import LecturaExcel from "./pages/LecturaExcel/LecturaExcel";
 
 function AppRouter() {
   return (
@@ -45,6 +47,8 @@ function AppRouter() {
       />
       <Route path="/contact" element={<ContactPage />}></Route>
       <Route path="/inflationM" element={<InflationMPage />}></Route>
+      <Route path="/inflationI" element={<InflationIPage />}></Route>
+      <Route path="/indiceCAC" element={<LecturaExcel />}></Route>
     </Routes>
   );
 }

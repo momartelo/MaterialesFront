@@ -1,11 +1,7 @@
+import styles from "./InflationIPage.module.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import TextField from "@mui/material/TextField"; // Importa TextField
-import { getInflationData } from "../../functions/fetchs";
 import useAppContext from "../../hooks/useAppContext";
-import styles from "./InflationMPage.module.css";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { Table } from "antd";
@@ -21,20 +17,22 @@ import {
 } from "recharts";
 import { format } from "date-fns";
 import { useResponsive } from "../../providers/ResponsiveContext";
-import esLocale from "date-fns/locale/es"; // Opcional: para usar localización en español
+import esLocale from "date-fns/locale/es";
+import { getInflationAnualData } from "../../functions/fetchs";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import TextField from "@mui/material/TextField";
 
 const getCurrentYearStartEnd = () => {
-  const currentDate = new Date(); // Fecha actual
+  const currentDate = new Date();
   const startOfYear = new Date(currentDate);
-  startOfYear.setFullYear(currentDate.getFullYear() - 1); // Restar un año a la fecha actual
-  const endOfYear = new Date(currentDate); // Fecha final es la actual
+  startOfYear.setFullYear(currentDate.getFullYear() - 1);
+  const endOfYear = new Date(currentDate);
   return { startOfYear, endOfYear };
 };
 
-const InflationMPage = () => {
+const InflationIPage = () => {
   const { isNightMode, containerClass } = useAppContext(styles);
   const modeClass = isNightMode ? styles.nightMode : styles.dayMode;
-  console.log(containerClass);
   const {
     isMobile,
     isMobileLandscape,
@@ -77,10 +75,9 @@ const InflationMPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [inflacion, setInflacion] = useState([]);
   const [errorI, setErrorI] = useState(null);
-  // Usa las fechas iniciales por defecto
   const { startOfYear, endOfYear } = useMemo(getCurrentYearStartEnd, []);
-  const [startDate, setStartDate] = useState(startOfYear); // Fecha inicial por defecto
-  const [endDate, setEndDate] = useState(endOfYear); // Fecha final por defecto
+  const [startDate, setStartDate] = useState(startOfYear);
+  const [endDate, setEndDate] = useState(endOfYear);
 
   const handleStartDateChange = useCallback((newValue) => {
     setStartDate(newValue);
@@ -91,9 +88,9 @@ const InflationMPage = () => {
   }, []);
 
   useEffect(() => {
-    const fetchInflacionData = async () => {
+    const fetchInflacionAnualData = async () => {
       try {
-        const data = await getInflationData();
+        const data = await getInflationAnualData();
         setInflacion(data.data);
       } catch (error) {
         setErrorI(error.message);
@@ -102,7 +99,7 @@ const InflationMPage = () => {
       }
     };
 
-    fetchInflacionData();
+    fetchInflacionAnualData();
   }, []);
 
   const filterByDate = (data) => {
@@ -111,7 +108,6 @@ const InflationMPage = () => {
       const itemDate = new Date(item.fecha);
       const start = startDate ? new Date(startDate) : null;
       const end = endDate ? new Date(endDate) : null;
-
       return (!start || itemDate >= start) && (!end || itemDate <= end);
     });
   };
@@ -148,12 +144,12 @@ const InflationMPage = () => {
     <>
       <Navbar />
       <div
-        className={`${styles.containerInflationM} ${containerClass} ${modeClass}`}
+        className={`${styles.containerInflationI} ${containerClass} ${modeClass}`}
       >
         <div
           className={`${styles.containerTitle} ${containerClass} ${modeClass}`}
         >
-          <h1>Inflacion Mensual</h1>
+          <h1>Inflacion Interanual</h1>
         </div>
         <div
           className={`${styles.containerDatesSearch} ${containerClass} ${modeClass}`}
@@ -161,7 +157,7 @@ const InflationMPage = () => {
           {" "}
           <div>
             <p>
-              Seleccione el rango de fechas para ver los indices de los meses
+              Seleccione el rengo de fechas para ver los indices de los meses
               deseados
             </p>
           </div>
@@ -177,8 +173,8 @@ const InflationMPage = () => {
                   label="Fecha Inicial"
                   value={startDate}
                   inputFormat="dd/MM/yyyy"
-                  className={` ${styles.smallDatepicker} ${containerClass} ${modeClass}`}
-                  onChange={handleStartDateChange} // Usa la función optimizada
+                  className={`${styles.smallDatepicker} ${containerClass} ${modeClass}`}
+                  onChange={handleStartDateChange}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -205,8 +201,8 @@ const InflationMPage = () => {
                   label="Fecha Final"
                   value={endDate}
                   inputFormat="dd/MM/yyyy"
-                  className={` ${styles.smallDatepicker} ${containerClass} ${modeClass}`}
-                  onChange={handleEndDateChange} // Usa la función optimizada
+                  className={`${styles.smallDatepicker} ${containerClass} ${modeClass}`}
+                  onChange={handleEndDateChange}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -237,7 +233,7 @@ const InflationMPage = () => {
           <div
             className={`${styles.containerChargingData} ${containerClass} ${modeClass}`}
           >
-            <p>Cargando datos...</p>
+            <p>Cargando datos....</p>
           </div>
         ) : errorI ? (
           <div
@@ -245,12 +241,12 @@ const InflationMPage = () => {
           >
             <p>Error al cargar los datos: {errorI}</p>
           </div>
-        ) : filteredData.length === 0 ? (
+        ) : filteredData.lenght === 0 ? (
           <div
             className={`${styles.containerNoDataInRange} ${containerClass} ${modeClass}`}
           >
             <img src="/img/sin-datos.png" alt="" />
-            <p>¡No hay datos en el rango seleccionado!</p>
+            <p>¡No hay datos en el rango seleccionado</p>
           </div>
         ) : (
           <div
@@ -264,9 +260,9 @@ const InflationMPage = () => {
                 columns={columns}
                 pagination={{
                   pageSize: pageSize,
-                  showSizeChanger: false, // Oculta el desplegable para seleccionar el tamaño de la página
-                  showQuickJumper: false, // Opcional: oculta el salto rápido a páginas
-                  showLessItems: true, // Muestra menos botones de paginación
+                  showSizeChanger: false,
+                  showQuickJumper: false,
+                  showLessItems: true,
                 }}
                 className={`${styles.tableData} ${containerClass} ${modeClass}`}
               />
@@ -291,24 +287,23 @@ const InflationMPage = () => {
                       offset: -15,
                       fill: colorAxis,
                     }}
-                    tick={{ fontSize: 12, fill: colorAxis }} // Cambia el tamaño del texto en el eje X
+                    tick={{ fontSize: 12, fill: colorAxis }}
                     stroke={colorAxis}
                   />
                   <YAxis
                     label={{
-                      value: "Índice",
+                      value: "Indice",
                       angle: -90,
                       position: "insideLeft",
                       offset: 15,
                       fill: colorAxis,
-                    }} // Título del eje Y
+                    }}
                     domain={[0, "dataMax + 10"]}
-                    tick={{ fontSize: 12, fill: colorAxis }} // Cambia el tamaño del texto en el eje Y
+                    tick={{ fontSize: 12, fill: colorAxis }}
                     tickCount={6}
                     stroke={colorAxis}
                   />
-                  <Tooltip formatter={(value) => [`${value}%`, "Índice"]} />
-
+                  <Tooltip formatter={(value) => [`${value}%`, "Indice"]} />
                   <Line
                     type="monotone"
                     dataKey="valor"
@@ -326,4 +321,4 @@ const InflationMPage = () => {
   );
 };
 
-export default InflationMPage;
+export default InflationIPage;

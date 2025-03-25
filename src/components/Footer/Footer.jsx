@@ -184,7 +184,7 @@ const Footer = () => {
           <h2>Obras Sanitarias</h2>
         </div>
         <div className={styles.containerCopyright}>
-          <p>&nbsp; Todos los derechos reservados &copy; 2024</p>
+          <p>&nbsp; Todos los derechos reservados &copy; 2025</p>
         </div>
       </div>
     </div>

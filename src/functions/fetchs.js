@@ -183,6 +183,17 @@ export const getInflationData = async () => {
     return response;
   } catch (error) {
     console.error(error);
-    throw new Error("Error al obtener las datos");
+    throw new Error("Error al obtener los datos");
+  }
+};
+
+export const getInflationAnualData = async () => {
+  const api_URL = `https://api.argentinadatos.com/v1/finanzas/indices/inflacionInteranual`;
+  try {
+    const response = await axios.get(api_URL);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error al obtener los datos");
   }
 };

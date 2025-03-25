@@ -55,6 +55,7 @@ const MaterialUpdate = () => {
             },
           }
         );
+        console.log(API_URL);
         if (!materialResponse.ok) {
           throw new Error("Error al obtener el material");
         }
